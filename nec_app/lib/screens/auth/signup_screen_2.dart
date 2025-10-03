@@ -148,7 +148,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                 CustomTextField(
                   controller: _emailController,
                   labelText: 'Email address',
-                  prefixIcon: Icons.email_outlined,
+                  prefixIcon: Icons.email,
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
@@ -214,7 +214,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelStyle: const TextStyle(color: Colors.black54),
                     prefixIcon: const Icon(
-                      Icons.calendar_today_outlined,
+                      Icons.calendar_month,
                       color: Colors.grey,
                     ),
                     contentPadding: const EdgeInsets.symmetric(
