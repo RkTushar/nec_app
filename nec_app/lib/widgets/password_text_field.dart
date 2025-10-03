@@ -28,7 +28,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
     return InputDecoration(
       labelText: widget.labelText,
       labelStyle: const TextStyle(color: Colors.black54),
-      prefixIcon: const Icon(Icons.lock_outline, color: _primaryGreen),
+      prefixIcon: const Icon(Icons.lock_outline, color: Colors.grey),
       suffixIcon: IconButton(
         icon: Icon(
           _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
@@ -40,18 +40,18 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           });
         },
       ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Colors.grey),
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(color: Colors.grey, width: 1),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(color: Colors.grey, width: 1),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: _primaryGreen, width: 2.0),
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(color: _primaryGreen, width: 2),
       ),
       filled: true,
       fillColor: Colors.white,
