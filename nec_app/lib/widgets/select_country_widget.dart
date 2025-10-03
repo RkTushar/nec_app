@@ -51,7 +51,8 @@ class SelectCountryField extends StatelessWidget {
 
     // Determine the current value.
     final Map<String, String>? currentValue =
-        selectedCountryData ?? getCountryByCode(initialCountryCode ?? '');
+        selectedCountryData ??
+        SelectCountryField.getCountryByCode(initialCountryCode ?? '');
 
     final Widget prefixIcon = currentValue != null
         ? Padding(
@@ -109,12 +110,49 @@ class SelectCountryField extends StatelessWidget {
       initialValue: currentValue,
       hint: const Text('Select from country'),
       isExpanded: true,
-      items: _countries.map((Map<String, String> country) {
+      dropdownColor: Colors.white,
+      items: SelectCountryField.getCountries().map((
+        Map<String, String> country,
+      ) {
         return DropdownMenuItem<Map<String, String>>(
           value: country,
-          child: Text(display(country)),
+          child: Row(
+            children: <Widget>[
+              Text(country['flag'] ?? '', style: const TextStyle(fontSize: 28)),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Text(
+                  (country['name'] ?? '').toUpperCase(),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.2,
+                    color: Colors.black87,
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
       }).toList(),
+      selectedItemBuilder: (_) =>
+          SelectCountryField.getCountries().map((Map<String, String> country) {
+            final String name = (country['name'] ?? '').toUpperCase();
+            return Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
+            );
+          }).toList(),
       onChanged: readOnly ? null : onChanged,
       disabledHint: currentValue != null ? Text(display(currentValue)) : null,
       validator: validator,
