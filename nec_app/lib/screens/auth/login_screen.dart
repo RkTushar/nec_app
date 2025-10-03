@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
           'Welcome back, Sign in to your account',
           style: TextStyle(fontSize: 16, color: Colors.black54),
         ),
-        SizedBox(height: 30),
+        SizedBox(height: 40),
       ],
     );
   }
