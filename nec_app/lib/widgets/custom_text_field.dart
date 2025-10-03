@@ -34,20 +34,20 @@ class CustomTextField extends StatelessWidget {
     return InputDecoration(
       labelText: labelText,
       labelStyle: const TextStyle(color: Colors.black54),
-      prefixIcon: Icon(prefixIcon, color: _primaryGreen),
+      prefixIcon: Icon(prefixIcon, color: Colors.grey),
       suffixIcon: suffixIcon,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Colors.grey),
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(color: Colors.grey, width: 1),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(color: Colors.grey, width: 1),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: _primaryGreen, width: 2.0),
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(color: _primaryGreen, width: 2),
       ),
       filled: true,
       fillColor: Colors.white,
@@ -65,7 +65,9 @@ class CustomTextField extends StatelessWidget {
       onTap: onTap,
       inputFormatters: inputFormatters,
       decoration: _inputDecoration(
-        suffixIcon: suffixIcon != null ? Icon(suffixIcon, color: Colors.black54) : null,
+        suffixIcon: suffixIcon != null
+            ? Icon(suffixIcon, color: Colors.black54)
+            : null,
       ),
       style: const TextStyle(color: Colors.black),
     );
