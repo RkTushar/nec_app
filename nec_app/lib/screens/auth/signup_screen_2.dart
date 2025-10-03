@@ -209,7 +209,9 @@ class _SignupScreen2State extends State<SignupScreen2> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    labelText: 'Date of Birth (DD / MM / YYYY)',
+                    labelText: 'Date of Birth',
+                    hintText: 'DD / MM / YYYY',
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelStyle: const TextStyle(color: Colors.black54),
                     prefixIcon: const Icon(
                       Icons.calendar_today_outlined,
