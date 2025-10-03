@@ -59,7 +59,6 @@ class _LoginScreenState extends State<LoginScreen> {
           'Welcome back, Sign in to your account',
           style: TextStyle(fontSize: 16, color: Colors.black54),
         ),
-
         SizedBox(height: 30),
       ],
     );
@@ -71,11 +70,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return Center(
       child: Column(
         children: [
-          const Text(
-            'Log in with biometrics',
-            style: TextStyle(color: Colors.black54, fontSize: 16),
-          ),
-          const SizedBox(height: 16),
           InkWell(
             onTap: () {
               // TODO: Add biometric authentication logic here
@@ -88,16 +82,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: const [
+                  Icon(Icons.face, size: 48, color: primaryGreen),
+                  // SizedBox(width: 32),
                   Icon(
-                    Icons.face_unlock_outlined,
+                    Icons.fingerprint_outlined,
                     size: 48,
                     color: primaryGreen,
                   ),
-                  SizedBox(width: 32),
-                  Icon(Icons.fingerprint, size: 48, color: primaryGreen),
                 ],
               ),
             ),
+          ),
+          const SizedBox(height: 16),
+          const Text(
+            'Log in with biometrics',
+            style: TextStyle(color: Colors.black54, fontSize: 16),
           ),
         ],
       ),
