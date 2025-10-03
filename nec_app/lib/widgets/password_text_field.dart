@@ -8,6 +8,7 @@ class PasswordTextField extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final String labelText;
   final ValueChanged<String>? onChanged;
+  final IconData? prefixIcon;
 
   const PasswordTextField({
     super.key,
@@ -15,6 +16,7 @@ class PasswordTextField extends StatefulWidget {
     this.validator,
     this.labelText = 'Password',
     this.onChanged,
+    this.prefixIcon,
   });
 
   @override
@@ -28,8 +30,9 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
     return InputDecoration(
       labelText: widget.labelText,
       labelStyle: const TextStyle(color: Colors.black54),
-      // Optional: remove prefix icon for login per request
-      // prefixIcon intentionally omitted
+      prefixIcon: widget.prefixIcon != null
+          ? Icon(widget.prefixIcon, color: Colors.grey)
+          : null,
       suffixIcon: IconButton(
         icon: Icon(
           _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
