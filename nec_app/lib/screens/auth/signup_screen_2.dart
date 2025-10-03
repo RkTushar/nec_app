@@ -224,15 +224,15 @@ class _SignupScreen2State extends State<SignupScreen2> {
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(0),
-                      borderSide: const BorderSide(
-                        color: Colors.grey,
+                      borderSide: BorderSide(
+                        color: Colors.grey.withOpacity(0.35),
                         width: 1,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(0),
-                      borderSide: const BorderSide(
-                        color: Colors.grey,
+                      borderSide: BorderSide(
+                        color: Colors.grey.withOpacity(0.35),
                         width: 1.0,
                       ),
                     ),

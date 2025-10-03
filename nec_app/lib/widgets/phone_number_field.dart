@@ -66,7 +66,7 @@ class PhoneNumberField extends StatelessWidget {
               SizedBox(
                 height: 36,
                 child: VerticalDivider(
-                  color: Colors.grey,
+                  color: Colors.grey.withOpacity(0.35),
                   thickness: 1,
                   width: 1,
                 ),
@@ -81,11 +81,11 @@ class PhoneNumberField extends StatelessWidget {
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(0),
-          borderSide: BorderSide(color: Colors.grey.shade500, width: 1),
+          borderSide: BorderSide(color: Colors.grey.shade500.withOpacity(0.35), width: 1),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(0),
-          borderSide: BorderSide(color: Colors.grey.shade500, width: 1),
+          borderSide: BorderSide(color: Colors.grey.shade500.withOpacity(0.35), width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(0),
