@@ -8,6 +8,7 @@ import '../../widgets/custom_text_field.dart';
 import '../../widgets/password_text_field.dart';
 import '../../widgets/primary_button.dart';
 import '../../widgets/select_country_widget.dart';
+import '../../widgets/phone_number_field.dart';
 
 const Color _primaryGreen = Color(0xFF4CAF50);
 
@@ -123,54 +124,24 @@ class _SignupScreen2State extends State<SignupScreen2> {
                 const SizedBox(height: 24),
 
                 // Country code + phone number
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 5,
-                      child: SelectCountryField(
-                        selectedCountryData: _selectedCountry,
-                        initialCountryCode: widget.initialCountryCode,
-                        showDialCode: true,
-                        readOnly: true,
-                        // Add this property to hide the dropdown icon
-                        showDropdownIcon: false,
-                        onChanged: (Map<String, String>? value) {
-                          setState(() {
-                            _selectedCountry = value;
-                          });
-                        },
-                        validator: (value) {
-                          if (value == null || (value['code'] ?? '').isEmpty) {
-                            return 'Required';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 5),
-                    Expanded(
-                      flex: 8,
-                      child: CustomTextField(
-                        controller: _phoneController,
-                        labelText: 'Phone number',
-                        prefixIcon: Icons.phone_outlined,
-                        keyboardType: TextInputType.phone,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Phone is required';
-                          }
-                          if (value.replaceAll(RegExp(r'[^0-9]'), '').length <
-                              7) {
-                            return 'Enter a valid phone';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
+                PhoneNumberField(
+                  controller: _phoneController,
+                  selectedCountryData: _selectedCountry,
+                  initialCountryCode: widget.initialCountryCode,
+                  onCountryChanged: (Map<String, String>? value) {
+                    setState(() {
+                      _selectedCountry = value;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Phone is required';
+                    }
+                    if (value.replaceAll(RegExp(r'[^0-9]'), '').length < 7) {
+                      return 'Enter a valid phone';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 20),
 
@@ -249,7 +220,10 @@ class _SignupScreen2State extends State<SignupScreen2> {
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(0),
-                      borderSide: const BorderSide(color: Colors.grey, width: 1),
+                      borderSide: const BorderSide(
+                        color: Colors.grey,
+                        width: 1,
+                      ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(0),
