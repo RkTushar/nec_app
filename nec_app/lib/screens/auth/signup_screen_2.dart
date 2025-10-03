@@ -30,7 +30,6 @@ class _SignupScreen2State extends State<SignupScreen2> {
   final TextEditingController _dobController = TextEditingController();
   final TextEditingController _referralController = TextEditingController();
 
-
   bool _hasReferral = false;
   bool _acceptedTerms = false;
 
@@ -322,7 +321,8 @@ class _SignupScreen2State extends State<SignupScreen2> {
                                 style: TextButton.styleFrom(
                                   padding: EdgeInsets.zero,
                                   minimumSize: const Size(0, 0),
-                                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
                                   visualDensity: const VisualDensity(
                                     horizontal: -4,
                                     vertical: -4,
@@ -334,9 +334,9 @@ class _SignupScreen2State extends State<SignupScreen2> {
                                 child: const Text(
                                   'Terms and Conditions',
                                   style: TextStyle(
-                                    color: _primaryGreen,
-                                    decoration: TextDecoration.underline,
-                                    fontSize: 15,
+                                    color: Colors.blueAccent,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
@@ -349,7 +349,8 @@ class _SignupScreen2State extends State<SignupScreen2> {
                                 style: TextButton.styleFrom(
                                   padding: EdgeInsets.zero,
                                   minimumSize: const Size(0, 0),
-                                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
                                   visualDensity: const VisualDensity(
                                     horizontal: -4,
                                     vertical: -4,
@@ -361,9 +362,9 @@ class _SignupScreen2State extends State<SignupScreen2> {
                                 child: const Text(
                                   'Privacy Policy',
                                   style: TextStyle(
-                                    color: _primaryGreen,
-                                    decoration: TextDecoration.underline,
-                                    fontSize: 15,
+                                    color: Colors.blueAccent,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
