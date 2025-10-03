@@ -27,11 +27,13 @@ class CustomTextButton extends StatelessWidget {
           color: _primaryGreen,
           fontWeight: FontWeight.bold,
           fontSize: 16,
+          decoration: TextDecoration.none,
         );
       case TextButtonType.link:
         return const TextStyle(
           color: _linkTextColor,
           fontSize: 14,
+          decoration: TextDecoration.none,
         );
     }
   }
