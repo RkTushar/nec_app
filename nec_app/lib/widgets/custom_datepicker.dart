@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-const Color _primaryGreen = Color(0xFF4CAF50);
+import 'primary_button.dart';
 
 class CustomDatePicker extends StatefulWidget {
   final DateTime? initialDate;
@@ -112,7 +111,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       padding: const EdgeInsets.all(16.0),
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        // borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
         children: [
@@ -143,35 +142,17 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               ],
             ),
           ),
-          SizedBox(
-            width: double.infinity,
-            height: 56,
-            child: ElevatedButton(
-              onPressed: () {
-                final selectedDate = DateTime(
-                  _selectedYear,
-                  _selectedMonth,
-                  _selectedDay,
-                );
-                widget.onDateSelected(selectedDate);
-                Navigator.of(context).pop();
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _primaryGreen,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                elevation: 5,
-              ),
-              child: const Text(
-                'Done',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
+          PrimaryButton(
+            label: 'Done',
+            onPressed: () {
+              final selectedDate = DateTime(
+                _selectedYear,
+                _selectedMonth,
+                _selectedDay,
+              );
+              widget.onDateSelected(selectedDate);
+              Navigator.of(context).pop();
+            },
           ),
         ],
       ),
