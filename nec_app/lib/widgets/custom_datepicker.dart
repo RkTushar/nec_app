@@ -91,8 +91,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               child: Text(
                 items[index].toString(),
                 style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  fontSize: 22,
+                  // fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   color: isSelected ? Colors.black : Colors.grey[600],
                 ),
               ),
@@ -107,7 +107,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.45,
+      height: MediaQuery.of(context).size.height * 0.35,
       padding: const EdgeInsets.all(16.0),
       decoration: const BoxDecoration(
         color: Colors.white,
