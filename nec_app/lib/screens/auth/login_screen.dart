@@ -190,7 +190,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomTextField(
                   controller: emailController,
                   labelText: 'Email',
-                  prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
