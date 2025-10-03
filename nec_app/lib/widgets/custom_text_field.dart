@@ -7,7 +7,7 @@ const Color _primaryGreen = Color(0xFF4CAF50);
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
-  final IconData prefixIcon;
+  final IconData? prefixIcon;
   final TextInputType keyboardType;
   final FormFieldValidator<String>? validator;
   final bool readOnly;
@@ -20,7 +20,7 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.controller,
     required this.labelText,
-    required this.prefixIcon,
+    this.prefixIcon,
     this.keyboardType = TextInputType.text,
     this.validator,
     this.readOnly = false,
@@ -34,7 +34,8 @@ class CustomTextField extends StatelessWidget {
     return InputDecoration(
       labelText: labelText,
       labelStyle: const TextStyle(color: Colors.black54),
-      prefixIcon: Icon(prefixIcon, color: Colors.grey),
+      prefixIcon:
+          prefixIcon != null ? Icon(prefixIcon, color: Colors.grey) : null,
       suffixIcon: suffixIcon != null
           ? Icon(suffixIcon, color: Colors.black54)
           : null,
