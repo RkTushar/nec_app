@@ -111,7 +111,7 @@ class _SignupScreen1State extends State<SignupScreen1> {
                 CustomTextField(
                   controller: _firstNameController,
                   labelText: 'First name or Given name',
-                  prefixIcon: Icons.person_outline,
+                  prefixIcon: Icons.person,
                   keyboardType: TextInputType.name,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
@@ -126,7 +126,7 @@ class _SignupScreen1State extends State<SignupScreen1> {
                 CustomTextField(
                   controller: _lastNameController,
                   labelText: 'Last Name or Surname',
-                  prefixIcon: Icons.person_outline,
+                  prefixIcon: Icons.person,
                   keyboardType: TextInputType.name,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
