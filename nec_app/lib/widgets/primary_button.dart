@@ -26,10 +26,9 @@ class PrimaryButton extends StatelessWidget {
           backgroundColor: enabled
               ? const Color(0xFF4CAF50)
               : (disabledColor ?? const Color(0xFFE0E0E0)),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          elevation: 5,
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          elevation: 0,
+          shadowColor: Colors.transparent,
         ),
         child: Text(
           label,
