@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:nec_app/widgets/custom_datepicker.dart';
 
 // Assuming these are your custom widgets
@@ -261,7 +260,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                     const Expanded(
                       child: Text(
                         'Do you have referral code',
-                        style: TextStyle(color: Colors.black54),
+                        style: TextStyle(color: Colors.black54, fontSize: 15),
                       ),
                     ),
                   ],
@@ -305,7 +304,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                         text: TextSpan(
                           style: const TextStyle(
                             color: Colors.black54,
-                            fontSize: 13,
+                            fontSize: 15,
                           ),
                           children: <TextSpan>[
                             const TextSpan(text: 'I accepted the '),
