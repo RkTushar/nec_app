@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../widgets/select_country_widget.dart'; // Import the country widget
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/back_button.dart';
+import '../../widgets/primary_button.dart';
 import 'login_screen.dart';
 import 'signup_screen_2.dart';
 
@@ -134,49 +135,30 @@ class _SignupScreen1State extends State<SignupScreen1> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 150),
 
                 // 5. Continue Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      final bool isValid =
-                          _formKey.currentState?.validate() ?? false;
-                      if (!isValid) return;
+                PrimaryButton(
+                  label: 'Continue',
+                  onPressed: () {
+                    final bool isValid =
+                        _formKey.currentState?.validate() ?? false;
+                    if (!isValid) return;
 
-                      // Manually validate to show errors if fields are empty
-                      if (!_formKey.currentState!.validate()) return;
+                    // Manually validate to show errors if fields are empty
+                    if (!_formKey.currentState!.validate()) return;
 
-                      final String? selectedCode =
-                          _selectedCountryData?['code'];
+                    final String? selectedCode = _selectedCountryData?['code'];
 
-                      // Use the custom route for the transition
-                      Navigator.of(context).push(
-                        _createRightToLeftRoute(
-                          SignupScreen2(initialCountryCode: selectedCode),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryGreen,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                    // Use the custom route for the transition
+                    Navigator.of(context).push(
+                      _createRightToLeftRoute(
+                        SignupScreen2(initialCountryCode: selectedCode),
                       ),
-                      elevation: 5,
-                    ),
-                    child: const Text(
-                      'Continue',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
-                const SizedBox(height: 100),
+                const SizedBox(height: 50),
 
                 // 6. Login Link
                 Row(
