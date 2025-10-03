@@ -156,7 +156,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 CustomTextField(
                   controller: _emailController,
                   labelText: 'Enter your email',
-                  prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
@@ -178,7 +177,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 CustomTextField(
                   controller: _dobController,
                   labelText: 'Date of Birth (DD / MM / YYYY)',
-                  prefixIcon: Icons.cake_outlined,
+                  // prefixIcon: Icons.cake_outlined,
                   readOnly: true,
                   onTap: _pickDob,
                   validator: (value) {
