@@ -12,6 +12,7 @@ class CustomTextField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final bool readOnly;
   final VoidCallback? onTap;
+  final ValueChanged<String>? onChanged;
   final IconData? suffixIcon;
   final List<TextInputFormatter>? inputFormatters;
   final AutovalidateMode? autovalidateMode;
@@ -25,6 +26,7 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.readOnly = false,
     this.onTap,
+    this.onChanged,
     this.suffixIcon,
     this.inputFormatters,
     this.autovalidateMode,
@@ -70,6 +72,7 @@ class CustomTextField extends StatelessWidget {
       autovalidateMode: autovalidateMode,
       readOnly: readOnly,
       onTap: onTap,
+      onChanged: onChanged,
       inputFormatters: inputFormatters,
       decoration: _inputDecoration(),
       style: const TextStyle(color: Colors.black),
