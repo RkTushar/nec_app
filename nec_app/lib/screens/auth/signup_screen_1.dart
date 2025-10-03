@@ -56,10 +56,10 @@ class _SignupScreen1State extends State<SignupScreen1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF8F8F8),
       appBar: AppBar(
         leading: const AppBackButton(),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFF8F8F8),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -126,7 +126,7 @@ class _SignupScreen1State extends State<SignupScreen1> {
                 CustomTextField(
                   controller: _lastNameController,
                   labelText: 'Last Name or Surname',
-                  prefixIcon: Icons.person,
+                  prefixIcon: Icons.person_outline,
                   keyboardType: TextInputType.name,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {

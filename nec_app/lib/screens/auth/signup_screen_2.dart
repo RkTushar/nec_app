@@ -10,6 +10,7 @@ import '../../widgets/select_country_widget.dart';
 import '../../widgets/phone_number_field.dart';
 
 const Color _primaryGreen = Color(0xFF4CAF50);
+const double _fieldSpacing = 16.0;
 
 class SignupScreen2 extends StatefulWidget {
   final String? initialCountryCode;
@@ -91,10 +92,10 @@ class _SignupScreen2State extends State<SignupScreen2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF8F8F8),
       appBar: AppBar(
         leading: const AppBackButton(),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFF8F8F8),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -110,8 +111,8 @@ class _SignupScreen2State extends State<SignupScreen2> {
                 const Text(
                   'Create a Nec Money Account',
                   style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 27,
+                    fontWeight: FontWeight.w600,
                     color: Colors.black87,
                   ),
                 ),
@@ -142,7 +143,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: _fieldSpacing),
 
                 // Email
                 CustomTextField(
@@ -161,7 +162,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: _fieldSpacing),
 
                 // New Password
                 PasswordTextField(
@@ -178,7 +179,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: _fieldSpacing),
 
                 // Confirm Password
                 PasswordTextField(
@@ -195,7 +196,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: _fieldSpacing),
 
                 // Date of Birth
                 TextFormField(
@@ -247,7 +248,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                   ),
                   style: const TextStyle(color: Colors.black),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: _fieldSpacing),
 
                 // Referral toggle (aligned with terms row)
                 Row(
@@ -275,7 +276,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: _fieldSpacing),
                 if (_hasReferral) ...<Widget>[
                   CustomTextField(
                     controller: _referralController,
@@ -289,7 +290,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: _fieldSpacing),
                 ],
 
                 // Terms checkbox

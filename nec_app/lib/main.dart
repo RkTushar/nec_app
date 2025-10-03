@@ -15,7 +15,11 @@ class MyApp extends StatelessWidget {
       title: 'Nec Money Mobile',
       theme: ThemeData(
         primarySwatch: Colors.green,
-        scaffoldBackgroundColor: Colors.grey[200],
+        scaffoldBackgroundColor: const Color(0xFFF8F8F8),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFFF8F8F8),
+          elevation: 0,
+        ),
       ),
       home: const LoginScreen(),
     );
