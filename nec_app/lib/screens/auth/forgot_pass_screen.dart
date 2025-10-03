@@ -29,12 +29,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   bool get _isFormValid {
     final String email = _emailController.text.trim();
-    final bool emailOk = RegExp(r'^\S+@\S+\.\S+$').hasMatch(email);
-    final bool countryOk =
-        _selectedCountryData != null &&
-        ((_selectedCountryData!['code'] ?? '').isNotEmpty);
-    final bool dobOk = _selectedDob != null;
-    return emailOk && countryOk && dobOk;
+    return email.isNotEmpty;
   }
 
   @override
@@ -158,6 +153,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   labelText: 'Enter your email',
                   keyboardType: TextInputType.emailAddress,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: (value) {
+                    setState(() {});
+                  },
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Email is required';
