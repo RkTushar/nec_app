@@ -30,6 +30,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
   final TextEditingController _dobController = TextEditingController();
   final TextEditingController _referralController = TextEditingController();
 
+
   bool _hasReferral = false;
   bool _acceptedTerms = false;
 
@@ -245,18 +246,24 @@ class _SignupScreen2State extends State<SignupScreen2> {
                 ),
                 const SizedBox(height: 12),
 
-                // Referral toggle
+                // Referral toggle (aligned with terms row)
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Checkbox(
-                      value: _hasReferral,
-                      activeColor: _primaryGreen,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _hasReferral = value ?? false;
-                        });
-                      },
+                    SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: Checkbox(
+                        value: _hasReferral,
+                        activeColor: _primaryGreen,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _hasReferral = value ?? false;
+                          });
+                        },
+                      ),
                     ),
+                    const SizedBox(width: 8),
                     const Expanded(
                       child: Text(
                         'Do you have referral code',
@@ -306,16 +313,60 @@ class _SignupScreen2State extends State<SignupScreen2> {
                             color: Colors.black54,
                             fontSize: 15,
                           ),
-                          children: <TextSpan>[
+                          children: <InlineSpan>[
                             const TextSpan(text: 'I accepted the '),
-                            TextSpan(
-                              text: 'Terms and Conditions',
-                              style: const TextStyle(color: _primaryGreen),
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment.baseline,
+                              baseline: TextBaseline.alphabetic,
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  minimumSize: const Size(0, 0),
+                                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  visualDensity: const VisualDensity(
+                                    horizontal: -4,
+                                    vertical: -4,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  // TODO: Navigate to Terms and Conditions
+                                },
+                                child: const Text(
+                                  'Terms and Conditions',
+                                  style: TextStyle(
+                                    color: _primaryGreen,
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
                             ),
                             const TextSpan(text: ' and '),
-                            TextSpan(
-                              text: 'Privacy Policy',
-                              style: const TextStyle(color: _primaryGreen),
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment.baseline,
+                              baseline: TextBaseline.alphabetic,
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  minimumSize: const Size(0, 0),
+                                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  visualDensity: const VisualDensity(
+                                    horizontal: -4,
+                                    vertical: -4,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  // TODO: Navigate to Privacy Policy
+                                },
+                                child: const Text(
+                                  'Privacy Policy',
+                                  style: TextStyle(
+                                    color: _primaryGreen,
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
                             ),
                             const TextSpan(
                               text:
