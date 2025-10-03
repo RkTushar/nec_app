@@ -28,7 +28,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
     return InputDecoration(
       labelText: widget.labelText,
       labelStyle: const TextStyle(color: Colors.black54),
-      prefixIcon: const Icon(Icons.lock_outline, color: Colors.grey),
+      // Optional: remove prefix icon for login per request
+      // prefixIcon intentionally omitted
       suffixIcon: IconButton(
         icon: Icon(
           _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
