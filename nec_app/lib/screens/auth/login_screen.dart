@@ -59,6 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
           'Welcome back, Sign in to your account',
           style: TextStyle(fontSize: 16, color: Colors.black54),
         ),
+
+        SizedBox(height: 30),
       ],
     );
   }
@@ -223,31 +225,41 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Navigator.of(context).push(
                         PageRouteBuilder(
-                          pageBuilder: (
-                            BuildContext context,
-                            Animation<double> animation,
-                            Animation<double> secondaryAnimation,
-                          ) => ForgotPasswordScreen(initialEmail: emailController.text.trim()),
-                          transitionsBuilder: (
-                            BuildContext context,
-                            Animation<double> animation,
-                            Animation<double> secondaryAnimation,
-                            Widget child,
-                          ) {
-                            const Offset startOffset = Offset(-1.0, 0.0); // left -> right
-                            const Offset endOffset = Offset.zero;
-                            final Animatable<Offset> tween = Tween<Offset>(
-                              begin: startOffset,
-                              end: endOffset,
-                            ).chain(CurveTween(curve: Curves.easeOutCubic));
-                            final Animation<Offset> offsetAnimation = animation.drive(tween);
-                            return SlideTransition(
-                              position: offsetAnimation,
-                              child: child,
-                            );
-                          },
+                          pageBuilder:
+                              (
+                                BuildContext context,
+                                Animation<double> animation,
+                                Animation<double> secondaryAnimation,
+                              ) => ForgotPasswordScreen(
+                                initialEmail: emailController.text.trim(),
+                              ),
+                          transitionsBuilder:
+                              (
+                                BuildContext context,
+                                Animation<double> animation,
+                                Animation<double> secondaryAnimation,
+                                Widget child,
+                              ) {
+                                const Offset startOffset = Offset(
+                                  -1.0,
+                                  0.0,
+                                ); // left -> right
+                                const Offset endOffset = Offset.zero;
+                                final Animatable<Offset> tween = Tween<Offset>(
+                                  begin: startOffset,
+                                  end: endOffset,
+                                ).chain(CurveTween(curve: Curves.easeOutCubic));
+                                final Animation<Offset> offsetAnimation =
+                                    animation.drive(tween);
+                                return SlideTransition(
+                                  position: offsetAnimation,
+                                  child: child,
+                                );
+                              },
                           transitionDuration: const Duration(milliseconds: 300),
-                          reverseTransitionDuration: const Duration(milliseconds: 300),
+                          reverseTransitionDuration: const Duration(
+                            milliseconds: 300,
+                          ),
                         ),
                       );
                     },
