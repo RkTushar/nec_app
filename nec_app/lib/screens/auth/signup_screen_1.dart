@@ -165,7 +165,7 @@ class _SignupScreen1State extends State<SignupScreen1> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "Already have an account?",
+                      "Already have an account?   ",
                       style: TextStyle(color: Colors.black54, fontSize: 16),
                     ),
                     TextButton(
@@ -177,6 +177,7 @@ class _SignupScreen1State extends State<SignupScreen1> {
                           ),
                         );
                       },
+
                       child: const Text(
                         'Log in',
                         style: TextStyle(
