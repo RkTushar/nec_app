@@ -67,7 +67,7 @@ class SelectCountryField extends StatelessWidget {
               ),
             ),
           )
-        : const Icon(Icons.flag_outlined, color: primaryGreen);
+        : const Icon(Icons.flag_outlined, color: Colors.grey);
 
     final InputDecoration dropdownDecoration = InputDecoration(
       labelText: 'Select from country',
@@ -76,18 +76,18 @@ class SelectCountryField extends StatelessWidget {
       suffixIcon: showDropdownIcon
           ? const Icon(Icons.arrow_drop_down, color: Colors.black54)
           : const SizedBox.shrink(),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Colors.grey),
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(color: Colors.grey, width: 1),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(color: Colors.grey, width: 1),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: primaryGreen, width: 2.0),
+        borderRadius: BorderRadius.circular(0),
+        borderSide: const BorderSide(color: primaryGreen, width: 2),
       ),
       filled: true,
       fillColor: Colors.white,
