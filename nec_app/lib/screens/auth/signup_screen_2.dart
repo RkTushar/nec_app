@@ -241,25 +241,25 @@ class _SignupScreen2State extends State<SignupScreen2> {
                     labelStyle: const TextStyle(color: Colors.black54),
                     prefixIcon: const Icon(
                       Icons.calendar_today_outlined,
-                      color: _primaryGreen,
+                      color: Colors.grey,
                     ),
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 16,
-                      vertical: 20,
+                      vertical: 16,
                     ),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(0),
+                      borderSide: const BorderSide(color: Colors.grey, width: 1),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(0),
                       borderSide: const BorderSide(
                         color: Colors.grey,
                         width: 1.0,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(0),
                       borderSide: const BorderSide(
                         color: _primaryGreen,
                         width: 2.0,
