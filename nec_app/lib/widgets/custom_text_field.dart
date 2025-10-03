@@ -2,8 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-const Color _primaryGreen = Color(0xFF4CAF50);
-
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
@@ -30,46 +28,60 @@ class CustomTextField extends StatelessWidget {
     this.autovalidateMode,
   });
 
-  InputDecoration _inputDecoration({Widget? suffixIcon}) {
-    return InputDecoration(
-      labelText: labelText,
-      labelStyle: const TextStyle(color: Colors.black54),
-      prefixIcon: Icon(prefixIcon, color: Colors.grey),
-      suffixIcon: suffixIcon,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(0),
-        borderSide: const BorderSide(color: Colors.grey, width: 1),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(0),
-        borderSide: const BorderSide(color: Colors.grey, width: 1),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(0),
-        borderSide: const BorderSide(color: _primaryGreen, width: 2),
-      ),
-      filled: true,
-      fillColor: Colors.white,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      keyboardType: keyboardType,
-      validator: validator,
-      autovalidateMode: autovalidateMode,
-      readOnly: readOnly,
-      onTap: onTap,
-      inputFormatters: inputFormatters,
-      decoration: _inputDecoration(
-        suffixIcon: suffixIcon != null
-            ? Icon(suffixIcon, color: Colors.black54)
-            : null,
+    return Container(
+      height: 52,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(0),
+        border: Border.all(color: Colors.grey.shade400, width: 1),
       ),
-      style: const TextStyle(color: Colors.black),
+      child: Row(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Icon(prefixIcon, color: Colors.grey),
+          ),
+          SizedBox(
+            height: 36,
+            child: VerticalDivider(
+              color: Colors.grey.shade300,
+              thickness: 1,
+              width: 1,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: TextFormField(
+              controller: controller,
+              keyboardType: keyboardType,
+              validator: validator,
+              autovalidateMode: autovalidateMode,
+              readOnly: readOnly,
+              onTap: onTap,
+              inputFormatters: inputFormatters,
+              decoration: InputDecoration(
+                hintText: labelText,
+                hintStyle: const TextStyle(color: Colors.black45),
+                isDense: true,
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                contentPadding: const EdgeInsets.symmetric(vertical: 0),
+              ),
+              style: const TextStyle(color: Colors.black),
+            ),
+          ),
+          if (suffixIcon != null) ...<Widget>[
+            const SizedBox(width: 4),
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Icon(suffixIcon, color: Colors.black54),
+            ),
+          ],
+        ],
+      ),
     );
   }
 }
