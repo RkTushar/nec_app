@@ -32,8 +32,11 @@ class CustomTextField extends StatelessWidget {
 
   InputDecoration _inputDecoration() {
     return InputDecoration(
+      // Show hint when empty and float label on focus/input
       labelText: labelText,
       labelStyle: const TextStyle(color: Colors.black54),
+      hintText: labelText,
+      hintStyle: const TextStyle(color: Colors.black54),
       prefixIcon:
           prefixIcon != null ? Icon(prefixIcon, color: Colors.grey) : null,
       suffixIcon: suffixIcon != null
