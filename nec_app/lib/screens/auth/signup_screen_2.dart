@@ -278,8 +278,8 @@ class _SignupScreen2State extends State<SignupScreen2> {
                 if (_hasReferral) ...<Widget>[
                   CustomTextField(
                     controller: _referralController,
-                    labelText: 'Add referral code',
-                    prefixIcon: Icons.card_giftcard_outlined,
+                    labelText: 'Referral/Coupon code',
+                    // prefixIcon: Icons.card_giftcard_outlined,
                     validator: (value) {
                       if (_hasReferral &&
                           (value == null || value.trim().isEmpty)) {
