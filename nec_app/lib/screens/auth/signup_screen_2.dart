@@ -167,7 +167,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                 PasswordTextField(
                   controller: _passwordController,
                   labelText: 'New password',
-                  // no leading icon per request
+                  prefixIcon: Icons.lock,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Password is required';
@@ -184,7 +184,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                 PasswordTextField(
                   controller: _confirmPasswordController,
                   labelText: 'Confirm password',
-                  // no leading icon per request
+                  prefixIcon: Icons.lock,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Confirm your password';
@@ -275,6 +275,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                     ),
                   ],
                 ),
+                SizedBox(height: 10),
                 if (_hasReferral) ...<Widget>[
                   CustomTextField(
                     controller: _referralController,
