@@ -43,11 +43,11 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
-        borderSide: const BorderSide(color: Colors.grey, width: 1),
+        borderSide: BorderSide(color: Colors.grey.shade500, width: 1),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
-        borderSide: const BorderSide(color: Colors.grey, width: 1),
+        borderSide: BorderSide(color: Colors.grey.shade500, width: 1),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(0),
