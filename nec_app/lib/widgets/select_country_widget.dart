@@ -79,15 +79,15 @@ class SelectCountryField extends StatelessWidget {
           : const SizedBox.shrink(),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(2),
+        borderRadius: BorderRadius.circular(4),
         borderSide: BorderSide(color: Colors.grey.shade500.withOpacity(0.35), width: 1),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(2),
+        borderRadius: BorderRadius.circular(4),
         borderSide: BorderSide(color: Colors.grey.shade500.withOpacity(0.35), width: 1),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(2),
+        borderRadius: BorderRadius.circular(4),
         borderSide: const BorderSide(color: primaryGreen, width: 2),
       ),
       filled: true,
