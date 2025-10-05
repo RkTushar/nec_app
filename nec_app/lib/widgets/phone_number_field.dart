@@ -80,15 +80,15 @@ class PhoneNumberField extends StatelessWidget {
           vertical: 16,
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(0),
+          borderRadius: BorderRadius.circular(2),
           borderSide: BorderSide(color: Colors.grey.shade500.withOpacity(0.35), width: 1),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(0),
+          borderRadius: BorderRadius.circular(2),
           borderSide: BorderSide(color: Colors.grey.shade500.withOpacity(0.35), width: 1),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(0),
+          borderRadius: BorderRadius.circular(2),
           borderSide: const BorderSide(color: Color(0xFF4CAF50), width: 2),
         ),
         filled: true,
