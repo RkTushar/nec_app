@@ -1,0 +1,16 @@
+<svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="20" cy="20" r="18" fill="#4CAF50" stroke="#2E7D32" stroke-width="2"/>
+  
+  <!-- Letter N -->
+  <path d="M8 12 L8 28 L12 28 L12 20 L20 28 L24 28 L24 12 L20 12 L20 20 L12 12 Z" fill="white"/>
+  
+  <!-- Letter E -->
+  <path d="M28 12 L28 28 L32 28 L32 16 L36 16 L36 12 Z M28 20 L36 20 L36 24 L28 24 Z" fill="white"/>
+  
+  <!-- Letter C -->
+  <path d="M40 12 L40 28 L48 28 L48 24 L44 24 L44 16 L48 16 L48 12 Z" fill="white"/>
+  
+  <!-- App text -->
+  <text x="52" y="26" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#4CAF50">App</text>
+</svg>
