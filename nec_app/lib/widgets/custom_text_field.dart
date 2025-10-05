@@ -39,22 +39,29 @@ class CustomTextField extends StatelessWidget {
       labelStyle: const TextStyle(color: Colors.black54),
       hintText: labelText,
       hintStyle: const TextStyle(color: Colors.black54),
-      prefixIcon:
-          prefixIcon != null ? Icon(prefixIcon, color: Colors.grey) : null,
+      prefixIcon: prefixIcon != null
+          ? Icon(prefixIcon, color: Colors.grey)
+          : null,
       suffixIcon: suffixIcon != null
           ? Icon(suffixIcon, color: Colors.black54)
           : null,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(0),
-        borderSide: BorderSide(color: Colors.grey.shade500.withOpacity(0.35), width: 1),
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(
+          color: Colors.grey.shade500.withOpacity(0.35),
+          width: 1,
+        ),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(0),
-        borderSide: BorderSide(color: Colors.grey.shade500.withOpacity(0.35), width: 1),
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(
+          color: Colors.grey.shade500.withOpacity(0.35),
+          width: 1,
+        ),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(0),
+        borderRadius: BorderRadius.circular(4),
         borderSide: const BorderSide(color: _primaryGreen, width: 2),
       ),
       filled: true,
