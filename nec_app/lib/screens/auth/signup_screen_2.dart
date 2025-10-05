@@ -101,6 +101,17 @@ class _SignupScreen2State extends State<SignupScreen2> {
     }
   }
 
+  Future<void> _openTermsAndConditions() async {
+    final Uri url = Uri.parse('https://www.necmoney.com/terms-conditions');
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Could not open Terms & Conditions')),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -347,7 +358,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  // TODO: Navigate to Terms and Conditions
+                                  _openTermsAndConditions();
                                 },
                                 child: const Text(
                                   'Terms and Conditions',
