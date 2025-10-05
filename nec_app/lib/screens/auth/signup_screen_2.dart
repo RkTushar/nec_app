@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:nec_app/widgets/custom_datepicker.dart';
 
 // Assuming these are your custom widgets
@@ -86,6 +87,17 @@ class _SignupScreen2State extends State<SignupScreen2> {
       );
       final String fullPhone = dial.isNotEmpty ? '+$dial$local' : local;
       debugPrint('Submitting phone: $fullPhone');
+    }
+  }
+
+  Future<void> _openPrivacyPolicy() async {
+    final Uri url = Uri.parse('https://www.necmoney.com/privacy-policy');
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Could not open Privacy Policy')),
+        );
+      }
     }
   }
 
@@ -363,7 +375,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  // TODO: Navigate to Privacy Policy
+                                  _openPrivacyPolicy();
                                 },
                                 child: const Text(
                                   'Privacy Policy',
