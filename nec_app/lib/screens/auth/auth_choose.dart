@@ -1,0 +1,192 @@
+import 'package:flutter/material.dart';
+
+// --- COLOR CONSTANTS (Based on UI Analysis) ---
+const Color _primaryGreen = Color(0xFF1B6A00); // Dark green header
+const Color _accentRed = Color(0xFFB71C1C);    // Exchange rate color
+const Color _lightGreyBackground = Color(0xFFE0E0E0); // Lighter shade for base screen
+const Color _lightGreenButton = Color(0xFFE0E0E0); // Lighter shade for signup button
+
+class AuthChoose extends StatelessWidget {
+  const AuthChoose({super.key});
+
+  // --- PLACEHOLDER WIDGETS ---
+  Widget _buildHeader() {
+    return Column(
+      children: [
+        // The logo is now the only widget in the header column.
+        Image.asset(
+          'assets/images/logo.png',
+          height: 100,
+          width: 200,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCurrencyConverterCard() {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Container(
+        padding: const EdgeInsets.all(20.0),
+        height: 250, // Placeholder height
+        alignment: Alignment.center,
+        child: const Text('Converter', textAlign: TextAlign.center),
+      ),
+    );
+  }
+
+  Widget _buildAuthCard() {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Container(
+        padding: const EdgeInsets.all(15.0), // Adjusted padding for buttons
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: OutlinedButton(
+                onPressed: () {
+                  print('Log In Clicked');
+                  // TODO: Navigate to login screen
+                },
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.black, // Text color
+                  side: const BorderSide(color: Colors.grey), // Border color
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30), // Rounded corners
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                ),
+                child: const Text(
+                  'LOG IN',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            const SizedBox(width: 10), // Space between buttons
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {
+                  print('Sign Up Clicked');
+                  // TODO: Navigate to sign up screen
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _lightGreenButton, // Light grey background
+                  foregroundColor: _primaryGreen, // Text color
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30), // Rounded corners
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  elevation: 0, // Remove shadow
+                ),
+                child: const Text(
+                  'SIGN UP',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // --- MAIN BUILD METHOD ---
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    return Scaffold(
+      backgroundColor: _lightGreyBackground,
+      body: SafeArea( // ADDED: SafeArea widget to protect from notches and status bars
+        child: Stack(
+          children: [
+            // The logo is placed at the top using a Positioned widget
+            Positioned(
+              top: 40,
+              left: 0,
+              right: 0,
+              child: _buildHeader(),
+            ),
+
+            // The Vector.png container is placed below the header
+            Positioned(
+              top: 200, // Restore previous vector position
+              left: 0,
+              right: 0,
+              bottom: 0, // Allows the container to fill the remaining space
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      width: screenWidth,
+                      child: Stack(
+                        children: [
+                          Positioned.fill(
+                            child: Transform.scale(
+                              scale: 1.1, // slight zoom on background vector
+                              child: Image.asset(
+                                'assets/images/Vector.png',
+                                fit: BoxFit.cover,
+                                alignment: Alignment.topCenter,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 80.0, left: 20.0, right: 20.0, bottom: 20.0),
+                            child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _buildCurrencyConverterCard(),
+                          const SizedBox(height: 20),
+                          _buildAuthCard(),
+                        ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 100),
+                  ],
+                ),
+              ),
+            ),
+
+            // WhatsApp FAB is placed on top of everything
+            const Positioned(
+              right: 15,
+              bottom: 15,
+              child: _WhatsAppButtonPlaceholder(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Placeholder for the WhatsApp Button logic and UI
+class _WhatsAppButtonPlaceholder extends StatelessWidget {
+  const _WhatsAppButtonPlaceholder();
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        print("WhatsApp Support Clicked");
+      },
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+        padding: const EdgeInsets.all(0),
+        decoration: const BoxDecoration(),
+        child: Image.asset(
+          'assets/images/whatsapp_logo.png',
+          height: 40,
+        ),
+      ),
+    );
+  }
+}
