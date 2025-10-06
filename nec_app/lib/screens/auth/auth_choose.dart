@@ -154,7 +154,7 @@ class AuthChoose extends StatelessWidget {
               ),
 
               // The logo is placed at the top using a Positioned widget
-              Positioned(top: 40, left: 0, right: 0, child: _buildHeader()),
+              Positioned(top: 50, left: 0, right: 0, child: _buildHeader()),
 
               // The Vector.png container is placed below the header
               Positioned(
@@ -189,7 +189,7 @@ class AuthChoose extends StatelessWidget {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const SizedBox(height: 8.0),
+                                  // const SizedBox(height: 8.0),
                                   Container(
                                     width: double.infinity,
                                     padding: const EdgeInsets.symmetric(vertical: 8.0),
