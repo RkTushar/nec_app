@@ -146,11 +146,64 @@ class CustomFloatingActionButton extends StatelessWidget {
           shape: const CircleBorder(
             side: BorderSide(color: Colors.transparent, width: 0),
           ),
-          child: Image.asset(
-            'assets/images/send_icon.png',
-            width: 70,
-            height: 70,
-            fit: BoxFit.contain,
+          child: Container(
+            width: 64,
+            height: 64,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: const RadialGradient(
+                center: Alignment.center,
+                radius: 0.9,
+                // center -> edge
+                colors: [
+                  Color(0xFF2E7D32), // lighter center
+                  Color(0xFF1B5E20), // deeper edge
+                ],
+                stops: [0.3, 1.0],
+              ),
+              border: Border.all(color: Colors.white24, width: 1),
+              boxShadow: const [
+                // Primary drop shadow (depth)
+                BoxShadow(
+                  color: Color(0x33000000),
+                  blurRadius: 5,
+                  offset: Offset(0, 6),
+                ),
+                // Contact shadow near surface
+                BoxShadow(
+                  color: Color(0x1A000000),
+                  blurRadius: 5,
+                  offset: Offset(0, 1),
+                ),
+                // Very subtle ambient glow
+                BoxShadow(
+                  color: Color(0x1A2E7D32),
+                  blurRadius: 5,
+                  spreadRadius: 0,
+                  offset: Offset(0, 0),
+                ),
+              ],
+            ),
+            foregroundDecoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.white.withValues(alpha: 0.28), // top highlight
+                  Colors.white.withValues(alpha: 0.0),
+                ],
+                stops: const [0.0, 0.55],
+              ),
+            ),
+            child: Center(
+              child: Image.asset(
+                'assets/images/send_icon.png',
+                width: 26,
+                height: 26,
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
         ),
       ),
