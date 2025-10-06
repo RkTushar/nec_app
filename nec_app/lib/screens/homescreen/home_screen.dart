@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nec_app/widgets/whatsapp.dart';
 import 'package:nec_app/widgets/nav_bar.dart';
+import 'package:nec_app/widgets/primary_button.dart';
 import 'package:nec_app/widgets/select_country_widget.dart';
 import 'package:nec_app/widgets/converter_widget.dart';
 
@@ -46,18 +47,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 12),
-                SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryGreen,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                    ),
-                    onPressed: () {},
-                    child: const Text('Continue', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
-                  ),
-                ),
+                PrimaryButton(label: 'Continue', onPressed: () {}),
                 const SizedBox(height: 16),
                 const Text('Recent transactions', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
                 const SizedBox(height: 8),
