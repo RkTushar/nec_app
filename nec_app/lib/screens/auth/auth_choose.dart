@@ -130,13 +130,13 @@ class AuthChoose extends StatelessWidget {
               ),
               const Positioned(
                 top: 0,
-                bottom: 200, // leave more space for WhatsApp button area
+                bottom: 500, // leave more space for WhatsApp button area
                 left: 0,
                 child: _SideBarDecoration(isRight: false),
               ),
               const Positioned(
                 top: 0,
-                bottom: 200, // leave more space for WhatsApp button area
+                bottom: 500, // leave more space for WhatsApp button area
                 right: 0,
                 child: _SideBarDecoration(isRight: true),
               ),
