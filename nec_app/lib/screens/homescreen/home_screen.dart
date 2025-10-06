@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nec_app/widgets/whatsapp.dart';
 import 'package:nec_app/widgets/nav_bar.dart';
 import 'package:nec_app/widgets/primary_button.dart';
+import 'package:nec_app/widgets/secondary_button.dart';
 import 'package:nec_app/widgets/select_country_widget.dart';
 import 'package:nec_app/widgets/converter_widget.dart';
 
@@ -145,59 +146,37 @@ class _InviteRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        SizedBox(
-          width: 140,
+        SecondaryButton(
+          label: 'Invite',
+          onPressed: () {},
+          backgroundColor: primaryGreen,
+          foregroundColor: Colors.white,
+          borderRadius: const BorderRadius.all(Radius.circular(24)),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           height: 33,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: BorderSide.none,
-                backgroundColor: primaryGreen,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-              ),
-              onPressed: () {},
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text('Invite', style: TextStyle(fontWeight: FontWeight.w800)),
-                  SizedBox(width: 6),
-                  ColorFiltered(
-                    colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                    child: Image.asset('assets/images/person_add_icon.png', width: 20, height: 20),
-                  ),
-                ],
-              ),
-            ),
+          width: 140,
+          trailing: ColorFiltered(
+            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+            child: Image.asset('assets/images/person_add_icon.png', width: 20, height: 20),
           ),
+        ),
         const SizedBox(width: 8),
         const Text('& Get', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20)),
         const SizedBox(width: 8),
-        SizedBox(
-          width: 73,
+        SecondaryButton(
+          label: '£5',
+          onPressed: () {},
+          backgroundColor: primaryGreen,
+          foregroundColor: Colors.white,
+          borderRadius: const BorderRadius.all(Radius.circular(24)),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
           height: 33,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: BorderSide.none,
-                backgroundColor: primaryGreen,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                minimumSize: const Size(73, 33),
-              ),
-              onPressed: () {},
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const Text('£5', style: TextStyle(fontWeight: FontWeight.w800)),
-                  const SizedBox(width: 4),
-                  ColorFiltered(
-                    colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                    child: Image.asset('assets/images/gift_icon.png', width: 20, height: 20),
-                  ),
-                ],
-              ),
-            ),
+          width: 73,
+          trailing: ColorFiltered(
+            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+            child: Image.asset('assets/images/gift_icon.png', width: 20, height: 20),
           ),
+        ),
       ],
     );
   }
