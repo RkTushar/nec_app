@@ -3,6 +3,7 @@ import 'signup_screen_1.dart';
 import 'login_screen.dart';
 import 'package:nec_app/widgets/common_card.dart'; // Import the new CommonCard widget
 import 'package:nec_app/widgets/secondary_button.dart';
+import 'package:nec_app/widgets/converter_widget.dart';
 
 // --- COLOR CONSTANTS (Based on UI Analysis) ---
 const Color _primaryGreen = Color(0xFF1B6A00); // Dark green header
@@ -60,10 +61,7 @@ class AuthChoose extends StatelessWidget {
   Widget _buildCurrencyConverterCard() {
     // Using the new CommonCard widget
     return const CommonCard(
-      child: SizedBox(
-        height: 250, // Placeholder height
-        child: Text('Converter', textAlign: TextAlign.center),
-      ),
+      child: ConverterWidget(),
     );
   }
 
