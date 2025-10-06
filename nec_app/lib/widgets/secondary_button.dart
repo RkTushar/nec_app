@@ -8,8 +8,11 @@ class SecondaryButton extends StatelessWidget {
   final Color foregroundColor;
   final Color borderColor;
   final double height;
+  final double? width;
   final EdgeInsetsGeometry padding;
   final BorderRadiusGeometry borderRadius;
+  final Widget? leading;
+  final Widget? trailing;
 
   const SecondaryButton({
     super.key,
@@ -20,8 +23,11 @@ class SecondaryButton extends StatelessWidget {
     this.foregroundColor = const Color(0xFF1B6A00),
     this.borderColor = Colors.grey,
     this.height = 48,
+    this.width,
     this.padding = const EdgeInsets.symmetric(vertical: 12),
     this.borderRadius = const BorderRadius.all(Radius.circular(30)),
+    this.leading,
+    this.trailing,
   });
 
   @override
@@ -35,9 +41,18 @@ class SecondaryButton extends StatelessWidget {
       shadowColor: WidgetStateProperty.all<Color>(Colors.transparent),
     );
 
-    final Widget child = Text(
-      label,
-      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    final Widget child = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        if (leading != null) leading!,
+        if (leading != null) const SizedBox(width: 6),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        if (trailing != null) const SizedBox(width: 6),
+        if (trailing != null) trailing!,
+      ],
     );
 
     final Widget button = outlined
@@ -62,6 +77,6 @@ class SecondaryButton extends StatelessWidget {
             child: child,
           );
 
-    return SizedBox(width: double.infinity, height: height, child: button);
+    return SizedBox(width: width ?? double.infinity, height: height, child: button);
   }
 }
