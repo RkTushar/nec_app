@@ -120,7 +120,8 @@ class _ConverterWidgetState extends State<ConverterWidget> {
         return;
       }
       final String sourceText = sourceController.text.trim();
-      final double? sourceAmount = double.tryParse(sourceText);
+      final String normalized = sourceText.replaceAll(',', '.');
+      final double? sourceAmount = double.tryParse(normalized);
       if (sourceAmount == null || sourceAmount <= 0) {
         targetController.text = '';
         return;
@@ -213,9 +214,9 @@ class _ConverterWidgetState extends State<ConverterWidget> {
                 child: TextField(
                   controller: controller,
                   readOnly: readOnly,
-                  keyboardType: TextInputType.number,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9\.,]')),
                   ],
                   decoration: InputDecoration(
                     isDense: true,
