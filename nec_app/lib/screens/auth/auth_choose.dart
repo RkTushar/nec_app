@@ -172,16 +172,21 @@ class AuthChoose extends StatelessWidget {
                             Positioned.fill(
                               child: Transform.scale(
                                 scale: 1.1, // slight zoom on background vector
-                                child: Image.asset(
-                                  'assets/images/Vector.png',
-                                  fit: BoxFit.cover,
-                                  alignment: Alignment.topCenter,
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(50),
+                                    bottomRight: Radius.circular(50),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/Vector.png',
+                                    fit: BoxFit.cover,
+                                    alignment: Alignment.topCenter,
+                                  ),
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
-                                // top: 30.0,
                                 left: 10.0,
                                 right: 10.0,
                                 bottom: 20.0,
@@ -261,7 +266,7 @@ class _TopBarDecoration extends StatelessWidget {
     return SizedBox(
       height: 15,
       child: Image.asset(
-        'assets/images/Rectangletop.png',
+        'assets/images/Rectangle_sidebar.png',
         fit: BoxFit.cover,
         alignment: Alignment.topCenter,
       ),
@@ -279,7 +284,7 @@ class _SideBarDecoration extends StatelessWidget {
     return SizedBox(
       width: 15,
       child: Image.asset(
-        'assets/images/Rectangleside.png',
+        'assets/images/Rectangle_sidebar.png',
         fit: BoxFit.cover,
         alignment: isRight ? Alignment.centerRight : Alignment.centerLeft,
       ),
