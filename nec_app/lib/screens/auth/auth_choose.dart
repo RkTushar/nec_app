@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'signup_screen_1.dart';
 import 'login_screen.dart';
 import 'package:nec_app/widgets/common_card.dart'; // Import the new CommonCard widget
+import 'package:nec_app/widgets/secondary_button.dart';
 
 // --- COLOR CONSTANTS (Based on UI Analysis) ---
 const Color _primaryGreen = Color(0xFF1B6A00); // Dark green header
@@ -73,43 +74,32 @@ class AuthChoose extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
-            child: OutlinedButton(
+            child: SecondaryButton(
+              label: 'LOG IN',
               onPressed: () {
                 _pushRightToLeft(context, const LoginScreen());
               },
-              style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.black, // Text color
-                side: const BorderSide(color: Colors.grey), // Border color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30), // Rounded corners
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 15),
-              ),
-              child: const Text(
-                'LOG IN',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
+              outlined: true,
+              foregroundColor: Colors.black,
+              borderColor: Colors.grey,
+              height: 48,
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              borderRadius: BorderRadius.circular(30),
             ),
           ),
           const SizedBox(width: 10), // Space between buttons
           Expanded(
-            child: ElevatedButton(
+            child: SecondaryButton(
+              label: 'SIGN UP',
               onPressed: () {
                 _pushRightToLeft(context, const SignupScreen1());
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _lightGreenButton, // Light grey background
-                foregroundColor: _primaryGreen, // Text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30), // Rounded corners
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                elevation: 0, // Remove shadow
-              ),
-              child: const Text(
-                'SIGN UP',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
+              outlined: false,
+              backgroundColor: _lightGreenButton,
+              foregroundColor: _primaryGreen,
+              height: 48,
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              borderRadius: BorderRadius.circular(30),
             ),
           ),
         ],
