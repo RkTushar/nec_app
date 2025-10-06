@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:nec_app/screens/auth/login_screen.dart';
 import 'package:nec_app/screens/auth/auth_choose.dart';
 
 void main() {
