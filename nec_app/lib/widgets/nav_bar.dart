@@ -5,20 +5,22 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color selectedColor = Colors.green.shade700;
     const Color unselectedColor = Colors.black54;
+    void _log(String message) => debugPrint(message);
 
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
-      notchMargin: 8,
+      notchMargin: 0,
       color: const Color(0xFFEDEDED),
       elevation: 0,
+      clipBehavior: Clip.none,
       child: Container(
         decoration: const BoxDecoration(
           border: Border(
             top: BorderSide(color: Color(0xFFE6E6E6), width: 1),
           ),
         ),
-        height: 64.0,
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        height: 56.0,
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -29,11 +31,7 @@ class NavBar extends StatelessWidget {
                     icon: Icons.home_filled,
                     label: 'Home',
                     color: selectedColor,
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Home tapped')),
-                      );
-                    },
+                    onTap: () { _log('Home tapped'); },
                   ),
                 ),
                 Expanded(
@@ -41,11 +39,7 @@ class NavBar extends StatelessWidget {
                     icon: Icons.card_giftcard_rounded,
                     label: 'Rewards',
                     color: unselectedColor,
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Rewards tapped')),
-                      );
-                    },
+                    onTap: () { _log('Rewards tapped'); },
                   ),
                 ),
                 const SizedBox(width: 72.0), // space for center FAB
@@ -54,11 +48,7 @@ class NavBar extends StatelessWidget {
                     icon: Icons.history,
                     label: 'History',
                     color: unselectedColor,
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('History tapped')),
-                      );
-                    },
+                    onTap: () { _log('History tapped'); },
                   ),
                 ),
                 Expanded(
@@ -66,23 +56,15 @@ class NavBar extends StatelessWidget {
                     icon: Icons.grid_view_rounded,
                     label: 'More',
                     color: unselectedColor,
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('More tapped')),
-                      );
-                    },
+                    onTap: () { _log('More tapped'); },
                   ),
                 ),
               ],
             ),
             GestureDetector(
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Send tapped')),
-                );
-              },
+              onTap: () { _log('Send tapped'); },
               child: const Padding(
-                padding: EdgeInsets.only(top: 36),
+                padding: EdgeInsets.only(top: 32),
                 child: Text(
                   'Send',
                   style: TextStyle(
@@ -109,21 +91,24 @@ class NavBar extends StatelessWidget {
       onTap: onTap,
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 22, color: color),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 11.0,
-              fontWeight: FontWeight.w600,
-              color: color,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 22, color: color),
+            const SizedBox(height: 2),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 11.0,
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -132,19 +117,28 @@ class NavBar extends StatelessWidget {
 class CustomFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {},
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      focusElevation: 0,
-      hoverElevation: 0,
-      highlightElevation: 0,
-      shape: const CircleBorder(side: BorderSide(color: Colors.transparent, width: 0)),
-      child: Image.asset(
-        'assets/images/send_icon.png',
-        width: 100,
-        height: 100,
-        fit: BoxFit.contain,
+    return Transform.translate(
+      offset: const Offset(0, 22), // keep half inside the bar
+      child: SizedBox(
+        width: 70,
+        height: 70,
+        child: FloatingActionButton(
+          onPressed: () { debugPrint('Send tapped'); },
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          focusElevation: 0,
+          hoverElevation: 0,
+          highlightElevation: 0,
+          shape: const CircleBorder(
+            side: BorderSide(color: Colors.transparent, width: 0),
+          ),
+          child: Image.asset(
+            'assets/images/send_icon.png',
+            width: 70,
+            height: 70,
+            fit: BoxFit.contain,
+          ),
+        ),
       ),
     );
   }
