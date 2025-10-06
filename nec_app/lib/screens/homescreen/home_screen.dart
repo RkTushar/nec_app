@@ -13,12 +13,11 @@ class HomeScreen extends StatelessWidget {
     final Color primaryGreen = const Color(0xFF19A250);
     return Scaffold(
       extendBody: true,
-      appBar: AppBar(
-        title: const Text('NEC Home'),
-        centerTitle: true,
-      ),
-      body: Stack(
-        children: <Widget>[
+      body: SafeArea(
+        top: true,
+        bottom: false,
+        child: Stack(
+          children: <Widget>[
           SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 120),
             child: Column(
@@ -75,7 +74,8 @@ class HomeScreen extends StatelessWidget {
             bottom: 100, // keep above bottom bar
             child: const WhatsAppButton(size: 54),
           ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: const CustomFloatingActionButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -143,40 +143,61 @@ class _InviteRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Expanded(
-          child: SizedBox(
-            height: 40,
-            child: OutlinedButton.icon(
+        SizedBox(
+          width: 140,
+          height: 33,
+            child: OutlinedButton(
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: primaryGreen, width: 2),
-                foregroundColor: primaryGreen,
+                side: BorderSide.none,
+                backgroundColor: primaryGreen,
+                foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
               ),
               onPressed: () {},
-              icon: const Icon(Icons.person_add_alt_1_outlined),
-              label: const Text('Invite', style: TextStyle(fontWeight: FontWeight.w800)),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text('Invite', style: TextStyle(fontWeight: FontWeight.w800)),
+                  SizedBox(width: 6),
+                  ColorFiltered(
+                    colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                    child: Image.asset('assets/images/person_add_icon.png', width: 20, height: 20),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
         const SizedBox(width: 8),
-        const Text('&', style: TextStyle(fontWeight: FontWeight.w700)),
+        const Text('& Get', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20)),
         const SizedBox(width: 8),
-        Expanded(
-          child: SizedBox(
-            height: 40,
-            child: OutlinedButton.icon(
+        SizedBox(
+          width: 73,
+          height: 33,
+            child: OutlinedButton(
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: primaryGreen, width: 2),
-                foregroundColor: primaryGreen,
+                side: BorderSide.none,
+                backgroundColor: primaryGreen,
+                foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                minimumSize: const Size(73, 33),
               ),
               onPressed: () {},
-              icon: const Icon(Icons.card_giftcard_rounded),
-              label: const Text('Get £5', style: TextStyle(fontWeight: FontWeight.w800)),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('£5', style: TextStyle(fontWeight: FontWeight.w800)),
+                  const SizedBox(width: 4),
+                  ColorFiltered(
+                    colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                    child: Image.asset('assets/images/gift_icon.png', width: 20, height: 20),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
       ],
     );
   }
