@@ -220,8 +220,8 @@ class AuthChoose extends StatelessWidget {
 
               // WhatsApp FAB is placed on top of everything
               const Positioned(
-                right: 15,
-                bottom: 15,
+                right: 20,
+                bottom: 20,
                 child: _WhatsAppButtonPlaceholder(),
               ),
             ],
@@ -244,7 +244,7 @@ class _WhatsAppButtonPlaceholder extends StatelessWidget {
       },
       borderRadius: BorderRadius.circular(30),
       child: Container(
-        padding: const EdgeInsets.all(0),
+        // padding: const EdgeInsets.all(5),
         decoration: const BoxDecoration(),
         child: Image.asset('assets/images/whatsapp_logo.png', height: 40),
       ),
