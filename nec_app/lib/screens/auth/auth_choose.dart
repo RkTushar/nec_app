@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'signup_screen_1.dart';
 import 'login_screen.dart';
+import 'package:nec_app/widgets/common_card.dart';
 
 // --- COLOR CONSTANTS (Based on UI Analysis) ---
 const Color _primaryGreen = Color(0xFF1B6A00); // Dark green header
@@ -56,70 +57,66 @@ class AuthChoose extends StatelessWidget {
   }
 
   Widget _buildCurrencyConverterCard() {
-    return Card(
+    return CommonCard(
       elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Container(
-        padding: const EdgeInsets.all(15.0),
-        height: 250, // Placeholder height
-        alignment: Alignment.center,
-        child: const Text('Converter', textAlign: TextAlign.center),
+      borderRadius: BorderRadius.circular(16),
+      padding: const EdgeInsets.all(15.0),
+      height: 250,
+      child: const Center(
+        child: Text('Converter', textAlign: TextAlign.center),
       ),
     );
   }
 
   Widget _buildAuthCard(BuildContext context) {
-    return Card(
+    return CommonCard(
       elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Container(
-        padding: const EdgeInsets.all(15.0), // Adjusted padding for buttons
-        alignment: Alignment.center,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(
-              child: OutlinedButton(
-                onPressed: () {
-                  _pushRightToLeft(context, const LoginScreen());
-                },
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.black, // Text color
-                  side: const BorderSide(color: Colors.grey), // Border color
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30), // Rounded corners
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 15),
+      borderRadius: BorderRadius.circular(16),
+      padding: const EdgeInsets.all(15.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            child: OutlinedButton(
+              onPressed: () {
+                _pushRightToLeft(context, const LoginScreen());
+              },
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.black, // Text color
+                side: const BorderSide(color: Colors.grey), // Border color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30), // Rounded corners
                 ),
-                child: const Text(
-                  'LOG IN',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
+                padding: const EdgeInsets.symmetric(vertical: 15),
+              ),
+              child: const Text(
+                'LOG IN',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(width: 10), // Space between buttons
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  _pushRightToLeft(context, const SignupScreen1());
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _lightGreenButton, // Light grey background
-                  foregroundColor: _primaryGreen, // Text color
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30), // Rounded corners
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  elevation: 0, // Remove shadow
+          ),
+          const SizedBox(width: 10), // Space between buttons
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () {
+                _pushRightToLeft(context, const SignupScreen1());
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _lightGreenButton, // Light grey background
+                foregroundColor: _primaryGreen, // Text color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30), // Rounded corners
                 ),
-                child: const Text(
-                  'SIGN UP',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                elevation: 0, // Remove shadow
+              ),
+              child: const Text(
+                'SIGN UP',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
