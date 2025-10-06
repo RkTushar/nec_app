@@ -4,6 +4,7 @@ import 'login_screen.dart';
 import 'package:nec_app/widgets/common_card.dart'; // Import the new CommonCard widget
 import 'package:nec_app/widgets/secondary_button.dart';
 import 'package:nec_app/widgets/converter_widget.dart';
+import 'package:nec_app/widgets/whatsapp.dart';
 
 // --- COLOR CONSTANTS (Based on UI Analysis) ---
 const Color _primaryGreen = Color(0xFF1B6A00); // Dark green header
@@ -216,31 +217,11 @@ class AuthChoose extends StatelessWidget {
               const Positioned(
                 right: 20,
                 bottom: 20,
-                child: _WhatsAppButtonPlaceholder(),
+                child: WhatsAppButton(),
               ),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-// Placeholder for the WhatsApp Button logic and UI
-class _WhatsAppButtonPlaceholder extends StatelessWidget {
-  const _WhatsAppButtonPlaceholder();
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        print("WhatsApp Support Clicked");
-      },
-      borderRadius: BorderRadius.circular(30),
-      child: Container(
-        // padding: const EdgeInsets.all(5),
-        decoration: const BoxDecoration(),
-        child: Image.asset('assets/images/whatsapp_logo.png', height: 40),
       ),
     );
   }
