@@ -111,6 +111,7 @@ class AuthChoose extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: _lightGreyBackground,
       body: SafeArea(
         child: ClipRRect(
