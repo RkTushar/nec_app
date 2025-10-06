@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'signup_screen_1.dart';
 import 'login_screen.dart';
-import 'package:nec_app/widgets/common_card.dart';
+import 'package:nec_app/widgets/common_card.dart'; // Import the new CommonCard widget
 
 // --- COLOR CONSTANTS (Based on UI Analysis) ---
 const Color _primaryGreen = Color(0xFF1B6A00); // Dark green header
@@ -57,22 +57,18 @@ class AuthChoose extends StatelessWidget {
   }
 
   Widget _buildCurrencyConverterCard() {
-    return CommonCard(
-      elevation: 4,
-      borderRadius: BorderRadius.circular(16),
-      padding: const EdgeInsets.all(15.0),
-      height: 250,
-      child: const Center(
+    // Using the new CommonCard widget
+    return const CommonCard(
+      child: SizedBox(
+        height: 250, // Placeholder height
         child: Text('Converter', textAlign: TextAlign.center),
       ),
     );
   }
 
   Widget _buildAuthCard(BuildContext context) {
+    // Using the new CommonCard widget
     return CommonCard(
-      elevation: 4,
-      borderRadius: BorderRadius.circular(16),
-      padding: const EdgeInsets.all(15.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -190,18 +186,18 @@ class AuthChoose extends StatelessWidget {
                                 right: 10.0,
                                 bottom: 20.0,
                               ),
-                                  child: Column(
+                              child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                      const SizedBox(height: 8.0),
+                                  const SizedBox(height: 8.0),
                                   Container(
                                     width: double.infinity,
-                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
                                     child: const Text(
                                       'Fast & Secure',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        color: Colors.white,  
+                                        color: Colors.white,
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,
                                       ),
