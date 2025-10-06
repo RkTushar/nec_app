@@ -189,7 +189,7 @@ class AuthChoose extends StatelessWidget {
                               padding: const EdgeInsets.only(
                                 left: 10.0,
                                 right: 10.0,
-                                bottom: 20.0,
+                                bottom: 40.0,
                               ),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
