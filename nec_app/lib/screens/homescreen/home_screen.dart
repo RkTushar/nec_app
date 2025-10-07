@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _HeaderCard(primaryGreen: primaryGreen, notificationCount: 3),
+                _HeaderCard(primaryGreen: primaryGreen, notificationCount: 0),
                 const SizedBox(height: 20),
                 _InviteRow(primaryGreen: primaryGreen),
                 const SizedBox(height: 12),
