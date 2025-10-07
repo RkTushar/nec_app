@@ -22,18 +22,23 @@ class NotificationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        InkWell(
-          onTap: onTap ?? () { debugPrint('Notifications tapped'); },
-          customBorder: const CircleBorder(),
-          child: Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              shape: BoxShape.circle,
+        Material(
+          color: backgroundColor,
+          shape: const CircleBorder(),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell
+          (
+            onTap: onTap ?? () { debugPrint('Notifications tapped'); },
+            customBorder: const CircleBorder(),
+            splashColor: Colors.white.withOpacity(0.20),
+            highlightColor: Colors.white.withOpacity(0.10),
+            child: SizedBox(
+              width: size,
+              height: size,
+              child: Center(
+                child: Icon(icon, size: size * 0.55, color: iconColor),
+              ),
             ),
-            alignment: Alignment.center,
-            child: Icon(icon, size: size * 0.55, color: iconColor),
           ),
         ),
         Positioned(
