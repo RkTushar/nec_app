@@ -21,7 +21,7 @@ class SecondaryButton extends StatelessWidget {
     this.outlined = false,
     this.backgroundColor = const Color(0xFFE0E0E0),
     this.foregroundColor = const Color(0xFF1B6A00),
-    this.borderColor = Colors.grey,
+    this.borderColor = const Color(0xFFE6E6E6),
     this.height = 48,
     this.width,
     this.padding = const EdgeInsets.symmetric(vertical: 12),
