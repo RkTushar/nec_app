@@ -217,7 +217,7 @@ class AuthChoose extends StatelessWidget {
               const Positioned(
                 right: 20,
                 bottom: 20,
-                child: WhatsAppButton(),
+                child: WhatsAppButton(size: 54),
               ),
             ],
           ),
