@@ -16,9 +16,6 @@ class NavBar extends StatelessWidget {
       elevation: 0,
       clipBehavior: Clip.none,
       child: Container(
-        decoration: const BoxDecoration(
-          border: Border(top: BorderSide(color: Color(0xFFE6E6E6), width: 1)),
-        ),
         height: 56.0,
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Stack(
@@ -130,7 +127,7 @@ class CustomFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
-      offset: const Offset(0, 7), // balanced overlap with BottomAppBar
+      offset: const Offset(0, 2), // balanced overlap with BottomAppBar
       child: SizedBox(
         width: 70,
         height: 70,
