@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'select_country_widget.dart';
+import 'package:nec_app/theme/theme_data.dart';
 
 class PhoneNumberField extends StatelessWidget {
   final TextEditingController controller;
@@ -46,7 +47,7 @@ class PhoneNumberField extends StatelessWidget {
       ],
       decoration: InputDecoration(
         labelText: '07XXXXXXXXXX',
-        labelStyle: const TextStyle(color: Colors.black54),
+        labelStyle: const TextStyle(color: AppColors.textSecondary),
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         prefixIcon: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -66,7 +67,7 @@ class PhoneNumberField extends StatelessWidget {
               SizedBox(
                 height: 36,
                 child: VerticalDivider(
-                  color: Colors.grey.withOpacity(0.35),
+                  color: AppColors.inputBorder,
                   thickness: 1,
                   width: 1,
                 ),
@@ -81,20 +82,20 @@ class PhoneNumberField extends StatelessWidget {
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4),
-          borderSide: BorderSide(color: Colors.grey.shade500.withOpacity(0.35), width: 1),
+          borderSide: const BorderSide(color: AppColors.inputBorder, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4),
-          borderSide: BorderSide(color: Colors.grey.shade500.withOpacity(0.35), width: 1),
+          borderSide: const BorderSide(color: AppColors.inputBorder, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4),
-          borderSide: const BorderSide(color: Color(0xFF4CAF50), width: 2),
+          borderSide: const BorderSide(color: AppColors.primary, width: 2),
         ),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: AppColors.card,
       ),
-      style: const TextStyle(color: Colors.black),
+      style: const TextStyle(color: AppColors.textPrimary),
     );
   }
 }
