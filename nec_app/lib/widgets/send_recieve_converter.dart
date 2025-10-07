@@ -149,21 +149,21 @@ class _SendReceiveConverterState extends State<SendReceiveConverter> {
     }
   }
 
-  void _swapCurrencies() {
-    setState(() {
-      final String oldSend = _sendCurrency;
-      _sendCurrency = _receiver.currency;
-      final _ReceiverCountry newReceiver = _receiverCountries.firstWhere(
-        (c) => c.currency == oldSend,
-        orElse: () => _receiver,
-      );
-      _receiver = newReceiver;
-    });
-    final String tmp = _sendCtrl.text;
-    _sendCtrl.text = _recvCtrl.text;
-    _recvCtrl.text = tmp;
-    _onSendChanged();
-  }
+  // void _swapCurrencies() {
+  //   setState(() {
+  //     final String oldSend = _sendCurrency;
+  //     _sendCurrency = _receiver.currency;
+  //     final _ReceiverCountry newReceiver = _receiverCountries.firstWhere(
+  //       (c) => c.currency == oldSend,
+  //       orElse: () => _receiver,
+  //     );
+  //     _receiver = newReceiver;
+  //   });
+  //   final String tmp = _sendCtrl.text;
+  //   _sendCtrl.text = _recvCtrl.text;
+  //   _recvCtrl.text = tmp;
+  //   _onSendChanged();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +189,7 @@ class _SendReceiveConverterState extends State<SendReceiveConverter> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    '${_receiver.name}  1 ${_sendCurrency} = ${rate.toStringAsFixed(2)} ${_receiver.currency}',
+                    '${_receiver.name}  1 $_sendCurrency = ${rate.toStringAsFixed(2)} ${_receiver.currency}',
                     style: const TextStyle(fontWeight: FontWeight.w700),
                     overflow: TextOverflow.ellipsis,
                   ),
