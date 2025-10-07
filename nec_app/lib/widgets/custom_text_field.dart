@@ -1,8 +1,7 @@
 // lib/widgets/custom_text_field.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-const Color _primaryGreen = Color(0xFF4CAF50);
+import 'package:nec_app/theme/theme_data.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -32,40 +31,34 @@ class CustomTextField extends StatelessWidget {
     this.autovalidateMode,
   });
 
-  InputDecoration _inputDecoration() {
+  InputDecoration _inputDecoration(BuildContext context) {
     return InputDecoration(
       // Show hint when empty and float label on focus/input
       labelText: labelText,
-      labelStyle: const TextStyle(color: Colors.black54),
+      labelStyle: const TextStyle(color: AppColors.textSecondary),
       hintText: labelText,
-      hintStyle: const TextStyle(color: Colors.black54),
+      hintStyle: const TextStyle(color: AppColors.textSecondary),
       prefixIcon: prefixIcon != null
           ? Icon(prefixIcon, color: Colors.grey)
           : null,
       suffixIcon: suffixIcon != null
-          ? Icon(suffixIcon, color: Colors.black54)
+          ? Icon(suffixIcon, color: AppColors.textSecondary)
           : null,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
-        borderSide: BorderSide(
-          color: Colors.grey.shade500.withOpacity(0.35),
-          width: 1,
-        ),
+        borderSide: const BorderSide(color: AppColors.inputBorder, width: 1),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
-        borderSide: BorderSide(
-          color: Colors.grey.shade500.withOpacity(0.35),
-          width: 1,
-        ),
+        borderSide: const BorderSide(color: AppColors.inputBorder, width: 1),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
-        borderSide: const BorderSide(color: _primaryGreen, width: 2),
+        borderSide: const BorderSide(color: AppColors.primary, width: 2),
       ),
       filled: true,
-      fillColor: Colors.white,
+      fillColor: AppColors.card,
       floatingLabelBehavior: FloatingLabelBehavior.auto,
     );
   }
@@ -81,8 +74,8 @@ class CustomTextField extends StatelessWidget {
       onTap: onTap,
       onChanged: onChanged,
       inputFormatters: inputFormatters,
-      decoration: _inputDecoration(),
-      style: const TextStyle(color: Colors.black),
+      decoration: _inputDecoration(context),
+      style: const TextStyle(color: AppColors.textPrimary),
     );
   }
 }
