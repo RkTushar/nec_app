@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color primaryGreen = const Color(0xFF19A250);
+    final Color primaryGreen = Theme.of(context).colorScheme.primary;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,
@@ -30,9 +30,9 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 12),
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).cardColor,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.grey.shade300),
+                    border: Border.all(color: Theme.of(context).dividerColor),
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   child: const ConverterWidget(),
@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                 Center(
                   child: Text(
                     'Recipients get an extra 2.5%',
-                    style: TextStyle(color: Colors.grey.shade700, fontWeight: FontWeight.w600),
+                    style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color, fontWeight: FontWeight.w600),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
           // WhatsApp support button (fixed at bottom-right, above navbar)
           const Positioned(
             right: 16,
-            bottom: 50, // keep above bottom bar
+            bottom: 10, // keep above bottom bar
             child: WhatsAppButton(size: 54),
           ),
           ],
@@ -91,9 +91,9 @@ class _HeaderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: Theme.of(context).dividerColor),
       ),
       padding: const EdgeInsets.all(12),
       child: Row(
@@ -107,11 +107,11 @@ class _HeaderCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Hello!', style: TextStyle(fontSize: 13, color: Colors.black54)),
+                Text('Hello!', style: TextStyle(fontSize: 13)),
                 SizedBox(height: 2),
                 Text('Kamal Ahmed', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                 SizedBox(height: 2),
-                Text('NGB76121', style: TextStyle(fontSize: 12, color: Colors.black54)),
+                Text('NGB76121', style: TextStyle(fontSize: 12)),
               ],
             ),
           ),
@@ -200,10 +200,10 @@ class _TransactionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: highlighted ? const Color(0xFF1E88E5) : Colors.grey.shade300,
+          color: highlighted ? const Color(0xFF1E88E5) : Theme.of(context).dividerColor,
           width: highlighted ? 2 : 1,
         ),
         boxShadow: highlighted
@@ -237,7 +237,7 @@ class _TransactionCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              Text(dateText, style: const TextStyle(fontSize: 12, color: Colors.black54)),
+              Text(dateText, style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 12)),
               const SizedBox(height: 6),
               Text(amountText, style: const TextStyle(color: Color(0xFFD32F2F), fontWeight: FontWeight.w800)),
             ],
