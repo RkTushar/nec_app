@@ -3,7 +3,6 @@ import 'package:nec_app/widgets/whatsapp.dart';
 import 'package:nec_app/widgets/nav_bar.dart';
 import 'package:nec_app/widgets/primary_button.dart';
 import 'package:nec_app/widgets/secondary_button.dart';
-import 'package:nec_app/widgets/select_country_widget.dart';
 import 'package:nec_app/widgets/converter_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,6 +12,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color primaryGreen = const Color(0xFF19A250);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       extendBody: true,
       body: SafeArea(
         top: true,
@@ -27,8 +27,6 @@ class HomeScreen extends StatelessWidget {
                 _HeaderCard(primaryGreen: primaryGreen),
                 const SizedBox(height: 12),
                 _InviteRow(primaryGreen: primaryGreen),
-                const SizedBox(height: 12),
-                _CountrySelector(),
                 const SizedBox(height: 12),
                 Container(
                   decoration: BoxDecoration(
@@ -69,11 +67,11 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          // WhatsApp support button
-          Positioned(
+          // WhatsApp support button (fixed at bottom-right, above navbar)
+          const Positioned(
             right: 16,
-            bottom: 100, // keep above bottom bar
-            child: const WhatsAppButton(size: 54),
+            bottom: 50, // keep above bottom bar
+            child: WhatsAppButton(size: 54),
           ),
           ],
         ),
@@ -182,30 +180,6 @@ class _InviteRow extends StatelessWidget {
   }
 }
 
-class _CountrySelector extends StatefulWidget {
-  @override
-  State<_CountrySelector> createState() => _CountrySelectorState();
-}
-
-class _CountrySelectorState extends State<_CountrySelector> {
-  Map<String, String>? _selected;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        SelectCountryField(
-          selectedCountryData: _selected,
-          initialCountryCode: 'GB',
-          onChanged: (v) => setState(() => _selected = v),
-        ),
-        const SizedBox(height: 6),
-        const Text('£1.00 = BDT 164.50', style: TextStyle(color: Colors.black54)),
-      ],
-    );
-  }
-}
 
 class _TransactionCard extends StatelessWidget {
   final String name;
