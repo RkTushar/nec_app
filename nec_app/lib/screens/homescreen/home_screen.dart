@@ -3,7 +3,7 @@ import 'package:nec_app/widgets/whatsapp.dart';
 import 'package:nec_app/widgets/nav_bar.dart';
 import 'package:nec_app/widgets/primary_button.dart';
 import 'package:nec_app/widgets/secondary_button.dart';
-import 'package:nec_app/widgets/converter_widget.dart';
+import 'package:nec_app/widgets/send_recieve_converter.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -29,13 +29,10 @@ class HomeScreen extends StatelessWidget {
                 _InviteRow(primaryGreen: primaryGreen),
                 const SizedBox(height: 12),
                 Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).cardColor,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Theme.of(context).dividerColor),
-                  ),
+                  // Remove card look; blend with background (dropdown remains white inside widget)
+                  color: Colors.transparent,
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  child: const ConverterWidget(),
+                  child: const SendReceiveConverter(),
                 ),
                 const SizedBox(height: 8),
                 Center(
@@ -123,13 +120,12 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          // WhatsApp support button (fixed at bottom-right, above navbar)
           const Positioned(
             right: 16,
             bottom: 100, // keep above bottom bar
             child: WhatsAppButton(size: 54),
           ),
-          ],
+          ], 
         ),
       ),
       floatingActionButton: const CustomFloatingActionButton(),
