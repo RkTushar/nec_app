@@ -19,7 +19,9 @@ List<_ReceiverCountry> _buildReceiverCountries() {
 }
 
 class SendReceiveConverter extends StatefulWidget {
-  const SendReceiveConverter({super.key});
+  final String? initialSenderCurrency; // e.g., 'GBP'
+  final double? initialAmount; // e.g., 100.0
+  const SendReceiveConverter({super.key, this.initialSenderCurrency, this.initialAmount});
 
   @override
   State<SendReceiveConverter> createState() => _SendReceiveConverterState();
@@ -39,8 +41,19 @@ class _SendReceiveConverterState extends State<SendReceiveConverter> {
     super.initState();
     _receiverCountries = _buildReceiverCountries();
     _receiver = _receiverCountries.first;
+    // Initialize sender currency and amount based on inputs
+    if ((widget.initialSenderCurrency ?? '').isNotEmpty) {
+      _sendCurrency = widget.initialSenderCurrency!;
+    }
+    if ((widget.initialAmount ?? 0) > 0) {
+      _sendCtrl.text = widget.initialAmount!.toStringAsFixed(2);
+    }
     _sendCtrl.addListener(_onSendChanged);
     _recvCtrl.addListener(_onRecvChanged);
+    // Trigger initial conversion if we have an amount
+    if (_sendCtrl.text.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _onSendChanged());
+    }
   }
 
   @override

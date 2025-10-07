@@ -273,10 +273,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         _formKey.currentState?.validate() ?? false;
                     if (!isValid) return;
                     
-                    // Navigate to home screen after successful validation
+                    // Navigate to home screen with selected sender currency and default amount 100
+                    final String? selectedCurrency = _selectedCountryData?['currency'];
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
+                        builder: (context) => HomeScreen(
+                          initialSenderCurrency: selectedCurrency ?? 'GBP',
+                          initialAmount: 100.0,
+                        ),
                       ),
                     );
                   },

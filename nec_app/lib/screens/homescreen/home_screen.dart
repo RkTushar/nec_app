@@ -6,7 +6,9 @@ import 'package:nec_app/widgets/secondary_button.dart';
 import 'package:nec_app/widgets/send_recieve_converter.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final String? initialSenderCurrency;
+  final double? initialAmount;
+  const HomeScreen({super.key, this.initialSenderCurrency, this.initialAmount});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,10 @@ class HomeScreen extends StatelessWidget {
                   // Remove card look; blend with background (dropdown remains white inside widget)
                   color: Colors.transparent,
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  child: const SendReceiveConverter(),
+                  child: SendReceiveConverter(
+                    initialSenderCurrency: initialSenderCurrency,
+                    initialAmount: initialAmount,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Center(
