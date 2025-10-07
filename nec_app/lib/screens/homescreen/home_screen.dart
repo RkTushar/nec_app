@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nec_app/widgets/whatsapp.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nec_app/widgets/nav_bar.dart';
 import 'package:nec_app/widgets/primary_button.dart';
 import 'package:nec_app/widgets/secondary_button.dart';
 import 'package:nec_app/widgets/send_recieve_converter.dart';
+import 'package:nec_app/widgets/notification_button.dart';
 
 class HomeScreen extends StatelessWidget {
   final String? initialSenderCurrency;
@@ -26,8 +28,8 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _HeaderCard(primaryGreen: primaryGreen),
-                const SizedBox(height: 12),
+                _HeaderCard(primaryGreen: primaryGreen, notificationCount: 3),
+                const SizedBox(height: 20),
                 _InviteRow(primaryGreen: primaryGreen),
                 const SizedBox(height: 12),
                 Container(
@@ -142,24 +144,30 @@ class HomeScreen extends StatelessWidget {
 
 class _HeaderCard extends StatelessWidget {
   final Color primaryGreen;
-  const _HeaderCard({required this.primaryGreen});
+  final int notificationCount;
+  const _HeaderCard({required this.primaryGreen, this.notificationCount = 0});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Theme.of(context).dividerColor),
       ),
       padding: const EdgeInsets.all(12),
       child: Row(
         children: <Widget>[
-          const CircleAvatar(
+          CircleAvatar(
             radius: 26,
-            backgroundImage: AssetImage('assets/images/logo.png'),
+            backgroundColor: Colors.transparent,
+            child: SvgPicture.asset(
+              'assets/images/profile_icon.svg',
+              width: 52,
+              height: 52,
+              fit: BoxFit.cover,
+            ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 15),
           const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,19 +180,10 @@ class _HeaderCard extends StatelessWidget {
               ],
             ),
           ),
-          Stack(
-            children: <Widget>[
-              Icon(Icons.notifications_none_rounded, size: 28, color: Colors.black87),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: Container(
-                  width: 10,
-                  height: 10,
-                  decoration: BoxDecoration(color: primaryGreen, shape: BoxShape.circle),
-                ),
-              ),
-            ],
+          NotificationButton(
+            count: notificationCount,
+            backgroundColor: primaryGreen,
+            onTap: () { debugPrint('Notifications tapped'); },
           ),
         ],
       ),
