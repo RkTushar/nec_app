@@ -1,6 +1,7 @@
 // Path: widgets/select_country_widget.dart
 
 import 'package:flutter/material.dart';
+import 'package:nec_app/theme/theme_data.dart';
 
 class SelectCountryField extends StatelessWidget {
   final Map<String, String>? selectedCountryData;
@@ -47,7 +48,7 @@ class SelectCountryField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color primaryGreen = Color(0xFF4CAF50);
+    // Use themed colors via Theme.of(context) directly below
 
     // Determine the current value.
     final Map<String, String>? currentValue =
@@ -72,26 +73,26 @@ class SelectCountryField extends StatelessWidget {
 
     final InputDecoration dropdownDecoration = InputDecoration(
       labelText: 'Select from country',
-      labelStyle: const TextStyle(color: Colors.black54),
+      labelStyle: const TextStyle(color: AppColors.textSecondary),
       prefixIcon: prefixIcon,
       suffixIcon: showDropdownIcon
-          ? const Icon(Icons.arrow_drop_down, color: Colors.black54)
+          ? const Icon(Icons.arrow_drop_down, color: AppColors.textSecondary)
           : const SizedBox.shrink(),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
-        borderSide: BorderSide(color: Colors.grey.shade500.withOpacity(0.35), width: 1),
+        borderSide: const BorderSide(color: AppColors.inputBorder, width: 1),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
-        borderSide: BorderSide(color: Colors.grey.shade500.withOpacity(0.35), width: 1),
+        borderSide: const BorderSide(color: AppColors.inputBorder, width: 1),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
-        borderSide: const BorderSide(color: primaryGreen, width: 2),
+        borderSide: const BorderSide(color: AppColors.primary, width: 2),
       ),
       filled: true,
-      fillColor: Colors.white,
+      fillColor: AppColors.card,
     );
 
     String dialFor(Map<String, String> c) {
@@ -110,7 +111,7 @@ class SelectCountryField extends StatelessWidget {
       initialValue: currentValue,
       hint: const Text('Select from country'),
       isExpanded: true,
-      dropdownColor: Colors.white,
+      dropdownColor: AppColors.card,
       items: SelectCountryField.getCountries().map((
         Map<String, String> country,
       ) {
@@ -129,7 +130,7 @@ class SelectCountryField extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 0.2,
-                    color: Colors.black87,
+                    color: AppColors.textPrimary,
                   ),
                 ),
               ),
@@ -148,7 +149,7 @@ class SelectCountryField extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
-                  color: Colors.black87,
+                  color: AppColors.textPrimary,
                 ),
               ),
             );
@@ -157,7 +158,7 @@ class SelectCountryField extends StatelessWidget {
       disabledHint: currentValue != null ? Text(display(currentValue)) : null,
       validator: validator,
       icon: showDropdownIcon
-          ? const Icon(Icons.arrow_drop_down, color: Colors.black54)
+          ? const Icon(Icons.arrow_drop_down, color: AppColors.textSecondary)
           : const SizedBox.shrink(),
     );
   }
