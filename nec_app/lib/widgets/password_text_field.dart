@@ -1,7 +1,6 @@
 // lib/widgets/password_text_field.dart
 import 'package:flutter/material.dart';
-
-const Color _primaryGreen = Color(0xFF4CAF50);
+import 'package:nec_app/theme/theme_data.dart';
 
 class PasswordTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -29,14 +28,14 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   InputDecoration _inputDecoration() {
     return InputDecoration(
       labelText: widget.labelText,
-      labelStyle: const TextStyle(color: Colors.black54),
+      labelStyle: const TextStyle(color: AppColors.textSecondary),
       prefixIcon: widget.prefixIcon != null
           ? Icon(widget.prefixIcon, color: Colors.grey)
           : null,
       suffixIcon: IconButton(
         icon: Icon(
           _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-          color: Colors.black54,
+          color: AppColors.textSecondary,
         ),
         onPressed: () {
           setState(() {
@@ -47,18 +46,18 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
-        borderSide: BorderSide(color: Colors.grey.shade500.withOpacity(0.35), width: 1),
+        borderSide: const BorderSide(color: AppColors.inputBorder, width: 1),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
-        borderSide: BorderSide(color: Colors.grey.shade500.withOpacity(0.35), width: 1),
+        borderSide: const BorderSide(color: AppColors.inputBorder, width: 1),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
-        borderSide: const BorderSide(color: _primaryGreen, width: 2),
+        borderSide: const BorderSide(color: AppColors.primary, width: 2),
       ),
       filled: true,
-      fillColor: Colors.white,
+      fillColor: AppColors.card,
     );
   }
 
@@ -70,7 +69,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       validator: widget.validator,
       onChanged: widget.onChanged,
       decoration: _inputDecoration(),
-      style: const TextStyle(color: Colors.black),
+      style: const TextStyle(color: AppColors.textPrimary),
     );
   }
 }
