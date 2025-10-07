@@ -24,18 +24,18 @@ class PrimaryButton extends StatelessWidget {
         onPressed: enabled ? onPressed : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: enabled
-              ? const Color(0xFF4CAF50)
-              : (disabledColor ?? const Color(0xFFE0E0E0)),
+              ? Theme.of(context).colorScheme.primary
+              : (disabledColor ?? Theme.of(context).dividerColor),
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
           elevation: 0,
           shadowColor: Colors.transparent,
         ),
         child: Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
         ),
       ),
