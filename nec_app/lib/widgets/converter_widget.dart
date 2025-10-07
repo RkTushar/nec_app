@@ -1,37 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nec_app/models/country_model.dart';
 
-// Dummy exchange rates relative to a base currency (USD = 1.0)
-// Tuned so that 1 GBP ≈ 164.20 BDT for demo purposes
-const Map<String, double> _exchangeRates = {
-  'USD': 1.0,
-  'EUR': 0.93, // 1 USD = 0.93 EUR
-  'GBP': 0.81, // 1 USD = 0.81 GBP
-  'BDT': 132.00, // 1 USD = 132.00 BDT -> 1 GBP ≈ 164.20 BDT
-  'JPY': 150.0, // 1 USD = 150 JPY
-  'CAD': 1.36, // 1 USD = 1.36 CAD
-  'AUD': 1.50, // 1 USD = 1.50 AUD
-};
-
-const Map<String, String> _currencyFlags = {
-  'USD': '🇺🇸',
-  'EUR': '🇪🇺',
-  'GBP': '🇬🇧',
-  'BDT': '🇧🇩',
-  'JPY': '🇯🇵',
-  'CAD': '🇨🇦',
-  'AUD': '🇦🇺',
-};
-
-const Map<String, String> _currencySymbols = {
-  'USD': r'$',
-  'EUR': '€',
-  'GBP': '£',
-  'BDT': 'BDT',
-  'JPY': '¥',
-  'CAD': 'C\$',
-  'AUD': 'A\$',
-};
+// All currency metadata and rates are now sourced from CurrencyRepository.
 
 class ConverterWidget extends StatefulWidget {
   const ConverterWidget({super.key});
@@ -113,8 +84,8 @@ class _ConverterWidgetState extends State<ConverterWidget> {
         targetController.text = sourceController.text;
         return;
       }
-      final double? sourceRate = _exchangeRates[sourceCurrency];
-      final double? targetRate = _exchangeRates[targetCurrency];
+      final double? sourceRate = CurrencyRepository.rate(sourceCurrency);
+      final double? targetRate = CurrencyRepository.rate(targetCurrency);
       if (sourceRate == null || targetRate == null) {
         targetController.text = '';
         return;
@@ -182,12 +153,12 @@ class _ConverterWidgetState extends State<ConverterWidget> {
     required String hintText,
     bool readOnly = false,
   }) {
-    final List<DropdownMenuItem<String>> currencyItems = _exchangeRates.keys
+    final List<DropdownMenuItem<String>> currencyItems = CurrencyRepository.getSupportedCurrencies()
         .map((String key) => DropdownMenuItem<String>(
               value: key,
               child: Row(
                 children: <Widget>[
-                  Text(_currencyFlags[key] ?? '', style: const TextStyle(fontSize: 18)),
+                  Text(CurrencyRepository.flag(key), style: const TextStyle(fontSize: 18)),
                   const SizedBox(width: 8),
                   Text(key, style: const TextStyle(fontWeight: FontWeight.w600)),
                 ],
@@ -252,12 +223,10 @@ class _ConverterWidgetState extends State<ConverterWidget> {
   Widget _buildRateLine() {
     final String from = _sendCurrency ?? '';
     final String to = _receiveCurrency ?? '';
-    final double? sourceRate = _exchangeRates[from];
-    final double? targetRate = _exchangeRates[to];
-    if (sourceRate == null || targetRate == null) return const SizedBox.shrink();
-    final double perOne = (1.0 / sourceRate) * targetRate;
-    final String fromSymbol = _currencySymbols[from] ?? from;
-    final String toSymbol = _currencySymbols[to] ?? to;
+    final double? perOne = CurrencyRepository.perOne(from: from, to: to);
+    if (perOne == null) return const SizedBox.shrink();
+    final String fromSymbol = CurrencyRepository.symbol(from);
+    final String toSymbol = CurrencyRepository.symbol(to);
     return Center(
       child: Text(
         '$fromSymbol 1.00= $toSymbol ${perOne.toStringAsFixed(2)}',
