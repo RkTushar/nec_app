@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:nec_app/theme/theme_data.dart';
+import 'package:nec_app/models/country_model.dart';
 
 class SelectCountryField extends StatelessWidget {
   final Map<String, String>? selectedCountryData;
@@ -23,23 +24,18 @@ class SelectCountryField extends StatelessWidget {
     this.showDropdownIcon = true,
   });
 
-  // The list of countries is an internal, static property.
-  static final List<Map<String, String>> _countries = <Map<String, String>>[
-    {'code': 'ZA', 'name': 'South Africa', 'flag': '🇿🇦', 'dial': '27'},
-    {'code': 'US', 'name': 'United States', 'flag': '🇺🇸', 'dial': '1'},
-    {'code': 'IN', 'name': 'India', 'flag': '🇮🇳', 'dial': '91'},
-    {'code': 'JP', 'name': 'Japan', 'flag': '🇯🇵', 'dial': '81'},
-    {'code': 'GB', 'name': 'United Kingdom', 'flag': '🇬🇧', 'dial': '44'},
-  ];
+  // Cache country maps so DropdownButton values match item identities.
+  static final List<Map<String, String>> _countriesCache =
+      CountryRepository.getAll().map((Country c) => c.toMap()).toList();
 
   // Expose the country list via a static getter for other widgets to use.
-  static List<Map<String, String>> getCountries() => _countries;
+  static List<Map<String, String>> getCountries() => _countriesCache;
 
   // A helper to find the country data from a code.
   static Map<String, String>? getCountryByCode(String code) {
     try {
-      return _countries.firstWhere(
-        (c) => (c['code'] ?? '').toUpperCase() == code.toUpperCase(),
+      return _countriesCache.firstWhere(
+        (Map<String, String> c) => (c['code'] ?? '').toUpperCase() == code.toUpperCase(),
       );
     } catch (_) {
       return null;
@@ -51,9 +47,13 @@ class SelectCountryField extends StatelessWidget {
     // Use themed colors via Theme.of(context) directly below
 
     // Determine the current value.
-    final Map<String, String>? currentValue =
-        selectedCountryData ??
-        SelectCountryField.getCountryByCode(initialCountryCode ?? '');
+    Map<String, String>? currentValue;
+    if (selectedCountryData != null) {
+      final String code = (selectedCountryData!['code'] ?? '').toString();
+      currentValue = SelectCountryField.getCountryByCode(code) ?? selectedCountryData;
+    } else {
+      currentValue = SelectCountryField.getCountryByCode(initialCountryCode ?? '');
+    }
 
     final Widget prefixIcon = currentValue != null
         ? Padding(
