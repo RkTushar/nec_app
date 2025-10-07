@@ -36,8 +36,7 @@ class NotificationButton extends StatelessWidget {
             child: Icon(icon, size: size * 0.55, color: iconColor),
           ),
         ),
-        if (count > 0)
-          Positioned(
+        Positioned(
             right: 0,
             top: 0,
             child: Container(
@@ -55,7 +54,7 @@ class NotificationButton extends StatelessWidget {
                 ),
               ),
             ),
-          ),
+        ),
       ],
     );
   }
