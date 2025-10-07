@@ -8,6 +8,7 @@ import '../../widgets/custom_text_button.dart';
 import 'signup_screen_1.dart';
 import 'forgot_pass_screen.dart';
 import '../../widgets/select_country_widget.dart';
+import '../homescreen/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -271,7 +272,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     final bool isValid =
                         _formKey.currentState?.validate() ?? false;
                     if (!isValid) return;
-                    // TODO: Add login logic here when valid
+                    
+                    // Navigate to home screen after successful validation
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 40),
