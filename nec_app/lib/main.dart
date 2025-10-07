@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:nec_app/screens/auth/auth_choose.dart';
+import 'package:nec_app/screens/auth/auth_choose.dart';
 import 'package:nec_app/screens/homescreen/home_screen.dart';
 
 void main() {
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      home: const HomeScreen(),
+      home: const AuthChoose(),
     );
   }
 }
