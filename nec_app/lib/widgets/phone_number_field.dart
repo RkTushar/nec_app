@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'select_country_widget.dart';
 import 'package:nec_app/theme/theme_data.dart';
+import 'package:nec_app/models/country_model.dart';
 
 class PhoneNumberField extends StatelessWidget {
   final TextEditingController controller;
@@ -22,7 +23,7 @@ class PhoneNumberField extends StatelessWidget {
   Map<String, String>? _currentCountry() {
     return selectedCountryData ??
         SelectCountryField.getCountryByCode(initialCountryCode ?? '') ??
-        SelectCountryField.getCountries().first;
+        CountryRepository.getAll().first.toMap();
   }
 
   String _dialCode() {
