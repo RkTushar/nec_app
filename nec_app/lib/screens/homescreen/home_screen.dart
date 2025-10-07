@@ -277,7 +277,7 @@ class _TransactionCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: Colors.teal, width: 2),
             ),
-            child: const Icon(Icons.person_outline, color: Colors.teal),
+            child: const Icon(Icons.person_outline_rounded, color: Colors.teal),
           ),
           const SizedBox(width: 12),
           Expanded(
