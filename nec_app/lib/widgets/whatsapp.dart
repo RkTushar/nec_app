@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-/// A reusable WhatsApp button widget.
-///
-/// - Behaves as a simple tapable image button.
-/// - If [onTap] is provided, it will be called; otherwise prints a debug log.
+/// Circular WhatsApp-style send button with light green background and no shadow.
 class WhatsAppButton extends StatelessWidget {
-  /// Custom tap handler. If provided, overrides default launch behavior.
+  /// Called when the button is tapped.
   final VoidCallback? onTap;
 
-  /// Size for the WhatsApp icon image (height in logical pixels).
+  /// Overall diameter of the circular button in logical pixels.
   final double size;
+
+  /// Background color of the circular button. Defaults to WhatsApp light green.
+  final Color backgroundColor;
+
+  /// Color tint applied to the logo. Defaults to white.
+  final Color iconColor;
 
   /// Optional semantic label for accessibility.
   final String semanticLabel;
-
-  /// Optional decoration to wrap the image, if you need shadows/borders.
-  final Decoration? decoration;
 
   /// Asset path to the WhatsApp image.
   final String assetPath;
@@ -24,22 +24,41 @@ class WhatsAppButton extends StatelessWidget {
     super.key,
     this.onTap,
     this.size = 40,
-    this.semanticLabel = 'Contact via WhatsApp',
-    this.decoration,
+    this.backgroundColor = const Color(0xFF25D366),
+    this.iconColor = Colors.white,
+    this.semanticLabel = 'Send on WhatsApp',
     this.assetPath = 'assets/images/whatsapp_logo.png',
   });
 
   @override
   Widget build(BuildContext context) {
+    final double iconSize = size * 0.54; // keep proportions similar to a FAB
+
     return Semantics(
       label: semanticLabel,
       button: true,
-      child: InkWell(
-        onTap: onTap ?? () { debugPrint('WhatsApp Support Clicked'); },
-        borderRadius: BorderRadius.circular(30),
-        child: Container(
-          decoration: decoration,
-          child: Image.asset(assetPath, height: size),
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          onTap: onTap ?? () { debugPrint('WhatsApp button tapped'); },
+          customBorder: const CircleBorder(),
+          child: Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              shape: BoxShape.circle,
+            ),
+            alignment: Alignment.center,
+            child: ColorFiltered(
+              colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+              child: Image.asset(
+                assetPath,
+                width: iconSize,
+                height: iconSize,
+              ),
+            ),
+          ),
         ),
       ),
     );
