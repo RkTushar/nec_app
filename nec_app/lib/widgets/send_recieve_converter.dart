@@ -1,32 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nec_app/models/country_model.dart';
 
-// Lightweight demo rates to match screenshots (1 GBP ≈ 164.50 BDT)
-const Map<String, double> _usdBaseRates = <String, double>{
-  'USD': 1.0,
-  'EUR': 0.93,
-  'GBP': 0.81,
-  'BDT': 132.00,
-  'PKR': 278.00,
-  'INR': 84.0,
-  'LKR': 305.0,
-  'NPR': 134.0,
-  'NGN': 1600.0,
-  'PHP': 58.0,
-};
-
-const Map<String, String> _currencyFlags = <String, String>{
-  'GBP': '🇬🇧',
-  'EUR': '🇪🇺',
-  'USD': '🇺🇸',
-  'BDT': '🇧🇩',
-  'PKR': '🇵🇰',
-  'INR': '🇮🇳',
-  'LKR': '🇱🇰',
-  'NPR': '🇳🇵',
-  'NGN': '🇳🇬',
-  'PHP': '🇵🇭',
-};
+// Rates, flags and currency listing now sourced from CurrencyRepository.
 
 class _ReceiverCountry {
   final String name;
@@ -35,15 +11,12 @@ class _ReceiverCountry {
   const _ReceiverCountry(this.name, this.currency, this.flag);
 }
 
-const List<_ReceiverCountry> _receiverCountries = <_ReceiverCountry>[
-  _ReceiverCountry('Bangladesh', 'BDT', '🇧🇩'),
-  _ReceiverCountry('Pakistan', 'PKR', '🇵🇰'),
-  _ReceiverCountry('India', 'INR', '🇮🇳'),
-  _ReceiverCountry('Sri Lanka', 'LKR', '🇱🇰'),
-  _ReceiverCountry('Nepal', 'NPR', '🇳🇵'),
-  _ReceiverCountry('Nigeria', 'NGN', '🇳🇬'),
-  _ReceiverCountry('Philippines', 'PHP', '🇵🇭'),
-];
+List<_ReceiverCountry> _buildReceiverCountries() {
+  final List<Country> countries = CurrencyRepository.defaultReceiverCountries();
+  return countries
+      .map((Country c) => _ReceiverCountry(c.name, c.currencyCode, c.flag))
+      .toList();
+}
 
 class SendReceiveConverter extends StatefulWidget {
   const SendReceiveConverter({super.key});
@@ -57,12 +30,15 @@ class _SendReceiveConverterState extends State<SendReceiveConverter> {
   final TextEditingController _recvCtrl = TextEditingController(text: '0.00');
 
   String _sendCurrency = 'GBP';
-  _ReceiverCountry _receiver = _receiverCountries.first; // Bangladesh BDT
+  late List<_ReceiverCountry> _receiverCountries;
+  late _ReceiverCountry _receiver;
   bool _isConverting = false;
 
   @override
   void initState() {
     super.initState();
+    _receiverCountries = _buildReceiverCountries();
+    _receiver = _receiverCountries.first;
     _sendCtrl.addListener(_onSendChanged);
     _recvCtrl.addListener(_onRecvChanged);
   }
@@ -94,8 +70,8 @@ class _SendReceiveConverterState extends State<SendReceiveConverter> {
   }) {
     _isConverting = true;
     try {
-      final double? fromRate = _usdBaseRates[from];
-      final double? toRate = _usdBaseRates[to];
+    final double? fromRate = CurrencyRepository.rate(from);
+    final double? toRate = CurrencyRepository.rate(to);
       if (fromRate == null || toRate == null) return;
       final double? amount = double.tryParse(source.text.replaceAll(',', '.'));
       if (amount == null) return;
@@ -108,8 +84,8 @@ class _SendReceiveConverterState extends State<SendReceiveConverter> {
   }
 
   double _ratePerOne(String from, String to) {
-    final double? fr = _usdBaseRates[from];
-    final double? tr = _usdBaseRates[to];
+    final double? fr = CurrencyRepository.rate(from);
+    final double? tr = CurrencyRepository.rate(to);
     if (fr == null || tr == null) return 0.0;
     return (1.0 / fr) * tr;
   }
@@ -221,7 +197,7 @@ class _SendReceiveConverterState extends State<SendReceiveConverter> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Text(_currencyFlags[_sendCurrency] ?? '', style: const TextStyle(fontSize: 22)),
+                      Text(CurrencyRepository.flag(_sendCurrency), style: const TextStyle(fontSize: 22)),
                       const SizedBox(width: 8),
                       Text(_sendCurrency, style: const TextStyle(fontWeight: FontWeight.w700)),
                     ],
