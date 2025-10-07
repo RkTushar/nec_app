@@ -13,15 +13,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Nec Money Mobile',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        scaffoldBackgroundColor: const Color(0xFFF8F8F8),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFFF8F8F8),
-          elevation: 0,
-        ),
-      ),
       home: const AuthChoose(),
     );
   }
