@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nec_app/screens/rewards/rewards_screen.dart';
+import 'package:nec_app/screens/history/history_screen.dart';
+import 'package:nec_app/screens/more/more_screen.dart';
+import 'package:nec_app/screens/send/send_screen.dart';
+import 'package:nec_app/screens/homescreen/home_screen.dart';
+
+enum NavTab { home, rewards, history, more }
 
 class NavBar extends StatelessWidget {
-  const NavBar({super.key});
+  final NavTab selectedTab;
+  const NavBar({super.key, required this.selectedTab});
 
   @override
   Widget build(BuildContext context) {
     final Color selectedColor = Colors.green.shade700;
     const Color unselectedColor = Colors.black54;
-    void log(String message) => debugPrint(message);
+    Color colorFor(NavTab tab) => selectedTab == tab ? selectedColor : unselectedColor;
 
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
@@ -28,9 +36,13 @@ class NavBar extends StatelessWidget {
                   child: _buildNavItem(
                     icon: Icons.home_filled,
                     label: 'Home',
-                    color: selectedColor,
+                    color: colorFor(NavTab.home),
                     onTap: () {
-                      log('Home tapped');
+                      if (selectedTab == NavTab.home) return;
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (_) => const HomeScreen()),
+                        (route) => false,
+                      );
                     },
                   ),
                 ),
@@ -38,9 +50,12 @@ class NavBar extends StatelessWidget {
                   child: _buildNavItem(
                     icon: Icons.card_giftcard_rounded,
                     label: 'Rewards',
-                    color: unselectedColor,
+                    color: colorFor(NavTab.rewards),
                     onTap: () {
-                      log('Rewards tapped');
+                      if (selectedTab == NavTab.rewards) return;
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const RewardsScreen()),
+                      );
                     },
                   ),
                 ),
@@ -49,9 +64,12 @@ class NavBar extends StatelessWidget {
                   child: _buildNavItem(
                     icon: Icons.history,
                     label: 'History',
-                    color: unselectedColor,
+                    color: colorFor(NavTab.history),
                     onTap: () {
-                      log('History tapped');
+                      if (selectedTab == NavTab.history) return;
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const HistoryScreen()),
+                      );
                     },
                   ),
                 ),
@@ -59,9 +77,12 @@ class NavBar extends StatelessWidget {
                   child: _buildNavItem(
                     icon: Icons.grid_view_rounded,
                     label: 'More',
-                    color: unselectedColor,
+                    color: colorFor(NavTab.more),
                     onTap: () {
-                      log('More tapped');
+                      if (selectedTab == NavTab.more) return;
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const MoreScreen()),
+                      );
                     },
                   ),
                 ),
@@ -71,7 +92,9 @@ class NavBar extends StatelessWidget {
               bottom: 4,
               child: GestureDetector(
                 onTap: () {
-                  log('Send tapped');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const SendScreen()),
+                  );
                 },
                 child: const Text(
                   'Send',
@@ -134,7 +157,9 @@ class CustomFloatingActionButton extends StatelessWidget {
         height: 70,
         child: FloatingActionButton(
           onPressed: () {
-            debugPrint('Send tapped');
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const SendScreen()),
+            );
           },
           backgroundColor: Colors.transparent,
           elevation: 10,
