@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:nec_app/widgets/whatsapp.dart';
+import 'package:nec_app/widgets/buttons/whatsapp.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nec_app/widgets/nav_bar.dart';
-import 'package:nec_app/widgets/primary_button.dart';
-import 'package:nec_app/widgets/secondary_button.dart';
-import 'package:nec_app/widgets/send_recieve_converter.dart';
-import 'package:nec_app/widgets/notification_button.dart';
-import 'package:nec_app/widgets/transaction_card.dart';
+import 'package:nec_app/widgets/buttons/primary_button.dart';
+import 'package:nec_app/widgets/converters/send_recieve_converter.dart';
+import 'package:nec_app/widgets/buttons/notification_button.dart';
+import 'package:nec_app/widgets/buttons/invite_button.dart';
+import 'package:nec_app/widgets/buttons/invite_button_2.dart';
+import 'package:nec_app/widgets/cards/transaction_card.dart';
 
 class HomeScreen extends StatelessWidget {
   final String? initialSenderCurrency;
@@ -201,36 +202,18 @@ class _InviteRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        SecondaryButton(
-          label: 'Invite',
+        InviteButton(
           onPressed: () {},
           backgroundColor: primaryGreen,
           foregroundColor: Colors.white,
-          borderRadius: const BorderRadius.all(Radius.circular(24)),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          height: 33,
-          width: 140,
-          trailing: ColorFiltered(
-            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-            child: Image.asset('assets/icons/person_add_icon.png', width: 20, height: 20),
-          ),
         ),
         const SizedBox(width: 8),
         const Text('& Get', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20)),
         const SizedBox(width: 8),
-        SecondaryButton(
-          label: '£5',
+        InviteButton2(
           onPressed: () {},
           backgroundColor: primaryGreen,
           foregroundColor: Colors.white,
-          borderRadius: const BorderRadius.all(Radius.circular(24)),
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-          height: 33,
-          width: 73,
-          trailing: ColorFiltered(
-            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-            child: Image.asset('assets/icons/gift_icon.png', width: 20, height: 20),
-          ),
         ),
       ],
     );
