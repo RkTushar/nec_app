@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:nec_app/screens/more/terms_condition_screen.dart';
+import 'package:nec_app/screens/more/privacy_policy_screen.dart';
 import 'package:nec_app/widgets/fields/custom_datepicker.dart';
 
 // Assuming these are your custom widgets
@@ -90,26 +91,16 @@ class _SignupScreen2State extends State<SignupScreen2> {
     }
   }
 
-  Future<void> _openPrivacyPolicy() async {
-    final Uri url = Uri.parse('https://www.necmoney.com/privacy-policy');
-    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Could not open Privacy Policy')),
-        );
-      }
-    }
+  void _openPrivacyPolicy() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen()),
+    );
   }
 
-  Future<void> _openTermsAndConditions() async {
-    final Uri url = Uri.parse('https://www.necmoney.com/terms-conditions');
-    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Could not open Terms & Conditions')),
-        );
-      }
-    }
+  void _openTermsAndConditions() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const TermsConditionScreen()),
+    );
   }
 
   @override
