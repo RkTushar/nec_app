@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'signup_screen_1.dart';
 import 'login_screen.dart';
 import 'package:nec_app/widgets/cards/common_card.dart'; // Import the new CommonCard widget
@@ -54,7 +55,7 @@ class AuthChoose extends StatelessWidget {
     return Column(
       children: [
         // The logo is now the only widget in the header column.
-        Image.asset('assets/images/logo.png', height: 100, width: 200),
+        SvgPicture.asset('assets/images/logo.svg', height: 100, width: 200),
       ],
     );
   }

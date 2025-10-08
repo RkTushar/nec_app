@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
               children: <Widget>[
                 _HeaderCard(primaryGreen: primaryGreen, notificationCount: 0),
                 const SizedBox(height: 20),
-                _InviteRow(primaryGreen: primaryGreen),
+                _InviteRow(primaryGreen: primaryGreen, currencyCode: initialSenderCurrency),
                 const SizedBox(height: 12),
                 Container(
                   // Remove card look; blend with background (dropdown remains white inside widget)
@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                   dateText: '06-Nov-24 10:10 PM',
                   highlighted: false,
                 ),
-                const SizedBox(height: 8),
+                
                 TransactionCard(
                   name: 'Badri',
                   statusText: 'Status : Cancelled',
@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                   dateText: '06-Nov-24 10:10 PM',
                   highlighted: true,
                 ),
-                const SizedBox(height: 8),
+                
                 TransactionCard(
                   name: 'Badri',
                   statusText: 'Status : Cancelled',
@@ -78,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                   dateText: '05-Nov-24 08:45 PM',
                   highlighted: false,
                 ),
-                const SizedBox(height: 8),
+                
                 TransactionCard(
                   name: 'Badri',
                   statusText: 'Status : Cancelled',
@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                   dateText: '04-Nov-24 07:20 PM',
                   highlighted: true,
                 ),
-                const SizedBox(height: 8),
+                
                 TransactionCard(
                   name: 'Badri',
                   statusText: 'Status : Cancelled',
@@ -94,31 +94,7 @@ class HomeScreen extends StatelessWidget {
                   dateText: '03-Nov-24 06:05 PM',
                   highlighted: false,
                 ),
-                const SizedBox(height: 8),
-                TransactionCard(
-                  name: 'Badri',
-                  statusText: 'Status : Cancelled',
-                  amountText: 'BDT 15,000.00',
-                  dateText: '02-Nov-24 05:30 PM',
-                  highlighted: true,
-                ),
-                const SizedBox(height: 8),
-                TransactionCard(
-                  name: 'Badri',
-                  statusText: 'Status : Cancelled',
-                  amountText: 'BDT 6,420.00',
-                  dateText: '01-Nov-24 04:15 PM',
-                  highlighted: false,
-                ),
-                const SizedBox(height: 8),
-                TransactionCard(
-                  name: 'Badri',
-                  statusText: 'Status : Cancelled',
-                  amountText: 'BDT 11,110.00',
-                  dateText: '31-Oct-24 03:00 PM',
-                  highlighted: true,
-                ),
-                const SizedBox(height: 8),
+                
                 TransactionCard(
                   name: 'Badri',
                   statusText: 'Status : Cancelled',
@@ -195,7 +171,8 @@ class _HeaderCard extends StatelessWidget {
 
 class _InviteRow extends StatelessWidget {
   final Color primaryGreen;
-  const _InviteRow({required this.primaryGreen});
+  final String? currencyCode;
+  const _InviteRow({required this.primaryGreen, this.currencyCode});
 
   @override
   Widget build(BuildContext context) {
@@ -214,6 +191,7 @@ class _InviteRow extends StatelessWidget {
           onPressed: () {},
           backgroundColor: primaryGreen,
           foregroundColor: Colors.white,
+          currencyCode: currencyCode,
         ),
       ],
     );
