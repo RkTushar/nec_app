@@ -6,6 +6,7 @@ import 'package:nec_app/widgets/primary_button.dart';
 import 'package:nec_app/widgets/secondary_button.dart';
 import 'package:nec_app/widgets/send_recieve_converter.dart';
 import 'package:nec_app/widgets/notification_button.dart';
+import 'package:nec_app/widgets/transaction_card.dart';
 
 class HomeScreen extends StatelessWidget {
   final String? initialSenderCurrency;
@@ -53,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 16),
                 const Text('Recent transactions', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
                 const SizedBox(height: 8),
-                _TransactionCard(
+                TransactionCard(
                   name: 'Badri',
                   statusText: 'Status : Cancelled',
                   amountText: 'BDT 10,000.00',
@@ -61,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                   highlighted: false,
                 ),
                 const SizedBox(height: 8),
-                _TransactionCard(
+                TransactionCard(
                   name: 'Badri',
                   statusText: 'Status : Cancelled',
                   amountText: 'BDT 10,000.00',
@@ -69,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                   highlighted: true,
                 ),
                 const SizedBox(height: 8),
-                _TransactionCard(
+                TransactionCard(
                   name: 'Badri',
                   statusText: 'Status : Cancelled',
                   amountText: 'BDT 8,500.00',
@@ -77,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                   highlighted: false,
                 ),
                 const SizedBox(height: 8),
-                _TransactionCard(
+                TransactionCard(
                   name: 'Badri',
                   statusText: 'Status : Cancelled',
                   amountText: 'BDT 12,300.00',
@@ -85,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                   highlighted: true,
                 ),
                 const SizedBox(height: 8),
-                _TransactionCard(
+                TransactionCard(
                   name: 'Badri',
                   statusText: 'Status : Cancelled',
                   amountText: 'BDT 9,750.00',
@@ -93,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                   highlighted: false,
                 ),
                 const SizedBox(height: 8),
-                _TransactionCard(
+                TransactionCard(
                   name: 'Badri',
                   statusText: 'Status : Cancelled',
                   amountText: 'BDT 15,000.00',
@@ -101,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                   highlighted: true,
                 ),
                 const SizedBox(height: 8),
-                _TransactionCard(
+                TransactionCard(
                   name: 'Badri',
                   statusText: 'Status : Cancelled',
                   amountText: 'BDT 6,420.00',
@@ -109,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                   highlighted: false,
                 ),
                 const SizedBox(height: 8),
-                _TransactionCard(
+                TransactionCard(
                   name: 'Badri',
                   statusText: 'Status : Cancelled',
                   amountText: 'BDT 11,110.00',
@@ -117,7 +118,7 @@ class HomeScreen extends StatelessWidget {
                   highlighted: true,
                 ),
                 const SizedBox(height: 8),
-                _TransactionCard(
+                TransactionCard(
                   name: 'Badri',
                   statusText: 'Status : Cancelled',
                   amountText: 'BDT 7,300.00',
@@ -237,69 +238,3 @@ class _InviteRow extends StatelessWidget {
 }
 
 
-class _TransactionCard extends StatelessWidget {
-  final String name;
-  final String statusText;
-  final String amountText;
-  final String dateText;
-  final bool highlighted;
-
-  const _TransactionCard({
-    required this.name,
-    required this.statusText,
-    required this.amountText,
-    required this.dateText,
-    required this.highlighted,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: highlighted ? const Color(0xFF1E88E5) : Theme.of(context).dividerColor,
-          width: highlighted ? 2 : 1,
-        ),
-        boxShadow: highlighted
-            ? <BoxShadow>[BoxShadow(color: const Color(0xFF1E88E5).withOpacity(0.1), blurRadius: 6, offset: const Offset(0, 2))]
-            : null,
-      ),
-      padding: const EdgeInsets.all(12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.teal, width: 2),
-            ),
-            child: const Icon(Icons.person_outline_rounded, color: Colors.teal),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(name, style: const TextStyle(fontWeight: FontWeight.w700)),
-                const SizedBox(height: 4),
-                const Text('Status : Cancelled', style: TextStyle(color: Color(0xFFD32F2F), fontWeight: FontWeight.w600)),
-              ],
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Text(dateText, style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 12)),
-              const SizedBox(height: 6),
-              Text(amountText, style: const TextStyle(color: Color(0xFFD32F2F), fontWeight: FontWeight.w800)),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}
