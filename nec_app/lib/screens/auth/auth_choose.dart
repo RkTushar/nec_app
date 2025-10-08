@@ -168,8 +168,8 @@ class AuthChoose extends StatelessWidget {
                                     bottomLeft: Radius.circular(50),
                                     bottomRight: Radius.circular(50),
                                   ),
-                                  child: Image.asset(
-                                    'assets/decoration/Vector.png',
+                                  child: SvgPicture.asset(
+                                    'assets/decoration/arc_bg.svg',
                                     fit: BoxFit.cover,
                                     alignment: Alignment.topCenter,
                                   ),
@@ -236,8 +236,8 @@ class _TopBarDecoration extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 15,
-      child: Image.asset(
-        'assets/decoration/Rectangle_sidebar.png',
+      child: SvgPicture.asset(
+        'assets/decoration/Rectangle_sidebar.svg',
         fit: BoxFit.cover,
         alignment: Alignment.topCenter,
       ),
@@ -254,8 +254,8 @@ class _SideBarDecoration extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 15,
-      child: Image.asset(
-        'assets/decoration/Rectangle_sidebar.png',
+      child: SvgPicture.asset(
+        'assets/decoration/Rectangle_sidebar.svg',
         fit: BoxFit.cover,
         alignment: isRight ? Alignment.centerRight : Alignment.centerLeft,
       ),
