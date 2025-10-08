@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 /// Circular WhatsApp-style send button with light green background and no shadow.
 class WhatsAppButton extends StatefulWidget {
@@ -36,7 +37,7 @@ class WhatsAppButton extends StatefulWidget {
     this.backgroundColor = const Color(0xFF25D366),
     this.iconColor = Colors.white,
     this.semanticLabel = 'Send on WhatsApp',
-    this.assetPath = 'assets/images/whatsapp_logo.png',
+    this.assetPath = 'assets/images/whatsapp_logo.svg',
     this.shakeDuration = const Duration(milliseconds: 700),
     this.shakeInterval = const Duration(seconds: 3),
     this.shakeAmplitude = 0.18, // ~10 degrees
@@ -122,7 +123,7 @@ class _WhatsAppButtonState extends State<WhatsAppButton> with SingleTickerProvid
               },
               child: ColorFiltered(
                 colorFilter: ColorFilter.mode(widget.iconColor, BlendMode.srcIn),
-                child: Image.asset(
+                child: SvgPicture.asset(
                   widget.assetPath,
                   width: iconSize,
                   height: iconSize,

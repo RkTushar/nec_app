@@ -5,8 +5,8 @@ import 'package:nec_app/widgets/nav_bar.dart';
 import 'package:nec_app/widgets/buttons/primary_button.dart';
 import 'package:nec_app/widgets/converters/send_recieve_converter.dart';
 import 'package:nec_app/widgets/buttons/notification_button.dart';
-import 'package:nec_app/widgets/buttons/invite_button.dart';
-import 'package:nec_app/widgets/buttons/invite_button_2.dart';
+import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
+import 'package:nec_app/widgets/buttons/invite/invite_button_2.dart';
 import 'package:nec_app/widgets/cards/transaction_card.dart';
 
 class HomeScreen extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../widgets/select_country_widget.dart'; // Import the country widget
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/back_button.dart';
-import '../../widgets/primary_button.dart';
+import '../../widgets/fields/select_country_widget.dart'; // Import the country widget
+import '../../widgets/fields/custom_text_field.dart';
+import '../../widgets/buttons/back_button.dart';
+import '../../widgets/buttons/primary_button.dart';
 import 'login_screen.dart';
 import 'signup_screen_2.dart';
 

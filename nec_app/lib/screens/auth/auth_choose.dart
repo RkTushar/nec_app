@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'signup_screen_1.dart';
 import 'login_screen.dart';
-import 'package:nec_app/widgets/common_card.dart'; // Import the new CommonCard widget
-import 'package:nec_app/widgets/secondary_button.dart';
-import 'package:nec_app/widgets/converter_widget.dart';
-import 'package:nec_app/widgets/whatsapp.dart';
+import 'package:nec_app/widgets/cards/common_card.dart'; // Import the new CommonCard widget
+import 'package:nec_app/widgets/buttons/secondary_button.dart';
+import 'package:nec_app/widgets/converters/converter_widget.dart';
+import 'package:nec_app/widgets/buttons/whatsapp.dart';
 
 // --- COLOR CONSTANTS (Based on UI Analysis) ---
 const Color _primaryGreen = Color(0xFF1B6A00); // Dark green header

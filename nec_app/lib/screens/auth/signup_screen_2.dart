@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:nec_app/widgets/custom_datepicker.dart';
+import 'package:nec_app/widgets/fields/custom_datepicker.dart';
 
 // Assuming these are your custom widgets
-import '../../widgets/back_button.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/password_text_field.dart';
-import '../../widgets/primary_button.dart';
-import '../../widgets/select_country_widget.dart';
-import '../../widgets/phone_number_field.dart';
+import '../../widgets/buttons/back_button.dart';
+import '../../widgets/fields/custom_text_field.dart';
+import '../../widgets/fields/password_text_field.dart';
+import '../../widgets/buttons/primary_button.dart';
+import '../../widgets/fields/select_country_widget.dart';
+import '../../widgets/fields/phone_number_field.dart';
 
 const Color _primaryGreen = Color(0xFF4CAF50);
 const double _fieldSpacing = 16.0;

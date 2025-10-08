@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 // Assuming these are your custom widgets
-import '../../widgets/back_button.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/primary_button.dart';
-import '../../widgets/select_country_widget.dart';
-import '../../widgets/custom_datepicker.dart';
+import '../../widgets/buttons/back_button.dart';
+import '../../widgets/fields/custom_text_field.dart';
+import '../../widgets/buttons/primary_button.dart';
+import '../../widgets/fields/select_country_widget.dart';
+import '../../widgets/fields/custom_datepicker.dart';
 
 // Define the main color from the image (a shade of green)
 const Color _primaryGreen = Color(0xFF4CAF50);

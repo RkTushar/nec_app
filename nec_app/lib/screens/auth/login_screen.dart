@@ -1,13 +1,13 @@
 // Path: login_screen.dart
 
 import 'package:flutter/material.dart';
-import '../../widgets/primary_button.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/password_text_field.dart';
-import '../../widgets/custom_text_button.dart';
+import '../../widgets/buttons/primary_button.dart';
+import '../../widgets/fields/custom_text_field.dart';
+import '../../widgets/fields/password_text_field.dart';
+import '../../widgets/buttons/custom_text_button.dart';
 import 'signup_screen_1.dart';
 import 'forgot_pass_screen.dart';
-import '../../widgets/select_country_widget.dart';
+import '../../widgets/fields/select_country_widget.dart';
 import '../homescreen/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
