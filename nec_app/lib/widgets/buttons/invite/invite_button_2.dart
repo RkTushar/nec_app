@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-/// A compact secondary-style button for the £5 invite action.
-/// Matches the styling currently used on the Home screen for the £5 button
-/// while being reusable across the app.
 class InviteButton2 extends StatelessWidget {
   final VoidCallback? onPressed;
   final Color? backgroundColor;
@@ -43,7 +41,7 @@ class InviteButton2 extends StatelessWidget {
             const SizedBox(width: 6),
             ColorFiltered(
               colorFilter: ColorFilter.mode(resolvedForeground, BlendMode.srcIn),
-              child: Image.asset('assets/icons/gift_icon.png', width: 20, height: 20),
+              child: SvgPicture.asset('assets/icons/gift_icon.svg', width: 20, height: 20),
             ),
           ],
         ),

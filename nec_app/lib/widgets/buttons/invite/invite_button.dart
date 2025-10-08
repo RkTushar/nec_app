@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 /// A compact secondary-style button for the Invite action.
 /// Matches styling used on the Home screen for the Invite button
@@ -43,7 +44,7 @@ class InviteButton extends StatelessWidget {
             const SizedBox(width: 8),
             ColorFiltered(
               colorFilter: ColorFilter.mode(resolvedForeground, BlendMode.srcIn),
-              child: Image.asset('assets/icons/person_add_icon.png', width: 20, height: 20),
+              child: SvgPicture.asset('assets/icons/person_add_icon.svg', width: 20, height: 20),
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});
@@ -194,8 +195,8 @@ class CustomFloatingActionButton extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: Image.asset(
-                'assets/icons/send_icon.png',
+              child: SvgPicture.asset(
+                'assets/icons/send_icon.svg',
                 width: 26,
                 height: 26,
                 fit: BoxFit.contain,
