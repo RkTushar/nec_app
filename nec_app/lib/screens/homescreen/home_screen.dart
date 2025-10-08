@@ -161,7 +161,7 @@ class _HeaderCard extends StatelessWidget {
             radius: 26,
             backgroundColor: Colors.transparent,
             child: SvgPicture.asset(
-              'assets/images/profile_icon.svg',
+              'assets/icons/profile_icon.svg',
               width: 52,
               height: 52,
               fit: BoxFit.cover,
@@ -211,7 +211,7 @@ class _InviteRow extends StatelessWidget {
           width: 140,
           trailing: ColorFiltered(
             colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-            child: Image.asset('assets/images/person_add_icon.png', width: 20, height: 20),
+            child: Image.asset('assets/icons/person_add_icon.png', width: 20, height: 20),
           ),
         ),
         const SizedBox(width: 8),
@@ -228,7 +228,7 @@ class _InviteRow extends StatelessWidget {
           width: 73,
           trailing: ColorFiltered(
             colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-            child: Image.asset('assets/images/gift_icon.png', width: 20, height: 20),
+            child: Image.asset('assets/icons/gift_icon.png', width: 20, height: 20),
           ),
         ),
       ],
