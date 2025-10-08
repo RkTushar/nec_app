@@ -195,7 +195,7 @@ class CustomFloatingActionButton extends StatelessWidget {
             ),
             child: Center(
               child: Image.asset(
-                'assets/images/send_icon.png',
+                'assets/icons/send_icon.png',
                 width: 26,
                 height: 26,
                 fit: BoxFit.contain,
