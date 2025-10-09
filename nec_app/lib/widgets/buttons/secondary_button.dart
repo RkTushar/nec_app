@@ -48,7 +48,7 @@ class SecondaryButton extends StatelessWidget {
         if (leading != null) const SizedBox(width: 6),
         Text(
           label,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: foregroundColor),
         ),
         if (trailing != null) const SizedBox(width: 6),
         if (trailing != null) trailing!,
@@ -61,6 +61,7 @@ class SecondaryButton extends StatelessWidget {
             style: commonStyle.merge(
               OutlinedButton.styleFrom(
                 foregroundColor: foregroundColor,
+                backgroundColor: backgroundColor, // allow white filled outlined button
                 side: BorderSide(color: borderColor),
               ),
             ),
