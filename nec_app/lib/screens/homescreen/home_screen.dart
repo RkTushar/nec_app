@@ -9,6 +9,7 @@ import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button_2.dart';
 import 'package:nec_app/widgets/cards/transaction_card.dart';
 import 'package:nec_app/widgets/cards/rating_card.dart';
+import 'package:nec_app/screens/send/send_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final String? initialSenderCurrency;
@@ -53,7 +54,16 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 12),
-                PrimaryButton(label: 'Continue', onPressed: () {}),
+                PrimaryButton(
+                  label: 'Continue',
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const SendScreen(showNavBar: false),
+                      ),
+                    );
+                  },
+                ),
                 const SizedBox(height: 16),
                 const Text('Recent transactions', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
                 const SizedBox(height: 8),
