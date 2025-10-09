@@ -39,7 +39,7 @@ class WhatsAppButton extends StatefulWidget {
     this.semanticLabel = 'Send on WhatsApp',
     this.assetPath = 'assets/images/whatsapp_logo.svg',
     this.shakeDuration = const Duration(milliseconds: 700),
-    this.shakeInterval = const Duration(seconds: 3),
+    this.shakeInterval = const Duration(seconds: 2),
     this.shakeAmplitude = 0.18, // ~10 degrees
   });
 
