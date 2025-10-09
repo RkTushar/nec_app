@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nec_app/widgets/nav_bar.dart';
+import 'package:nec_app/widgets/buttons/back_button.dart';
 
 class SendScreen extends StatelessWidget {
-  const SendScreen({super.key});
+  final bool showNavBar; // when false, hide FAB and Bottom Nav
+  const SendScreen({super.key, this.showNavBar = true});
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +12,9 @@ class SendScreen extends StatelessWidget {
       extendBody: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        leading: showNavBar
+            ? null
+            : const AppBackButton(),
         title: const Text('Send'),
         centerTitle: true,
       ),
@@ -19,9 +24,9 @@ class SendScreen extends StatelessWidget {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
       ),
-      floatingActionButton: const CustomFloatingActionButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const NavBar(selectedTab: null),
+      floatingActionButton: showNavBar ? const CustomFloatingActionButton() : null,
+      floatingActionButtonLocation: showNavBar ? FloatingActionButtonLocation.centerDocked : null,
+      bottomNavigationBar: showNavBar ? const NavBar(selectedTab: null) : null,
     );
   }
 }
