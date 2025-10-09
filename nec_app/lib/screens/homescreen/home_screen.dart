@@ -8,6 +8,7 @@ import 'package:nec_app/widgets/buttons/notification_button.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button_2.dart';
 import 'package:nec_app/widgets/cards/transaction_card.dart';
+import 'package:nec_app/widgets/cards/rating_card.dart';
 
 class HomeScreen extends StatelessWidget {
   final String? initialSenderCurrency;
@@ -32,6 +33,7 @@ class HomeScreen extends StatelessWidget {
               children: <Widget>[
                 _HeaderCard(primaryGreen: primaryGreen, notificationCount: 0),
                 const SizedBox(height: 20),
+                const RatingCard(),
                 _InviteRow(primaryGreen: primaryGreen, currencyCode: initialSenderCurrency),
                 const SizedBox(height: 12),
                 Container(
