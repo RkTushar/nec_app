@@ -9,6 +9,7 @@ import 'signup_screen_1.dart';
 import 'forgot_pass_screen.dart';
 import '../../widgets/fields/select_country_widget.dart';
 import '../homescreen/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -268,13 +269,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 24),
                 PrimaryButton(
                   label: 'Log in',
-                  onPressed: () {
+                  onPressed: () async {
                     final bool isValid =
                         _formKey.currentState?.validate() ?? false;
                     if (!isValid) return;
                     
                     // Navigate to home screen with selected sender currency and default amount 100
                     final String? selectedCurrency = _selectedCountryData?['currency'];
+                    final String? selectedSymbol = _selectedCountryData?['currencySymbol'];
+                    // Persist for other screens (e.g., Rewards)
+                    final SharedPreferences prefs = await SharedPreferences.getInstance();
+                    if (selectedSymbol != null && selectedSymbol.isNotEmpty) {
+                      await prefs.setString('currencySymbol', selectedSymbol);
+                    }
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (context) => HomeScreen(

@@ -44,6 +44,8 @@ class NavBar extends StatelessWidget {
                 Expanded(
                   child: _buildNavItem(
                     icon: Icons.home_filled,
+                    svgAsset: 'assets/icons/nav_home.svg',
+                    iconSize: 22,
                     label: 'Home',
                     color: colorFor(NavTab.home),
                     onTap: () {

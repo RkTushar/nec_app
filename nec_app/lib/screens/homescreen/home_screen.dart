@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color primaryGreen = Theme.of(context).colorScheme.primary;
+    // Symbol remains available via SharedPreferences for other screens; no need to pass here.
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,

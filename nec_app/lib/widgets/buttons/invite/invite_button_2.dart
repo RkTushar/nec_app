@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nec_app/models/country_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class InviteButton2 extends StatelessWidget {
+class InviteButton2 extends StatefulWidget {
   final VoidCallback? onPressed;
   final Color? backgroundColor;
   final Color? foregroundColor;
@@ -17,16 +18,39 @@ class InviteButton2 extends StatelessWidget {
   });
 
   @override
+  State<InviteButton2> createState() => _InviteButton2State();
+}
+
+class _InviteButton2State extends State<InviteButton2> {
+  String _symbol = '£';
+
+  @override
+  void initState() {
+    super.initState();
+    _resolveSymbol();
+  }
+
+  Future<void> _resolveSymbol() async {
+    if (widget.currencyCode != null && widget.currencyCode!.trim().isNotEmpty) {
+      setState(() => _symbol = CurrencyRepository.symbol(widget.currencyCode!.toUpperCase()));
+      return;
+    }
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? saved = prefs.getString('currencySymbol');
+    if (saved != null && saved.isNotEmpty) {
+      setState(() => _symbol = saved);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final Color resolvedBackground = backgroundColor ?? Theme.of(context).colorScheme.primary;
-    final Color resolvedForeground = foregroundColor ?? Colors.white;
-    final String code = (currencyCode == null || currencyCode!.trim().isEmpty) ? 'GBP' : currencyCode!.toUpperCase();
-    final String symbol = CurrencyRepository.symbol(code);
+    final Color resolvedBackground = widget.backgroundColor ?? Theme.of(context).colorScheme.primary;
+    final Color resolvedForeground = widget.foregroundColor ?? Colors.white;
 
     return SizedBox(
       height: 33,
       child: TextButton(
-        onPressed: onPressed,
+        onPressed: widget.onPressed,
         style: TextButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
           backgroundColor: resolvedBackground,
@@ -39,7 +63,7 @@ class InviteButton2 extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '${symbol}5',
+              '${_symbol}5',
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
             const SizedBox(width: 6),
