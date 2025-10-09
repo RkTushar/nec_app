@@ -37,9 +37,9 @@ class InviteButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
+            Text(
               'Invite',
-              style: TextStyle(fontWeight: FontWeight.w600),
+              style: TextStyle(fontWeight: FontWeight.w600, color: resolvedForeground),
             ),
             const SizedBox(width: 8),
             ColorFiltered(
