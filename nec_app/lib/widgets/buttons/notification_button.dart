@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nec_app/screens/homescreen/notification_screen.dart';
 
 class NotificationButton extends StatelessWidget {
   final int count;
@@ -28,7 +29,11 @@ class NotificationButton extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           child: InkWell
           (
-            onTap: onTap ?? () { debugPrint('Notifications tapped'); },
+            onTap: onTap ?? () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const NotificationScreen()),
+              );
+            },
             customBorder: const CircleBorder(),
             splashColor: Colors.white.withOpacity(0.20),
             highlightColor: Colors.white.withOpacity(0.10),

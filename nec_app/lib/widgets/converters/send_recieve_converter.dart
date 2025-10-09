@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nec_app/models/country_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Rates, flags and currency listing now sourced from CurrencyRepository.
 
@@ -41,19 +42,10 @@ class _SendReceiveConverterState extends State<SendReceiveConverter> {
     super.initState();
     _receiverCountries = _buildReceiverCountries();
     _receiver = _receiverCountries.first;
-    // Initialize sender currency and amount based on inputs
-    if ((widget.initialSenderCurrency ?? '').isNotEmpty) {
-      _sendCurrency = widget.initialSenderCurrency!;
-    }
-    if ((widget.initialAmount ?? 0) > 0) {
-      _sendCtrl.text = widget.initialAmount!.toStringAsFixed(2);
-    }
+    // Initialize sender currency and amount based on inputs or persisted value
+    _initCurrencyAndAmount();
     _sendCtrl.addListener(_onSendChanged);
     _recvCtrl.addListener(_onRecvChanged);
-    // Trigger initial conversion if we have an amount
-    if (_sendCtrl.text.isNotEmpty) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _onSendChanged());
-    }
   }
 
   @override
@@ -63,6 +55,55 @@ class _SendReceiveConverterState extends State<SendReceiveConverter> {
     _sendCtrl.dispose();
     _recvCtrl.dispose();
     super.dispose();
+  }
+
+  Future<void> _initCurrencyAndAmount() async {
+    final String? incomingCurrency = (widget.initialSenderCurrency ?? '').isNotEmpty
+        ? widget.initialSenderCurrency
+        : null;
+
+    // Prefer incoming currency, otherwise load last saved, else keep default 'GBP'
+    if (incomingCurrency != null) {
+      _sendCurrency = incomingCurrency;
+      await _saveLastSenderCurrency(_sendCurrency);
+    } else {
+      final String? saved = await _loadLastSenderCurrency();
+      if ((saved ?? '').isNotEmpty) {
+        _sendCurrency = saved!;
+      }
+    }
+
+    if ((widget.initialAmount ?? 0) > 0) {
+      _sendCtrl.text = widget.initialAmount!.toStringAsFixed(2);
+    }
+
+    if (mounted) {
+      // Trigger initial conversion if we have an amount
+      if (_sendCtrl.text.isNotEmpty) {
+        WidgetsBinding.instance.addPostFrameCallback((_) => _onSendChanged());
+      }
+      setState(() {});
+    }
+  }
+
+  static const String _prefsKeyLastSenderCurrency = 'last_sender_currency_code';
+
+  Future<void> _saveLastSenderCurrency(String code) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_prefsKeyLastSenderCurrency, code);
+    } catch (_) {
+      // Intentionally ignore persistence errors
+    }
+  }
+
+  Future<String?> _loadLastSenderCurrency() async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      return prefs.getString(_prefsKeyLastSenderCurrency);
+    } catch (_) {
+      return null;
+    }
   }
 
   void _onSendChanged() {

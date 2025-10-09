@@ -5,6 +5,7 @@ import 'package:nec_app/screens/history/history_screen.dart';
 import 'package:nec_app/screens/more/more_screen.dart';
 import 'package:nec_app/screens/send/send_screen.dart';
 import 'package:nec_app/screens/homescreen/home_screen.dart';
+import 'package:nec_app/theme/theme_data.dart';
 
 enum NavTab { home, rewards, history, more }
 
@@ -22,14 +23,14 @@ class NavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color selectedColor = Colors.green.shade700;
-    const Color unselectedColor = Colors.black54;
+    final Color selectedColor = AppColors.primary;
+    const Color unselectedColor = AppColors.textSecondary;
     Color colorFor(NavTab tab) => selectedTab == tab ? selectedColor : unselectedColor;
 
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       notchMargin: 6,
-      color: const Color(0xFFEDEDED),
+      color: AppColors.scaffoldBg,
       elevation: 0,
       clipBehavior: Clip.none,
       child: Container(
@@ -103,12 +104,14 @@ class NavBar extends StatelessWidget {
                     _noAnimationRoute(const SendScreen()),
                   );
                 },
-                child: const Text(
+                child: Text(
                   'Send',
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
-                    color: Colors.black87,
+                    color: selectedTab == null
+                        ? AppColors.primary
+                        : AppColors.textSecondary,
                   ),
                 ),
               ),
@@ -186,8 +189,8 @@ class CustomFloatingActionButton extends StatelessWidget {
                 radius: 0.9,
                 // center -> edge
                 colors: [
-                  Color(0xFF2E7D32), // lighter center
-                  Color(0xFF1B5E20), // deeper edge
+                  AppColors.success, // lighter center
+                  AppColors.primaryDark, // deeper edge
                 ],
                 stops: [0.3, 1.0],
               ),

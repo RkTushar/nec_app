@@ -7,12 +7,13 @@ class AppColors {
   // Brand greens seen across the app
   static const Color primary = Color(0xFF4CAF50); // main brand green
   static const Color primaryAlt = Color(0xFF19A250); // alt green used on home
-  static const Color primaryDark = Color(0xFF1B6A00); // deep green accents
+  static const Color primaryDark = Color(0xFF1B5E20); // deep green accents (prev FAB edge)
+  static const Color selected = Color(0xFF388E3C); // matches previous selected tab green (green700)
 
   // Accents and status
   static const Color accentBlue = Color(0xFF1E88E5);
   static const Color error = Color(0xFFD32F2F);
-  static const Color success = Color(0xFF2E7D32);
+  static const Color success = Color(0xFF2E7D32); // prev FAB center green
   static const Color whatsapp = Color(0xFF25D366);
 
   // Neutrals
