@@ -105,6 +105,8 @@ class _TransactionCardState extends State<TransactionCard> {
           ]
         : null;
     final Color resolvedStatusColor = widget.statusColor ?? _statusColorFor(widget.statusText);
+    final bool isDone = widget.statusText.toLowerCase().contains('done');
+    final Color resolvedAmountColor = widget.amountColor ?? (isDone ? AppColors.primary : const Color(0xFFD32F2F));
 
     return GestureDetector(
       onTapDown: (_) => _setPressed(true),
@@ -192,7 +194,7 @@ class _TransactionCardState extends State<TransactionCard> {
                 Text(
                   widget.amountText,
                   style: TextStyle(
-                    color: widget.amountColor ?? const Color(0xFFD32F2F),
+                    color: resolvedAmountColor,
                     fontWeight: FontWeight.w800,
                   ),
                 ),

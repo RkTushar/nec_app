@@ -8,6 +8,7 @@ import 'package:nec_app/widgets/buttons/notification_button.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button_2.dart';
 import 'package:nec_app/widgets/cards/transaction_card.dart';
+import 'package:nec_app/screens/homescreen/notification_screen.dart';
 import 'package:nec_app/widgets/cards/rating_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -163,7 +164,11 @@ class _HeaderCard extends StatelessWidget {
           NotificationButton(
             count: notificationCount,
             backgroundColor: primaryGreen,
-            onTap: () { debugPrint('Notifications tapped'); },
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const NotificationScreen()),
+              );
+            },
           ),
         ],
       ),
