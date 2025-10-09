@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:nec_app/theme/theme_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // --- Color Definitions ---
 // Dark Green color for the filled state
@@ -21,9 +22,40 @@ class RatingCard extends StatefulWidget {
 class _RatingCardState extends State<RatingCard> {
   // 0 represents no rating selected. Valid ratings are 1 through 10.
   int _selectedRating = 0; 
-  bool _dismissed = false;
+  // Default hidden to avoid a brief flash before preferences load
+  bool _dismissed = true;
   bool _locked = false; // once a rating is chosen, further changes are disabled
   Timer? _autoCloseTimer;
+  static const String _prefsKeyHasRated = 'has_rated_app';
+  static const String _prefsKeyHasShown = 'has_shown_rating_card';
+
+  @override
+  void initState() {
+    super.initState();
+    _restoreState();
+  }
+
+  Future<void> _restoreState() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final bool hasRated = prefs.getBool(_prefsKeyHasRated) ?? false;
+    final bool hasShown = prefs.getBool(_prefsKeyHasShown) ?? false;
+    if (!mounted) return;
+    if (hasShown || hasRated) {
+      setState(() {
+        _dismissed = true; // already shown or rated previously
+        _locked = false;
+      });
+      return;
+    }
+
+    // Mark as shown immediately so it never appears again on future launches
+    await prefs.setBool(_prefsKeyHasShown, true);
+    if (!mounted) return;
+    setState(() {
+      _dismissed = false; // show now for the first and only time
+      _locked = false;
+    });
+  }
 
   /// Toggles or sets the selected rating.
   void _handleRatingSelection(int rating) {
@@ -33,11 +65,18 @@ class _RatingCardState extends State<RatingCard> {
       _locked = true;
     });
     widget.onRatingChanged?.call(rating);
+    // Persist immediately so navigating away doesn't lose the state
+    _persistHasRated();
     _autoCloseTimer?.cancel();
     _autoCloseTimer = Timer(const Duration(seconds: 2), () {
       if (!mounted) return;
       setState(() { _dismissed = true; });
     });
+  }
+
+  Future<void> _persistHasRated() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_prefsKeyHasRated, true);
   }
 
   /// Builds a single, interactive rating box (1 to 10).

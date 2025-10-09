@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 TransactionCard(
                   name: 'Badri',
-                  statusText: 'Status : Cancelled',
+                  statusText: 'Status : Done',
                   amountText: 'BDT 10,000.00',
                   dateText: '06-Nov-24 10:10 PM',
                   highlighted: false,
@@ -75,7 +75,7 @@ class HomeScreen extends StatelessWidget {
                 
                 TransactionCard(
                   name: 'Badri',
-                  statusText: 'Status : Cancelled',
+                  statusText: 'Status : Done',
                   amountText: 'BDT 8,500.00',
                   dateText: '05-Nov-24 08:45 PM',
                   highlighted: false,

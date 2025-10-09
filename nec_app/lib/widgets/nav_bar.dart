@@ -8,9 +8,17 @@ import 'package:nec_app/screens/homescreen/home_screen.dart';
 
 enum NavTab { home, rewards, history, more }
 
+Route<T> _noAnimationRoute<T>(Widget page) {
+  return PageRouteBuilder<T>(
+    pageBuilder: (_, __, ___) => page,
+    transitionDuration: Duration.zero,
+    reverseTransitionDuration: Duration.zero,
+  );
+}
+
 class NavBar extends StatelessWidget {
-  final NavTab selectedTab;
-  const NavBar({super.key, required this.selectedTab});
+  final NavTab? selectedTab; // null means no tab is selected (e.g., Send screen)
+  const NavBar({super.key, this.selectedTab});
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +47,8 @@ class NavBar extends StatelessWidget {
                     color: colorFor(NavTab.home),
                     onTap: () {
                       if (selectedTab == NavTab.home) return;
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (_) => const HomeScreen()),
-                        (route) => false,
+                      Navigator.of(context).pushReplacement(
+                        _noAnimationRoute(const HomeScreen()),
                       );
                     },
                   ),
@@ -53,8 +60,8 @@ class NavBar extends StatelessWidget {
                     color: colorFor(NavTab.rewards),
                     onTap: () {
                       if (selectedTab == NavTab.rewards) return;
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const RewardsScreen()),
+                      Navigator.of(context).pushReplacement(
+                        _noAnimationRoute(const RewardsScreen()),
                       );
                     },
                   ),
@@ -67,8 +74,8 @@ class NavBar extends StatelessWidget {
                     color: colorFor(NavTab.history),
                     onTap: () {
                       if (selectedTab == NavTab.history) return;
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const HistoryScreen()),
+                      Navigator.of(context).pushReplacement(
+                        _noAnimationRoute(const HistoryScreen()),
                       );
                     },
                   ),
@@ -80,8 +87,8 @@ class NavBar extends StatelessWidget {
                     color: colorFor(NavTab.more),
                     onTap: () {
                       if (selectedTab == NavTab.more) return;
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const MoreScreen()),
+                      Navigator.of(context).pushReplacement(
+                        _noAnimationRoute(const MoreScreen()),
                       );
                     },
                   ),
@@ -93,7 +100,7 @@ class NavBar extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const SendScreen()),
+                    _noAnimationRoute(const SendScreen()),
                   );
                 },
                 child: const Text(
@@ -158,7 +165,7 @@ class CustomFloatingActionButton extends StatelessWidget {
         child: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => const SendScreen()),
+              _noAnimationRoute(const SendScreen()),
             );
           },
           backgroundColor: Colors.transparent,

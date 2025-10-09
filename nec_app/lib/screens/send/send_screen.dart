@@ -21,7 +21,7 @@ class SendScreen extends StatelessWidget {
       ),
       floatingActionButton: const CustomFloatingActionButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const NavBar(selectedTab: NavTab.home),
+      bottomNavigationBar: const NavBar(selectedTab: null),
     );
   }
 }
