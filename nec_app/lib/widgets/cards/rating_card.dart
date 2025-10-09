@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nec_app/theme/theme_data.dart';
 
 // --- Color Definitions ---
 // Dark Green color for the filled state
@@ -82,7 +83,8 @@ class _RatingCardState extends State<RatingCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 8,
+      elevation: 0,
+      color: AppColors.card,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       margin: const EdgeInsets.all(16.0),
       child: Padding(
