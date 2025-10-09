@@ -19,7 +19,7 @@ class NotificationScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 12),
             child: NotificationButton(
-              count: 3,
+              count: 0,
               backgroundColor: primary,
               onTap: () {},
               size: 36,
