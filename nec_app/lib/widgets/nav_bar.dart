@@ -30,7 +30,7 @@ class NavBar extends StatelessWidget {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       notchMargin: 6,
-      color: AppColors.scaffoldBg,
+      color: Theme.of(context).colorScheme.surface,
       elevation: 0,
       clipBehavior: Clip.none,
       child: Container(
@@ -57,6 +57,8 @@ class NavBar extends StatelessWidget {
                 Expanded(
                   child: _buildNavItem(
                     icon: Icons.card_giftcard_rounded,
+                    svgAsset: 'assets/icons/nav_reward.svg',
+                    iconSize: 22,
                     label: 'Rewards',
                     color: colorFor(NavTab.rewards),
                     onTap: () {
@@ -71,6 +73,8 @@ class NavBar extends StatelessWidget {
                 Expanded(
                   child: _buildNavItem(
                     icon: Icons.history,
+                    svgAsset: 'assets/icons/nav_history.svg',
+                    iconSize: 22,
                     label: 'History',
                     color: colorFor(NavTab.history),
                     onTap: () {
@@ -124,6 +128,8 @@ class NavBar extends StatelessWidget {
 
   Widget _buildNavItem({
     required IconData icon,
+    String? svgAsset,
+    double iconSize = 24,
     required String label,
     required Color color,
     VoidCallback? onTap,
@@ -138,7 +144,15 @@ class NavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 24, color: color),
+            if (svgAsset == null)
+              Icon(icon, size: iconSize, color: color)
+            else
+              SvgPicture.asset(
+                svgAsset,
+                width: iconSize,
+                height: iconSize,
+                colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+              ),
             const SizedBox(height: 2),
             Text(
               label,
