@@ -80,6 +80,7 @@ class AuthChoose extends StatelessWidget {
                 _pushRightToLeft(context, const LoginScreen());
               },
               outlined: true,
+              backgroundColor: Colors.white,
               foregroundColor: Colors.black,
               borderColor: Colors.grey,
               height: 48,

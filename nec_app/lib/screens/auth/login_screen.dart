@@ -282,13 +282,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (selectedSymbol != null && selectedSymbol.isNotEmpty) {
                       await prefs.setString('currencySymbol', selectedSymbol);
                     }
-                    Navigator.of(context).pushReplacement(
+                    Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                         builder: (context) => HomeScreen(
                           initialSenderCurrency: selectedCurrency ?? 'GBP',
                           initialAmount: 100.0,
                         ),
                       ),
+                      (Route<dynamic> route) => false,
                     );
                   },
                 ),
