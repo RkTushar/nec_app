@@ -5,6 +5,8 @@ import 'package:nec_app/widgets/nav_bar.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
 import 'package:nec_app/widgets/buttons/secondary_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nec_app/widgets/buttons/notification_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RewardsScreen extends StatefulWidget {
   const RewardsScreen({super.key});
@@ -38,7 +40,13 @@ class _RewardsScreenState extends State<RewardsScreen> {
       extendBody: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Reward'),
+        title: const Text('Reward', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24)),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 12),
+            child: NotificationButton(backgroundColor: AppColors.primary, count: 0),
+          ),
+        ],
         centerTitle: false,
         titleSpacing: 16,
       ),
@@ -52,6 +60,31 @@ class _RewardsScreenState extends State<RewardsScreen> {
           _QrCodeCard(textTheme: textTheme),
           const SizedBox(height: 12),
           _FaqSection(textTheme: textTheme),
+          const SizedBox(height: 12),
+          SecondaryButton(
+            label: 'To know more',
+            onPressed: () async {
+              final Uri uri = Uri.parse('https://www.necmoney.com/promotion-offer/get-a-5-bonus-on-your-first-transfer');
+              final bool launched = await launchUrl(
+                uri,
+                mode: LaunchMode.externalApplication,
+              );
+              if (!launched && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Could not open link. Please try again.')),
+                );
+              }
+            },
+            outlined: true,
+            height: 56,
+            backgroundColor: Colors.white,
+            borderColor: AppColors.border,
+            foregroundColor: AppColors.primaryDark,
+            leading: Icon(Icons.link_rounded, size: 20, color: AppColors.primaryDark),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            borderRadius: const BorderRadius.all(Radius.circular(30)),
+          ),
+          const SizedBox(height: 12),
           const SizedBox(height: 72),
         ],
       ),
@@ -94,16 +127,20 @@ class _InviteFriendsCard extends StatelessWidget {
                     color: AppColors.textPrimary,
                   ),
                 ),
-                const SizedBox(height: 10),
-                const InviteButton(),
+                const SizedBox(height: 20),
+                InviteButton(
+                  onPressed: () {},
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: Colors.white,
+                ),
               ],
             ),
           ),
           const SizedBox(width: 8),
           SvgPicture.asset(
             'assets/images/reward_1.svg',
-            width: 92,
-            height: 92,
+            width: 180,
+            height: 180,
           ),
         ],
       ),
@@ -149,8 +186,8 @@ class _TotalRewardCard extends StatelessWidget {
           ),
           SvgPicture.asset(
             'assets/images/reward_2.svg',
-            width: 84,
-            height: 84,
+            width: 100,
+            height: 100,
           ),
         ],
       ),
@@ -165,18 +202,22 @@ class _QrCodeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _OutlinedCard(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      child: SecondaryButton(
-        label: 'My QR code',
-        onPressed: () {},
-        outlined: true,
-        height: 40,
-        backgroundColor: Colors.white,
-        borderColor: AppColors.border,
-        foregroundColor: AppColors.accentBlue,
-        leading: const Icon(Icons.qr_code_2, color: AppColors.accentBlue, size: 18),
+    return SecondaryButton(
+      label: 'My QR code',
+      onPressed: () {},
+      outlined: true,
+      height: 50,
+      backgroundColor: Colors.white,
+      borderColor: AppColors.border,
+      foregroundColor: AppColors.primaryDark, // dark green from theme
+      leading: SvgPicture.asset(
+        'assets/icons/qr_icon.svg',
+        width: 24,
+        height: 24,
+        colorFilter: const ColorFilter.mode(AppColors.primaryDark, BlendMode.srcIn),
       ),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      borderRadius: const BorderRadius.all(Radius.circular(30)),
     );
   }
 }
@@ -195,42 +236,22 @@ class _FaqSectionState extends State<_FaqSection> {
 
   @override
   Widget build(BuildContext context) {
-    return _OutlinedCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Rewards',
-            style: widget.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          const SizedBox(height: 8),
-          const Divider(height: 1),
-          _FaqTile(
-            title: 'How do referrals work?',
-            expanded: _openIndex == 0,
-            onTap: () => setState(() => _openIndex = _openIndex == 0 ? -1 : 0),
-            body: 'Share Nec Money with friends, family, coworkers, or anyone who needs to send money. '
-                'Earn rewards when the people you refer send the minimum amount (£25) on their first transfer. '
-                'Your rewards will automatically apply the next time when you will send money. '
-                'Additional send requirements may be required for rewards to apply. '
-                'You can earn rewards for up to 1000 successful referrals.',
-          ),
-          //  const Divider(height: 1),
-          _FaqTile(
-            title: 'How do I use my rewards?',
-            expanded: _openIndex == 1,
-            onTap: () => setState(() => _openIndex = _openIndex == 1 ? -1 : 1),
-            body: 'You can use your reward on your next transfer. '
-                'Additional send requirements may be required for rewards to apply.',
-          ),
-          // const Divider(height: 1),
-          _FaqTile(
-            title: "Why haven't I received my rewards?",
-            expanded: _openIndex == 2,
-            onTap: () => setState(() => _openIndex = _openIndex == 2 ? -1 : 2),
-            body: '''If you referred someone but didn't earn rewards, it could be because:
+    // Match UI: no enclosing card or title. Use screen background and spaced tiles only.
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _FaqTile(
+          title: 'How do I use my rewards?',
+          expanded: _openIndex == 1,
+          onTap: () => setState(() => _openIndex = _openIndex == 1 ? -1 : 1),
+          body: 'You can use your reward on your next transfer. '
+              'Additional send requirements may be required for rewards to apply.',
+        ),
+        _FaqTile(
+          title: "Why haven't I received my rewards?",
+          expanded: _openIndex == 2,
+          onTap: () => setState(() => _openIndex = _openIndex == 2 ? -1 : 2),
+          body: '''If you referred someone but didn't earn rewards, it could be because:
 • They haven't sent a transfer yet.
 • Their transfer was canceled.
 • They sent less than the minimum required.
@@ -244,9 +265,8 @@ If you didn't receive the new customer offer you expected:
 • You changed your sending country. Our offers are different depending on your location.
 
 If you think you're missing rewards, contact us for help.''',
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -264,8 +284,13 @@ class _FaqTile extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return InkWell(
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.scaffoldBg, // match screen background
+          borderRadius: BorderRadius.circular(8),
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        margin: const EdgeInsets.symmetric(vertical: 6), // show white gap from card between tiles
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -288,9 +313,21 @@ class _FaqTile extends StatelessWidget {
             ),
             if (expanded && body != null) ...[
               const SizedBox(height: 10),
-              Text(
-                body!,
-                style: textTheme.bodySmall?.copyWith(color: AppColors.textSecondary, height: 1.35),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: AppColors.border),
+                ),
+                child: Text(
+                  body!,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: AppColors.textPrimary,
+                    height: 1.4,
+                  ),
+                ),
               ),
             ],
           ],
