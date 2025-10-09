@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'package:nec_app/theme/theme_data.dart';
 
 // --- Color Definitions ---
@@ -20,15 +21,23 @@ class RatingCard extends StatefulWidget {
 class _RatingCardState extends State<RatingCard> {
   // 0 represents no rating selected. Valid ratings are 1 through 10.
   int _selectedRating = 0; 
+  bool _dismissed = false;
+  bool _locked = false; // once a rating is chosen, further changes are disabled
+  Timer? _autoCloseTimer;
 
   /// Toggles or sets the selected rating.
   void _handleRatingSelection(int rating) {
+    if (_locked) return; // ignore further taps once selected
     setState(() {
-      // If the same rating is tapped, unselect it by setting to 0, otherwise set the new rating.
-      _selectedRating = (_selectedRating == rating) ? 0 : rating;
+      _selectedRating = rating;
+      _locked = true;
     });
-    // Call the external callback with the new rating (or null if unselected)
-    widget.onRatingChanged?.call(_selectedRating == 0 ? null : _selectedRating);
+    widget.onRatingChanged?.call(rating);
+    _autoCloseTimer?.cancel();
+    _autoCloseTimer = Timer(const Duration(seconds: 2), () {
+      if (!mounted) return;
+      setState(() { _dismissed = true; });
+    });
   }
 
   /// Builds a single, interactive rating box (1 to 10).
@@ -58,7 +67,7 @@ class _RatingCardState extends State<RatingCard> {
     return Expanded(
       // Use Expanded to ensure all 10 boxes take equal width
       child: GestureDetector(
-        onTap: () => _handleRatingSelection(rating),
+        onTap: _locked ? null : () => _handleRatingSelection(rating),
         child: Container(
           height: 48,
           margin: const EdgeInsets.symmetric(horizontal: 1),
@@ -82,14 +91,29 @@ class _RatingCardState extends State<RatingCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      color: AppColors.card,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      margin: const EdgeInsets.all(16.0),
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 250),
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return FadeTransition(
+          opacity: animation,
+          child: SizeTransition(
+            sizeFactor: animation,
+            axisAlignment: -1.0,
+            child: child,
+          ),
+        );
+      },
+      child: _dismissed
+          ? const SizedBox.shrink(key: ValueKey('rating-card-hidden'))
+          : Card(
+              key: const ValueKey('rating-card-visible'),
+              elevation: 0,
+              color: AppColors.card,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              margin: const EdgeInsets.all(16.0),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -119,8 +143,7 @@ class _RatingCardState extends State<RatingCard> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () {
-                  // Placeholder for 'NOT NOW' action
-                  print('NOT NOW pressed. Current rating: $_selectedRating');
+                  setState(() { _dismissed = true; });
                 },
                 child: Text(
                   'NOT NOW',
@@ -133,8 +156,15 @@ class _RatingCardState extends State<RatingCard> {
               ),
             ),
           ],
-        ),
-      ),
+                ),
+              ),
+            ),
     );
+  }
+
+  @override
+  void dispose() {
+    _autoCloseTimer?.cancel();
+    super.dispose();
   }
 }
