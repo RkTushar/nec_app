@@ -40,7 +40,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
       extendBody: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Reward', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24)),
+        title: const Text('Reward', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24)),
         actions: const [
           Padding(
             padding: EdgeInsets.only(right: 12),
@@ -115,6 +115,7 @@ class _InviteFriendsCard extends StatelessWidget {
                 Text(
                   'Invite More & Get More',
                   style: textTheme.labelLarge?.copyWith(
+                    fontSize: 17,
                     color: AppColors.primary,
                     fontWeight: FontWeight.w700,
                   ),
@@ -123,6 +124,7 @@ class _InviteFriendsCard extends StatelessWidget {
                 Text(
                   'Get ${currencySymbol}5 each invite',
                   style: textTheme.titleMedium?.copyWith(
+                    fontSize: 24,
                     fontWeight: FontWeight.w800,
                     color: AppColors.textPrimary,
                   ),
@@ -169,6 +171,7 @@ class _TotalRewardCard extends StatelessWidget {
                   'TOTAL REWARD',
                   style: textTheme.labelSmall?.copyWith(
                     color: AppColors.textSecondary,
+                    fontSize: 20,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 0.2,
                   ),
@@ -177,6 +180,7 @@ class _TotalRewardCard extends StatelessWidget {
                 Text(
                   '${currencySymbol}5.00',
                   style: textTheme.headlineSmall?.copyWith(
+                    fontSize: 32,
                     fontWeight: FontWeight.w900,
                     color: AppColors.textPrimary,
                   ),
@@ -241,6 +245,17 @@ class _FaqSectionState extends State<_FaqSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _FaqTile(
+          title: 'How do referrals work?',
+          expanded: _openIndex == 0,
+          onTap: () => setState(() => _openIndex = _openIndex == 0 ? -1 : 0),
+          body:
+              '''Share Nec Money with friends, family, coworkers, or anyone who needs to send money.
+Earn rewards when the people you refer send the minimum amount (£25) on their first transfer.
+Your rewards will automatically apply the next time when you will send money .
+Additional send requirements may be required for rewards to apply.
+You can earn rewards for up to 1000 successful referrals.''',
+        ),
+        _FaqTile(
           title: 'How do I use my rewards?',
           expanded: _openIndex == 1,
           onTap: () => setState(() => _openIndex = _openIndex == 1 ? -1 : 1),
@@ -300,6 +315,7 @@ class _FaqTile extends StatelessWidget {
                   child: Text(
                     title,
                     style: textTheme.bodyMedium?.copyWith(
+                      fontSize: 14,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -324,6 +340,7 @@ class _FaqTile extends StatelessWidget {
                 child: Text(
                   body!,
                   style: textTheme.bodySmall?.copyWith(
+                    fontSize: 12,
                     color: AppColors.textPrimary,
                     height: 1.4,
                   ),
