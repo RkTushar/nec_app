@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // Make sure these files exist in your project.
 // If not, create simple placeholder widgets to avoid errors.
 import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button_2.dart';
 import 'package:nec_app/widgets/buttons/back_button.dart';
+import 'qr_code_screen.dart';
 
 class InviteScreen extends StatelessWidget {
   const InviteScreen({super.key});
@@ -160,10 +161,19 @@ class InviteScreen extends StatelessWidget {
                               // Share button
                               GestureDetector(
                                 onTap: () async {
-                                  await Share.share(
-                                    referralText,
-                                    subject: 'NEC Money Referral',
-                                  );
+                                  try {
+                                    await Clipboard.setData(ClipboardData(text: referralText));
+                                    if (context.mounted) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Referral text copied to clipboard'),
+                                          duration: Duration(seconds: 2),
+                                        ),
+                                      );
+                                    }
+                                  } catch (e) {
+                                    print('Error copying to clipboard: $e');
+                                  }
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.all(8),
@@ -189,10 +199,41 @@ class InviteScreen extends StatelessWidget {
                                 iconColor: Colors.black,
                                 svgAsset: 'assets/images/whatsapp_logo_2.svg',
                                 onTap: () async {
-                                  await Share.share(
-                                    referralText,
-                                    subject: 'NEC Money Referral',
-                                  );
+                                  print('WhatsApp button tapped');
+                                  final whatsappUrl = 'https://wa.me/?text=${Uri.encodeComponent(referralText)}';
+                                  print('WhatsApp URL: $whatsappUrl');
+                                  try {
+                                    if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
+                                      print('Launching WhatsApp URL');
+                                      await launchUrl(Uri.parse(whatsappUrl));
+                                    } else {
+                                      print('WhatsApp not available, copying to clipboard');
+                                      await Clipboard.setData(ClipboardData(text: referralText));
+                                      if (context.mounted) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text('Referral text copied to clipboard'),
+                                            duration: Duration(seconds: 2),
+                                          ),
+                                        );
+                                      }
+                                    }
+                                  } catch (e) {
+                                    print('Error launching WhatsApp: $e');
+                                    try {
+                                      await Clipboard.setData(ClipboardData(text: referralText));
+                                      if (context.mounted) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text('Referral text copied to clipboard'),
+                                            duration: Duration(seconds: 2),
+                                          ),
+                                        );
+                                      }
+                                    } catch (clipboardError) {
+                                      print('Error copying to clipboard: $clipboardError');
+                                    }
+                                  }
                                 },
                               ),
                               _ActionButton(
@@ -201,18 +242,54 @@ class InviteScreen extends StatelessWidget {
                                 iconColor: Colors.black,
                                 svgAsset: 'assets/images/messenger_logo.svg',
                                 onTap: () async {
-                                  await Share.share(
-                                    referralText,
-                                    subject: 'NEC Money Referral',
-                                  );
+                                  print('Messenger button tapped');
+                                  final messengerUrl = 'https://m.me/?text=${Uri.encodeComponent(referralText)}';
+                                  print('Messenger URL: $messengerUrl');
+                                  try {
+                                    if (await canLaunchUrl(Uri.parse(messengerUrl))) {
+                                      print('Launching Messenger URL');
+                                      await launchUrl(Uri.parse(messengerUrl));
+                                    } else {
+                                      print('Messenger not available, copying to clipboard');
+                                      await Clipboard.setData(ClipboardData(text: referralText));
+                                      if (context.mounted) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text('Referral text copied to clipboard'),
+                                            duration: Duration(seconds: 2),
+                                          ),
+                                        );
+                                      }
+                                    }
+                                  } catch (e) {
+                                    print('Error launching Messenger: $e');
+                                    try {
+                                      await Clipboard.setData(ClipboardData(text: referralText));
+                                      if (context.mounted) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text('Referral text copied to clipboard'),
+                                            duration: Duration(seconds: 2),
+                                          ),
+                                        );
+                                      }
+                                    } catch (clipboardError) {
+                                      print('Error copying to clipboard: $clipboardError');
+                                    }
+                                  }
                                 },
                               ),
                               _ActionButton(
-                                icon: Icons.qr_code,
+                                icon: Icons.qr_code_2_sharp,
                                 backgroundColor: Colors.white,
                                 iconColor: Colors.black,
+                                svgAsset: 'assets/icons/qr_icon.svg',
                                 onTap: () {
-                                  // Navigate to QR code screen (to be implemented)
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => MyQrCodeScreen(),
+                                    ),
+                                  );
                                 },
                               ),
                               _ActionButton(
@@ -220,16 +297,19 @@ class InviteScreen extends StatelessWidget {
                                 backgroundColor: Colors.white,
                                 iconColor: Colors.black,
                                 onTap: () async {
-                                  await Share.share(
-                                    referralText,
-                                    subject: 'NEC Money Referral',
-                                    sharePositionOrigin: Rect.fromLTWH(
-                                      0,
-                                      0,
-                                      MediaQuery.of(context).size.width,
-                                      MediaQuery.of(context).size.height / 2,
-                                    ),
-                                  );
+                                  try {
+                                    await Clipboard.setData(ClipboardData(text: referralText));
+                                    if (context.mounted) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Referral text copied to clipboard'),
+                                          duration: Duration(seconds: 2),
+                                        ),
+                                      );
+                                    }
+                                  } catch (e) {
+                                    print('Error copying to clipboard: $e');
+                                  }
                                 },
                               ),
                           ],

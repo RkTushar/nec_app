@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nec_app/models/country_model.dart';
+import 'package:nec_app/screens/rewards/invite_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InviteButton2 extends StatefulWidget {
@@ -50,7 +51,13 @@ class _InviteButton2State extends State<InviteButton2> {
     return SizedBox(
       height: 33,
       child: TextButton(
-        onPressed: widget.onPressed,
+        onPressed: widget.onPressed ?? () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const InviteScreen(),
+            ),
+          );
+        },
         style: TextButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
           backgroundColor: resolvedBackground,

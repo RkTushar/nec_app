@@ -169,7 +169,6 @@ class _InviteRow extends StatelessWidget {
         const Text('& Get', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20)),
         const SizedBox(width: 8),
         InviteButton2(
-          onPressed: () {},
           backgroundColor: primaryGreen,
           foregroundColor: Colors.white,
           currencyCode: currencyCode,
