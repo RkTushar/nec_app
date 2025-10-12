@@ -282,6 +282,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (selectedSymbol != null && selectedSymbol.isNotEmpty) {
                       await prefs.setString('currencySymbol', selectedSymbol);
                     }
+                    if (selectedCurrency != null && selectedCurrency.isNotEmpty) {
+                      await prefs.setString('last_sender_currency_code', selectedCurrency);
+                    }
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                         builder: (context) => HomeScreen(

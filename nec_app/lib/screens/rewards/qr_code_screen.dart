@@ -5,6 +5,8 @@ import '../../widgets/buttons/secondary_button.dart';
 import '../../theme/theme_data.dart';
 
 class MyQrCodeScreen extends StatefulWidget {
+  const MyQrCodeScreen({super.key});
+
   @override
   _MyQrCodeScreenState createState() => _MyQrCodeScreenState();
 }
@@ -52,7 +54,7 @@ class _MyQrCodeScreenState extends State<MyQrCodeScreen> {
                     SizedBox(height: 30),
                     
                     // QR Code with green corner brackets
-                    Container(
+                    SizedBox(
                       width: 360,
                       height: 380,
                       child: Stack(

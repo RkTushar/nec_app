@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-// Make sure these files exist in your project.
-// If not, create simple placeholder widgets to avoid errors.
 import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button_2.dart';
 import 'package:nec_app/widgets/buttons/back_button.dart';
 import 'qr_code_screen.dart';
 
 class InviteScreen extends StatelessWidget {
-  const InviteScreen({super.key});
+  final String? currencyCode; // ISO 4217 code e.g. GBP, USD
+  
+  const InviteScreen({super.key, this.currencyCode});
 
   // Moved referral text inside build (to avoid const field error in StatelessWidget)
   @override
@@ -96,6 +95,7 @@ class InviteScreen extends StatelessWidget {
                               onPressed: () {},
                               backgroundColor: primaryGreen,
                               foregroundColor: Colors.white,
+                              currencyCode: currencyCode,
                             ),
                           ],
                         ),
@@ -350,7 +350,7 @@ class InviteScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    '0.00 GBP',
+                    '0.00 ${currencyCode ?? 'GBP'}',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,

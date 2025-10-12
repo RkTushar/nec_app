@@ -19,18 +19,25 @@ class RewardsScreen extends StatefulWidget {
 
 class _RewardsScreenState extends State<RewardsScreen> {
   String _symbol = '£';
+  String? _currencyCode;
 
   @override
   void initState() {
     super.initState();
-    _loadSymbol();
+    _loadSymbolAndCurrency();
   }
 
-  Future<void> _loadSymbol() async {
+  Future<void> _loadSymbolAndCurrency() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? s = prefs.getString('currencySymbol');
     if (s != null && s.isNotEmpty && s != _symbol) {
       setState(() => _symbol = s);
+    }
+    
+    // Load currency code
+    final String? currencyCode = prefs.getString('last_sender_currency_code');
+    if (currencyCode != null && currencyCode.isNotEmpty) {
+      setState(() => _currencyCode = currencyCode);
     }
   }
 
@@ -55,7 +62,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         children: [
-          _InviteFriendsCard(textTheme: textTheme, currencySymbol: _symbol),
+          _InviteFriendsCard(textTheme: textTheme, currencySymbol: _symbol, currencyCode: _currencyCode),
           const SizedBox(height: 12),
           _TotalRewardCard(textTheme: textTheme, currencySymbol: _symbol),
           const SizedBox(height: 12),
@@ -99,10 +106,11 @@ class _RewardsScreenState extends State<RewardsScreen> {
 
 
 class _InviteFriendsCard extends StatelessWidget {
-  const _InviteFriendsCard({required this.textTheme, required this.currencySymbol});
+  const _InviteFriendsCard({required this.textTheme, required this.currencySymbol, this.currencyCode});
 
   final TextTheme textTheme;
   final String currencySymbol;
+  final String? currencyCode;
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +142,7 @@ class _InviteFriendsCard extends StatelessWidget {
                 const SizedBox(height: 20),
                 InviteButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => InviteScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => InviteScreen(currencyCode: currencyCode)));
                   },
                   backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,

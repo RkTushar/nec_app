@@ -11,11 +11,40 @@ import 'package:nec_app/widgets/cards/transaction_card.dart';
 import 'package:nec_app/widgets/cards/rating_card.dart';
 import 'package:nec_app/screens/send/send_screen.dart';
 import 'package:nec_app/models/transaction_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final String? initialSenderCurrency;
   final double? initialAmount;
   const HomeScreen({super.key, this.initialSenderCurrency, this.initialAmount});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String? _currentCurrency;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCurrency();
+  }
+
+  Future<void> _loadCurrency() async {
+    // Use initialSenderCurrency if provided, otherwise load from SharedPreferences
+    if (widget.initialSenderCurrency != null && widget.initialSenderCurrency!.isNotEmpty) {
+      setState(() => _currentCurrency = widget.initialSenderCurrency);
+      // Save to SharedPreferences for future use
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('last_sender_currency_code', widget.initialSenderCurrency!);
+    } else {
+      // Load from SharedPreferences
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? savedCurrency = prefs.getString('last_sender_currency_code');
+      setState(() => _currentCurrency = savedCurrency ?? 'GBP');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +66,15 @@ class HomeScreen extends StatelessWidget {
                 _HeaderCard(primaryGreen: primaryGreen, notificationCount: 0),
                 const SizedBox(height: 20),
                 const RatingCard(),
-                _InviteRow(primaryGreen: primaryGreen, currencyCode: initialSenderCurrency),
+                _InviteRow(primaryGreen: primaryGreen, currencyCode: _currentCurrency),
                 const SizedBox(height: 12),
                 Container(
                   // Remove card look; blend with background (dropdown remains white inside widget)
                   color: Colors.transparent,
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   child: SendReceiveConverter(
-                    initialSenderCurrency: initialSenderCurrency,
-                    initialAmount: initialAmount,
+                    initialSenderCurrency: _currentCurrency,
+                    initialAmount: widget.initialAmount,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -82,7 +111,7 @@ class HomeScreen extends StatelessWidget {
                       print('Tapped recent transaction: ${transaction.name}');
                     },
                   ),
-                ).toList(),
+                ),
               ],
             ),
           ),

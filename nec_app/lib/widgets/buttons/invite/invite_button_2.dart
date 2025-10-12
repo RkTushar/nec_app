@@ -54,7 +54,7 @@ class _InviteButton2State extends State<InviteButton2> {
         onPressed: widget.onPressed ?? () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const InviteScreen(),
+              builder: (context) => InviteScreen(currencyCode: widget.currencyCode),
             ),
           );
         },
