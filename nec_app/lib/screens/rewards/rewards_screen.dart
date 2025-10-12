@@ -7,7 +7,7 @@ import 'package:nec_app/widgets/buttons/secondary_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nec_app/widgets/buttons/notification_button.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:nec_app/screens/rewards/qr_code_screen.dart';
 class RewardsScreen extends StatefulWidget {
   const RewardsScreen({super.key});
 
@@ -208,7 +208,9 @@ class _QrCodeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SecondaryButton(
       label: 'My QR code',
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MyQrCodeScreen()));
+      },
       outlined: true,
       height: 50,
       backgroundColor: Colors.white,
