@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nec_app/widgets/buttons/notification_button.dart';
+import 'package:nec_app/models/notification_model.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
@@ -19,7 +20,7 @@ class NotificationScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 12),
             child: NotificationButton(
-              count: 0,
+              count: NotificationModel.getTotalCount(),
               backgroundColor: primary,
               onTap: () {},
               size: 36,
@@ -30,9 +31,10 @@ class NotificationScreen extends StatelessWidget {
       ),
       body: ListView.separated(
         padding: const EdgeInsets.all(16),
-        itemCount: 8,
+        itemCount: NotificationModel.getTotalCount(),
         separatorBuilder: (_, __) => const SizedBox(height: 8),
         itemBuilder: (context, index) {
+          final notification = NotificationModel.getNotifications()[index];
           return Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
@@ -58,13 +60,11 @@ class NotificationScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Notification #${index + 1}',
+                        notification.title,
                         style: const TextStyle(fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 4),
-                      const Text(
-                        'This is a demo notification message showing how it will appear.',
-                      ),
+                      Text(notification.message),
                       const SizedBox(height: 6),
                       Text(
                         'Just now',

@@ -11,6 +11,7 @@ import 'package:nec_app/widgets/cards/transaction_card.dart';
 import 'package:nec_app/widgets/cards/rating_card.dart';
 import 'package:nec_app/screens/send/send_screen.dart';
 import 'package:nec_app/models/transaction_model.dart';
+import 'package:nec_app/models/notification_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -63,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _HeaderCard(primaryGreen: primaryGreen, notificationCount: 0),
+                _HeaderCard(primaryGreen: primaryGreen, notificationCount: NotificationModel.getTotalCount()),
                 const SizedBox(height: 20),
                 const RatingCard(),
                 _InviteRow(primaryGreen: primaryGreen, currencyCode: _currentCurrency),
