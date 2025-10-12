@@ -18,7 +18,21 @@ class _HistoryScreenState extends State<HistoryScreen> {
   DateTime? toDate;
   
   // Get demo transactions
-  List<TransactionModel> get transactions => TransactionModel.getDemoTransactions();
+  List<TransactionModel> get allTransactions => TransactionModel.getDemoTransactions();
+  
+  // Get filtered transactions based on date range
+  List<TransactionModel> get filteredTransactions {
+    if (fromDate == null && toDate == null) {
+      return allTransactions;
+    }
+    
+    return allTransactions.where((transaction) {
+      bool afterFromDate = fromDate == null || transaction.date.isAfter(fromDate!) || transaction.date.isAtSameMomentAs(fromDate!);
+      bool beforeToDate = toDate == null || transaction.date.isBefore(toDate!) || transaction.date.isAtSameMomentAs(toDate!);
+      
+      return afterFromDate && beforeToDate;
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,28 +87,54 @@ class _HistoryScreenState extends State<HistoryScreen> {
               ],
             ),
           ),
-          // Transaction list
+          // Transaction list or no data
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ListView.builder(
-                itemCount: transactions.length,
-                itemBuilder: (context, index) {
-                  final transaction = transactions[index];
-                  return TransactionCard(
-                    name: transaction.name,
-                    statusText: transaction.statusText,
-                    amountText: transaction.formattedAmount,
-                    dateText: transaction.formattedDate,
-                    highlighted: transaction.highlighted,
-                    onTap: () {
-                      // Handle transaction tap - navigate to details
-                      print('Tapped transaction: ${transaction.name}');
-                    },
-                  );
-                },
-              ),
-            ),
+            child: filteredTransactions.isEmpty
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 100),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.search_off,
+                          size: 80,
+                          color: AppColors.textSecondary,
+                        ),
+                        const SizedBox(height: 24),
+                        Text(
+                          fromDate != null || toDate != null
+                              ? 'No transactions found for the selected date range.'
+                              : 'We have found total ${allTransactions.length} transactions in your history.',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: AppColors.textPrimary,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: ListView.builder(
+                      itemCount: filteredTransactions.length,
+                      itemBuilder: (context, index) {
+                        final transaction = filteredTransactions[index];
+                        return TransactionCard(
+                          name: transaction.name,
+                          statusText: transaction.statusText,
+                          amountText: transaction.formattedAmount,
+                          dateText: transaction.formattedDate,
+                          highlighted: transaction.highlighted,
+                          onTap: () {
+                            // Handle transaction tap - navigate to details
+                            print('Tapped transaction: ${transaction.name}');
+                          },
+                        );
+                      },
+                    ),
+                  ),
           ),
         ],
       ),
@@ -174,12 +214,32 @@ class _HistoryScreenState extends State<HistoryScreen> {
             setState(() {
               if (isFromDate) {
                 fromDate = selectedDate;
+                // If from date is after to date, clear to date
+                if (toDate != null && fromDate!.isAfter(toDate!)) {
+                  toDate = null;
+                  _showDateValidationMessage(context, 'From date cannot be after To date. To date has been cleared.');
+                }
               } else {
                 toDate = selectedDate;
+                // If to date is before from date, clear from date
+                if (fromDate != null && toDate!.isBefore(fromDate!)) {
+                  fromDate = null;
+                  _showDateValidationMessage(context, 'To date cannot be before From date. From date has been cleared.');
+                }
               }
             });
           },
         ),
+      ),
+    );
+  }
+
+  void _showDateValidationMessage(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: AppColors.error,
+        duration: const Duration(seconds: 3),
       ),
     );
   }
