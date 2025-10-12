@@ -44,7 +44,7 @@ class TransactionModel {
         name: 'John Doe',
         status: 'Done',
         amount: 15000.00,
-        date: DateTime(2024, 11, 8, 14, 30),
+        date: DateTime(2025, 09, 8, 14, 30),
         highlighted: false,
       ),
       TransactionModel(
