@@ -7,6 +7,7 @@ class AppColors {
   // Brand greens seen across the app
   static const Color primary = Color(0xFF4CAF50); // main brand green
   static const Color primaryAlt = Color(0xFF19A250); // alt green used on home
+  static const Color primaryLight = Color(0xFF81C784); // lighter green for invite button 2
   static const Color primaryDark = Color(0xFF1B5E20); // deep green accents (prev FAB edge)
   static const Color selected = Color(0xFF388E3C); // matches previous selected tab green (green700)
 

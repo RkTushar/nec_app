@@ -6,6 +6,7 @@ import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
 import 'package:nec_app/widgets/buttons/secondary_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nec_app/widgets/buttons/notification_button.dart';
+import 'package:nec_app/models/notification_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:nec_app/screens/rewards/qr_code_screen.dart';
 import 'package:nec_app/screens/rewards/invite_screen.dart';
@@ -50,10 +51,10 @@ class _RewardsScreenState extends State<RewardsScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text('Reward', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24)),
-        actions: const [
+        actions: [
           Padding(
             padding: EdgeInsets.only(right: 12),
-            child: NotificationButton(backgroundColor: AppColors.primary, count: 0),
+            child: NotificationButton(backgroundColor: AppColors.primary, count: NotificationModel.getTotalCount()),
           ),
         ],
         centerTitle: false,

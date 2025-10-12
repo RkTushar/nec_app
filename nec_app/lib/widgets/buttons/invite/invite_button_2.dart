@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nec_app/models/country_model.dart';
 import 'package:nec_app/screens/rewards/invite_screen.dart';
+import 'package:nec_app/theme/theme_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InviteButton2 extends StatefulWidget {
@@ -45,7 +46,7 @@ class _InviteButton2State extends State<InviteButton2> {
 
   @override
   Widget build(BuildContext context) {
-    final Color resolvedBackground = widget.backgroundColor ?? Theme.of(context).colorScheme.primary;
+    final Color resolvedBackground = widget.backgroundColor ?? AppColors.primaryLight;
     final Color resolvedForeground = widget.foregroundColor ?? Colors.white;
 
     return SizedBox(
@@ -62,8 +63,9 @@ class _InviteButton2State extends State<InviteButton2> {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
           backgroundColor: resolvedBackground,
           foregroundColor: resolvedForeground,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(24)),
+          shape: RoundedRectangleBorder(
+            borderRadius: const BorderRadius.all(Radius.circular(24)),
+            side: BorderSide(color: AppColors.primaryLight, width: 1),
           ),
         ),
         child: Row(

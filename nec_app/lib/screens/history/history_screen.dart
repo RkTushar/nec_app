@@ -4,6 +4,7 @@ import 'package:nec_app/widgets/buttons/notification_button.dart';
 import 'package:nec_app/widgets/fields/custom_datepicker.dart';
 import 'package:nec_app/widgets/cards/transaction_card.dart';
 import 'package:nec_app/models/transaction_model.dart';
+import 'package:nec_app/models/notification_model.dart';
 import 'package:nec_app/theme/theme_data.dart';
 
 class HistoryScreen extends StatefulWidget {
@@ -54,7 +55,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: NotificationButton(
-              count: 0,
+              count: NotificationModel.getTotalCount(),
               backgroundColor: AppColors.primary,
               iconColor: Colors.white,
             ),
