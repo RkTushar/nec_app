@@ -164,6 +164,7 @@ class _MyQrCodeScreenState extends State<MyQrCodeScreen> {
                     Text(
                       'Download your QR code',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontSize: 18,
                         fontWeight: FontWeight.w500,
                         color: AppColors.textPrimary,
                       ),
