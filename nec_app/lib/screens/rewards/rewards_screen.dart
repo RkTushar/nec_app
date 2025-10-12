@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nec_app/widgets/buttons/notification_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:nec_app/screens/rewards/qr_code_screen.dart';
+import 'package:nec_app/screens/rewards/invite_screen.dart';
+
 class RewardsScreen extends StatefulWidget {
   const RewardsScreen({super.key});
 
@@ -131,7 +133,9 @@ class _InviteFriendsCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 InviteButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => InviteScreen()));
+                  },
                   backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,
                 ),
