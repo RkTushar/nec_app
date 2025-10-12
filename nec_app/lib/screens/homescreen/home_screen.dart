@@ -10,6 +10,7 @@ import 'package:nec_app/widgets/buttons/invite/invite_button_2.dart';
 import 'package:nec_app/widgets/cards/transaction_card.dart';
 import 'package:nec_app/widgets/cards/rating_card.dart';
 import 'package:nec_app/screens/send/send_screen.dart';
+import 'package:nec_app/models/transaction_model.dart';
 
 class HomeScreen extends StatelessWidget {
   final String? initialSenderCurrency;
@@ -68,53 +69,20 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 16),
                 const Text('Recent transactions', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
                 const SizedBox(height: 8),
-                TransactionCard(
-                  name: 'Badri',
-                  statusText: 'Status : Done',
-                  amountText: 'BDT 10,000.00',
-                  dateText: '06-Nov-24 10:10 PM',
-                  highlighted: false,
-                ),
-                
-                TransactionCard(
-                  name: 'Badri',
-                  statusText: 'Status : Cancelled',
-                  amountText: 'BDT 10,000.00',
-                  dateText: '06-Nov-24 10:10 PM',
-                  highlighted: true,
-                ),
-                
-                TransactionCard(
-                  name: 'Badri',
-                  statusText: 'Status : Done',
-                  amountText: 'BDT 8,500.00',
-                  dateText: '05-Nov-24 08:45 PM',
-                  highlighted: false,
-                ),
-                
-                TransactionCard(
-                  name: 'Badri',
-                  statusText: 'Status : Cancelled',
-                  amountText: 'BDT 12,300.00',
-                  dateText: '04-Nov-24 07:20 PM',
-                  highlighted: true,
-                ),
-                
-                TransactionCard(
-                  name: 'Badri',
-                  statusText: 'Status : Cancelled',
-                  amountText: 'BDT 9,750.00',
-                  dateText: '03-Nov-24 06:05 PM',
-                  highlighted: false,
-                ),
-                
-                TransactionCard(
-                  name: 'Badri',
-                  statusText: 'Status : Cancelled',
-                  amountText: 'BDT 7,300.00',
-                  dateText: '30-Oct-24 01:45 PM',
-                  highlighted: false,
-                ),
+                // Show last 5 recent transactions
+                ...TransactionModel.getRecentTransactions().map((transaction) => 
+                  TransactionCard(
+                    name: transaction.name,
+                    statusText: transaction.statusText,
+                    amountText: transaction.formattedAmount,
+                    dateText: transaction.formattedDate,
+                    highlighted: transaction.highlighted,
+                    onTap: () {
+                      // Handle transaction tap - navigate to details
+                      print('Tapped recent transaction: ${transaction.name}');
+                    },
+                  ),
+                ).toList(),
               ],
             ),
           ),
