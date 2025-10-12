@@ -37,14 +37,14 @@ class InviteButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Invite',
-              style: TextStyle(fontWeight: FontWeight.w600, color: resolvedForeground),
-            ),
-            const SizedBox(width: 8),
             ColorFiltered(
               colorFilter: ColorFilter.mode(resolvedForeground, BlendMode.srcIn),
               child: SvgPicture.asset('assets/icons/person_add_icon.svg', width: 20, height: 20),
+            ),
+            const SizedBox(width: 8), 
+             Text(
+              'Invite',
+              style: TextStyle(fontWeight: FontWeight.w600, color: resolvedForeground),
             ),
           ],
         ),
