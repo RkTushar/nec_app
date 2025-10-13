@@ -268,7 +268,7 @@ class InviteScreen extends StatelessWidget {
                                 icon: Icons.qr_code_2_sharp,
                                 backgroundColor: Colors.white,
                                 iconColor: Colors.black,
-                                svgAsset: 'assets/icons/qr_icon.svg',
+                                svgAsset: 'assets/icons/more_screen/qr_icon.svg',
                                 onTap: () {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(

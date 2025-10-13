@@ -230,7 +230,7 @@ class _QrCodeCard extends StatelessWidget {
       borderColor: AppColors.border,
       foregroundColor: AppColors.primaryDark, // dark green from theme
       leading: SvgPicture.asset(
-        'assets/icons/qr_icon.svg',
+        'assets/icons/more_screen/qr_icon.svg',
         width: 24,
         height: 24,
         colorFilter: const ColorFilter.mode(AppColors.primaryDark, BlendMode.srcIn),
