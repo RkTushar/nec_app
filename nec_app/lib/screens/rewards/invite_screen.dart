@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button_2.dart';
 import 'package:nec_app/widgets/buttons/back_button.dart';
@@ -12,12 +13,24 @@ class InviteScreen extends StatelessWidget {
   
   const InviteScreen({super.key, this.currencyCode});
 
+  // Function to share the referral link
+  Future<void> _shareReferralLink(String referralText) async {
+    try {
+      await Share.share(
+        referralText,
+        subject: 'Join me on NEC Money!',
+      );
+    } catch (e) {
+      print('Error sharing: $e');
+    }
+  }
+
   // Moved referral text inside build (to avoid const field error in StatelessWidget)
   @override
   Widget build(BuildContext context) {
     final Color primaryGreen = Theme.of(context).colorScheme.primary;
     final String referralText =
-        "Join me on NEC Money and get started! Use my referral code NGB76121 to get 5.00 GBP. Download the app here: https://necmoneyreferral.onelink.me/";
+        "https://necmoneyreferral.onelink.me/";
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -77,7 +90,7 @@ class InviteScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InviteButton(
-                              onPressed: () {},
+                              onPressed: () => _shareReferralLink(referralText),
                               backgroundColor: primaryGreen,
                               foregroundColor: Colors.white,
                             ),
@@ -160,21 +173,7 @@ class InviteScreen extends StatelessWidget {
                               const SizedBox(width: 8),
                               // Share button
                               GestureDetector(
-                                onTap: () async {
-                                  try {
-                                    await Clipboard.setData(ClipboardData(text: referralText));
-                                    if (context.mounted) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                          content: Text('Referral text copied to clipboard'),
-                                          duration: Duration(seconds: 2),
-                                        ),
-                                      );
-                                    }
-                                  } catch (e) {
-                                    print('Error copying to clipboard: $e');
-                                  }
-                                },
+                                onTap: () => _shareReferralLink(referralText),
                                 child: Container(
                                   padding: const EdgeInsets.all(8),
                                   child: Icon(
@@ -296,21 +295,7 @@ class InviteScreen extends StatelessWidget {
                                 icon: Icons.add,
                                 backgroundColor: Colors.white,
                                 iconColor: Colors.black,
-                                onTap: () async {
-                                  try {
-                                    await Clipboard.setData(ClipboardData(text: referralText));
-                                    if (context.mounted) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                          content: Text('Referral text copied to clipboard'),
-                                          duration: Duration(seconds: 2),
-                                        ),
-                                      );
-                                    }
-                                  } catch (e) {
-                                    print('Error copying to clipboard: $e');
-                                  }
-                                },
+                                onTap: () => _shareReferralLink(referralText),
                               ),
                           ],
                         ),
