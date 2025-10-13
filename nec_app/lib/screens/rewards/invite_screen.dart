@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:io';
+
 import 'package:nec_app/widgets/share_link_widget.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button_2.dart';
@@ -183,15 +185,16 @@ class InviteScreen extends StatelessWidget {
                                 iconColor: Colors.black,
                                 svgAsset: 'assets/images/whatsapp_logo_2.svg',
                                 onTap: () async {
+                                  // URL-encode the message
                                   final String message = Uri.encodeComponent(referralText);
 
-                                  // WhatsApp native app link
+                                  // WhatsApp app URI (opens native app)
                                   final Uri whatsappAppUri = Uri.parse('whatsapp://send?text=$message');
 
-                                  // WhatsApp web fallback
+                                  // WhatsApp web URI (fallback if app not installed)
                                   final Uri whatsappWebUri = Uri.parse('https://wa.me/?text=$message');
 
-                                  // Platform-specific store links
+                                  // Platform-specific store URIs
                                   final Uri storeUri = Uri.parse(
                                     Platform.isAndroid
                                         ? 'https://play.google.com/store/apps/details?id=com.whatsapp'
@@ -199,14 +202,20 @@ class InviteScreen extends StatelessWidget {
                                   );
 
                                   try {
+                                    // 1️⃣ Try opening WhatsApp app
                                     if (await canLaunchUrl(whatsappAppUri)) {
                                       await launchUrl(whatsappAppUri, mode: LaunchMode.externalApplication);
-                                    } else if (await canLaunchUrl(whatsappWebUri)) {
+                                    }
+                                    // 2️⃣ Fallback to WhatsApp web
+                                    else if (await canLaunchUrl(whatsappWebUri)) {
                                       await launchUrl(whatsappWebUri, mode: LaunchMode.externalApplication);
-                                    } else {
+                                    }
+                                    // 3️⃣ Fallback to Play Store / App Store
+                                    else {
                                       await launchUrl(storeUri, mode: LaunchMode.externalApplication);
                                     }
                                   } catch (e) {
+                                    // Graceful error handling
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(content: Text('Could not open WhatsApp: $e')),
                                     );
@@ -219,15 +228,16 @@ class InviteScreen extends StatelessWidget {
                                 iconColor: Colors.black,
                                 svgAsset: 'assets/images/messenger_logo.svg',
                                 onTap: () async {
+                                  // URL-encode the message
                                   final String message = Uri.encodeComponent(referralText);
 
-                                  // Messenger deep link (native app)
+                                  // Messenger native app URI
                                   final Uri messengerAppUri = Uri.parse('fb-messenger://share?link=$message');
 
                                   // Messenger web fallback
                                   final Uri messengerWebUri = Uri.parse('https://m.me/?text=$message');
 
-                                  // Platform-specific store links
+                                  // Platform-specific store URIs
                                   final Uri storeUri = Uri.parse(
                                     Platform.isAndroid
                                         ? 'https://play.google.com/store/apps/details?id=com.facebook.orca'
@@ -235,11 +245,16 @@ class InviteScreen extends StatelessWidget {
                                   );
 
                                   try {
+                                    // 1️⃣ Try opening Messenger app
                                     if (await canLaunchUrl(messengerAppUri)) {
                                       await launchUrl(messengerAppUri, mode: LaunchMode.externalApplication);
-                                    } else if (await canLaunchUrl(messengerWebUri)) {
+                                    }
+                                    // 2️⃣ Fallback to Messenger web
+                                    else if (await canLaunchUrl(messengerWebUri)) {
                                       await launchUrl(messengerWebUri, mode: LaunchMode.externalApplication);
-                                    } else {
+                                    }
+                                    // 3️⃣ Fallback to Play Store / App Store
+                                    else {
                                       await launchUrl(storeUri, mode: LaunchMode.externalApplication);
                                     }
                                   } catch (e) {
