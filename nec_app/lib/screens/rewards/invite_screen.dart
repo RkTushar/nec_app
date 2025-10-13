@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
 import 'package:nec_app/widgets/share_link_widget.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button_2.dart';
@@ -180,22 +182,72 @@ class InviteScreen extends StatelessWidget {
                                 backgroundColor: Colors.white,
                                 iconColor: Colors.black,
                                 svgAsset: 'assets/images/whatsapp_logo_2.svg',
-                                onTap: () => ShareLinkWidget.shareViaUrl(
-                                  'https://wa.me/?text=',
-                                  referralText,
-                                  context,
-                                ),
+                                onTap: () async {
+                                  final String message = Uri.encodeComponent(referralText);
+
+                                  // WhatsApp native app link
+                                  final Uri whatsappAppUri = Uri.parse('whatsapp://send?text=$message');
+
+                                  // WhatsApp web fallback
+                                  final Uri whatsappWebUri = Uri.parse('https://wa.me/?text=$message');
+
+                                  // Platform-specific store links
+                                  final Uri storeUri = Uri.parse(
+                                    Platform.isAndroid
+                                        ? 'https://play.google.com/store/apps/details?id=com.whatsapp'
+                                        : 'https://apps.apple.com/app/whatsapp-messenger/id310633997',
+                                  );
+
+                                  try {
+                                    if (await canLaunchUrl(whatsappAppUri)) {
+                                      await launchUrl(whatsappAppUri, mode: LaunchMode.externalApplication);
+                                    } else if (await canLaunchUrl(whatsappWebUri)) {
+                                      await launchUrl(whatsappWebUri, mode: LaunchMode.externalApplication);
+                                    } else {
+                                      await launchUrl(storeUri, mode: LaunchMode.externalApplication);
+                                    }
+                                  } catch (e) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('Could not open WhatsApp: $e')),
+                                    );
+                                  }
+                                },
                               ),
                               _ActionButton(
                                 icon: Icons.message,
                                 backgroundColor: Colors.white,
                                 iconColor: Colors.black,
                                 svgAsset: 'assets/images/messenger_logo.svg',
-                                onTap: () => ShareLinkWidget.shareViaUrl(
-                                  'https://m.me/?text=',
-                                  referralText,
-                                  context,
-                                ),
+                                onTap: () async {
+                                  final String message = Uri.encodeComponent(referralText);
+
+                                  // Messenger deep link (native app)
+                                  final Uri messengerAppUri = Uri.parse('fb-messenger://share?link=$message');
+
+                                  // Messenger web fallback
+                                  final Uri messengerWebUri = Uri.parse('https://m.me/?text=$message');
+
+                                  // Platform-specific store links
+                                  final Uri storeUri = Uri.parse(
+                                    Platform.isAndroid
+                                        ? 'https://play.google.com/store/apps/details?id=com.facebook.orca'
+                                        : 'https://apps.apple.com/app/facebook-messenger/id454638411',
+                                  );
+
+                                  try {
+                                    if (await canLaunchUrl(messengerAppUri)) {
+                                      await launchUrl(messengerAppUri, mode: LaunchMode.externalApplication);
+                                    } else if (await canLaunchUrl(messengerWebUri)) {
+                                      await launchUrl(messengerWebUri, mode: LaunchMode.externalApplication);
+                                    } else {
+                                      await launchUrl(storeUri, mode: LaunchMode.externalApplication);
+                                    }
+                                  } catch (e) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('Could not open Messenger: $e')),
+                                    );
+                                  }
+                                },
                               ),
                               _ActionButton(
                                 icon: Icons.qr_code_2_sharp,
