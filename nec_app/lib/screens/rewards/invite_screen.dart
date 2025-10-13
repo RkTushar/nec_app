@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:nec_app/widgets/share_link_widget.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button_2.dart';
 import 'package:nec_app/widgets/buttons/back_button.dart';
@@ -12,18 +11,6 @@ class InviteScreen extends StatelessWidget {
   final String? currencyCode; // ISO 4217 code e.g. GBP, USD
   
   const InviteScreen({super.key, this.currencyCode});
-
-  // Function to share the referral link
-  Future<void> _shareReferralLink(String referralText) async {
-    try {
-      await Share.share(
-        referralText,
-        subject: 'Join me on NEC Money!',
-      );
-    } catch (e) {
-      print('Error sharing: $e');
-    }
-  }
 
   // Moved referral text inside build (to avoid const field error in StatelessWidget)
   @override
@@ -90,7 +77,10 @@ class InviteScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InviteButton(
-                              onPressed: () => _shareReferralLink(referralText),
+                              onPressed: () => ShareLinkWidget.shareText(
+                                referralText,
+                                subject: 'Join me on NEC Money!',
+                              ),
                               backgroundColor: primaryGreen,
                               foregroundColor: Colors.white,
                             ),
@@ -172,16 +162,9 @@ class InviteScreen extends StatelessWidget {
                               ),
                               const SizedBox(width: 8),
                               // Share button
-                              GestureDetector(
-                                onTap: () => _shareReferralLink(referralText),
-                                child: Container(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Icon(
-                                    Icons.share,
-                                    size: 20,
-                                    color: Colors.grey.shade600,
-                                  ),
-                                ),
+                              ShareIconButton(
+                                text: referralText,
+                                subject: 'Join me on NEC Money!',
                               ),
                             ],
                           ),
@@ -197,86 +180,22 @@ class InviteScreen extends StatelessWidget {
                                 backgroundColor: Colors.white,
                                 iconColor: Colors.black,
                                 svgAsset: 'assets/images/whatsapp_logo_2.svg',
-                                onTap: () async {
-                                  print('WhatsApp button tapped');
-                                  final whatsappUrl = 'https://wa.me/?text=${Uri.encodeComponent(referralText)}';
-                                  print('WhatsApp URL: $whatsappUrl');
-                                  try {
-                                    if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
-                                      print('Launching WhatsApp URL');
-                                      await launchUrl(Uri.parse(whatsappUrl));
-                                    } else {
-                                      print('WhatsApp not available, copying to clipboard');
-                                      await Clipboard.setData(ClipboardData(text: referralText));
-                                      if (context.mounted) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text('Referral text copied to clipboard'),
-                                            duration: Duration(seconds: 2),
-                                          ),
-                                        );
-                                      }
-                                    }
-                                  } catch (e) {
-                                    print('Error launching WhatsApp: $e');
-                                    try {
-                                      await Clipboard.setData(ClipboardData(text: referralText));
-                                      if (context.mounted) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text('Referral text copied to clipboard'),
-                                            duration: Duration(seconds: 2),
-                                          ),
-                                        );
-                                      }
-                                    } catch (clipboardError) {
-                                      print('Error copying to clipboard: $clipboardError');
-                                    }
-                                  }
-                                },
+                                onTap: () => ShareLinkWidget.shareViaUrl(
+                                  'https://wa.me/?text=',
+                                  referralText,
+                                  context,
+                                ),
                               ),
                               _ActionButton(
                                 icon: Icons.message,
                                 backgroundColor: Colors.white,
                                 iconColor: Colors.black,
                                 svgAsset: 'assets/images/messenger_logo.svg',
-                                onTap: () async {
-                                  print('Messenger button tapped');
-                                  final messengerUrl = 'https://m.me/?text=${Uri.encodeComponent(referralText)}';
-                                  print('Messenger URL: $messengerUrl');
-                                  try {
-                                    if (await canLaunchUrl(Uri.parse(messengerUrl))) {
-                                      print('Launching Messenger URL');
-                                      await launchUrl(Uri.parse(messengerUrl));
-                                    } else {
-                                      print('Messenger not available, copying to clipboard');
-                                      await Clipboard.setData(ClipboardData(text: referralText));
-                                      if (context.mounted) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text('Referral text copied to clipboard'),
-                                            duration: Duration(seconds: 2),
-                                          ),
-                                        );
-                                      }
-                                    }
-                                  } catch (e) {
-                                    print('Error launching Messenger: $e');
-                                    try {
-                                      await Clipboard.setData(ClipboardData(text: referralText));
-                                      if (context.mounted) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text('Referral text copied to clipboard'),
-                                            duration: Duration(seconds: 2),
-                                          ),
-                                        );
-                                      }
-                                    } catch (clipboardError) {
-                                      print('Error copying to clipboard: $clipboardError');
-                                    }
-                                  }
-                                },
+                                onTap: () => ShareLinkWidget.shareViaUrl(
+                                  'https://m.me/?text=',
+                                  referralText,
+                                  context,
+                                ),
                               ),
                               _ActionButton(
                                 icon: Icons.qr_code_2_sharp,
@@ -295,7 +214,10 @@ class InviteScreen extends StatelessWidget {
                                 icon: Icons.add,
                                 backgroundColor: Colors.white,
                                 iconColor: Colors.black,
-                                onTap: () => _shareReferralLink(referralText),
+                                onTap: () => ShareLinkWidget.shareText(
+                                  referralText,
+                                  subject: 'Join me on NEC Money!',
+                                ),
                               ),
                           ],
                         ),
