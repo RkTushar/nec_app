@@ -5,7 +5,7 @@ import 'package:nec_app/widgets/buttons/primary_button.dart';
 import 'package:nec_app/widgets/cards/common_card.dart';
 import 'package:nec_app/widgets/buttons/back_button.dart';
 import 'package:nec_app/models/transaction_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nec_app/services/currency_prefs.dart';
 import 'package:nec_app/widgets/cards/track_transaction_widget.dart';
 
 /// Demo screen: Track transaction (read-only mock) built with existing widgets
@@ -28,8 +28,7 @@ class _TrackTransactionDemoScreenState extends State<TrackTransactionDemoScreen>
   }
 
   Future<void> _loadSenderCurrency() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String code = prefs.getString('last_sender_currency_code') ?? 'GBP';
+    final String code = await CurrencyPrefs.loadSenderCurrencyCodeOrDefault('GBP');
     if (!mounted) return;
     setState(() => _senderCurrency = code);
   }

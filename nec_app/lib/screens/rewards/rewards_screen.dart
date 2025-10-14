@@ -5,7 +5,7 @@ import 'package:nec_app/widgets/nav_bar.dart';
 import 'package:nec_app/widgets/buttons/back_button.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
 import 'package:nec_app/widgets/buttons/secondary_button.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nec_app/services/currency_prefs.dart';
 import 'package:nec_app/widgets/buttons/notification_button.dart';
 import 'package:nec_app/models/notification_model.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,14 +32,12 @@ class _RewardsScreenState extends State<RewardsScreen> {
   }
 
   Future<void> _loadSymbolAndCurrency() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? s = prefs.getString('currencySymbol');
+    final String? s = await CurrencyPrefs.loadCurrencySymbol();
     if (s != null && s.isNotEmpty && s != _symbol) {
       setState(() => _symbol = s);
     }
-    
-    // Load currency code
-    final String? currencyCode = prefs.getString('last_sender_currency_code');
+
+    final String? currencyCode = await CurrencyPrefs.loadSenderCurrencyCode();
     if (currencyCode != null && currencyCode.isNotEmpty) {
       setState(() => _currencyCode = currencyCode);
     }

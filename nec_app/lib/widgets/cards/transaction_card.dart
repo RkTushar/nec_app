@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nec_app/theme/theme_data.dart';
 import 'package:nec_app/screens/history/transaction_details.dart';
 import 'package:nec_app/models/transaction_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nec_app/services/currency_prefs.dart';
 
 /// A reusable TransactionCard widget for displaying transaction information.
 ///
@@ -85,8 +85,7 @@ class _TransactionCardState extends State<TransactionCard> {
   }
 
   Future<void> _loadLoginCurrencyCode() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String code = prefs.getString('last_sender_currency_code') ?? 'BDT';
+    final String code = await CurrencyPrefs.loadSenderCurrencyCodeOrDefault('BDT');
     if (!mounted) return;
     setState(() => _loginCurrencyCode = code);
   }

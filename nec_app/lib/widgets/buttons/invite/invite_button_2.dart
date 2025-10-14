@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nec_app/models/country_model.dart';
 import 'package:nec_app/screens/rewards/invite_screen.dart';
 import 'package:nec_app/theme/theme_data.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nec_app/services/currency_prefs.dart';
 
 class InviteButton2 extends StatefulWidget {
   final VoidCallback? onPressed;
@@ -37,8 +37,7 @@ class _InviteButton2State extends State<InviteButton2> {
       setState(() => _symbol = CurrencyRepository.symbol(widget.currencyCode!.toUpperCase()));
       return;
     }
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? saved = prefs.getString('currencySymbol');
+    final String? saved = await CurrencyPrefs.loadCurrencySymbol();
     if (saved != null && saved.isNotEmpty) {
       setState(() => _symbol = saved);
     }

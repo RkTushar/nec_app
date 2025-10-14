@@ -12,7 +12,7 @@ import 'package:nec_app/widgets/cards/rating_card.dart';
 import 'package:nec_app/screens/send/send_screen.dart';
 import 'package:nec_app/models/transaction_model.dart';
 import 'package:nec_app/models/notification_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nec_app/services/currency_prefs.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? initialSenderCurrency;
@@ -36,14 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
     // Use initialSenderCurrency if provided, otherwise load from SharedPreferences
     if (widget.initialSenderCurrency != null && widget.initialSenderCurrency!.isNotEmpty) {
       setState(() => _currentCurrency = widget.initialSenderCurrency);
-      // Save to SharedPreferences for future use
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('last_sender_currency_code', widget.initialSenderCurrency!);
+      await CurrencyPrefs.saveSenderCurrencyCode(widget.initialSenderCurrency!);
     } else {
-      // Load from SharedPreferences
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final String? savedCurrency = prefs.getString('last_sender_currency_code');
-      setState(() => _currentCurrency = savedCurrency ?? 'GBP');
+      final String saved = await CurrencyPrefs.loadSenderCurrencyCodeOrDefault('GBP');
+      setState(() => _currentCurrency = saved);
     }
   }
 

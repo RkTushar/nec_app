@@ -9,7 +9,7 @@ import 'signup_screen_1.dart';
 import 'forgot_pass_screen.dart';
 import '../../widgets/fields/select_country_widget.dart';
 import '../homescreen/home_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nec_app/services/currency_prefs.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -278,12 +278,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     final String? selectedCurrency = _selectedCountryData?['currency'];
                     final String? selectedSymbol = _selectedCountryData?['currencySymbol'];
                     // Persist for other screens (e.g., Rewards)
-                    final SharedPreferences prefs = await SharedPreferences.getInstance();
-                    if (selectedSymbol != null && selectedSymbol.isNotEmpty) {
-                      await prefs.setString('currencySymbol', selectedSymbol);
+                    if ((selectedSymbol ?? '').isNotEmpty) {
+                      await CurrencyPrefs.saveCurrencySymbol(selectedSymbol!);
                     }
-                    if (selectedCurrency != null && selectedCurrency.isNotEmpty) {
-                      await prefs.setString('last_sender_currency_code', selectedCurrency);
+                    if ((selectedCurrency ?? '').isNotEmpty) {
+                      await CurrencyPrefs.saveSenderCurrencyCode(selectedCurrency!);
                     }
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(

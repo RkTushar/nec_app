@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:nec_app/services/currency_prefs.dart';
 
 import 'package:nec_app/widgets/share_link_widget.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
@@ -11,12 +12,34 @@ import 'package:nec_app/widgets/buttons/invite/invite_button_2.dart';
 import 'package:nec_app/widgets/buttons/back_button.dart';
 import 'qr_code_screen.dart';
 
-class InviteScreen extends StatelessWidget {
+class InviteScreen extends StatefulWidget {
   final String? currencyCode; // ISO 4217 code e.g. GBP, USD
   
   const InviteScreen({super.key, this.currencyCode});
 
-  // Moved referral text inside build (to avoid const field error in StatelessWidget)
+  @override
+  State<InviteScreen> createState() => _InviteScreenState();
+}
+
+class _InviteScreenState extends State<InviteScreen> {
+  String? _effectiveCurrencyCode;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCurrencyCode();
+  }
+
+  Future<void> _loadCurrencyCode() async {
+    if ((widget.currencyCode ?? '').trim().isNotEmpty) {
+      setState(() => _effectiveCurrencyCode = widget.currencyCode!.trim());
+      return;
+    }
+    final String? savedCode = await CurrencyPrefs.loadSenderCurrencyCode();
+    if (!mounted) return;
+    setState(() => _effectiveCurrencyCode = (savedCode ?? '').isNotEmpty ? savedCode : null);
+  }
+
   @override
   Widget build(BuildContext context) {
     final Color primaryGreen = Theme.of(context).colorScheme.primary;
@@ -102,7 +125,7 @@ class InviteScreen extends StatelessWidget {
                               onPressed: () {},
                               backgroundColor: primaryGreen,
                               foregroundColor: Colors.white,
-                              currencyCode: currencyCode,
+                              currencyCode: _effectiveCurrencyCode,
                             ),
                           ],
                         ),
@@ -324,7 +347,7 @@ class InviteScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    '0.00 ${currencyCode ?? 'GBP'}',
+                    '0.00 ${_effectiveCurrencyCode ?? ''}',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,

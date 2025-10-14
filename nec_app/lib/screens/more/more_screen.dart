@@ -203,7 +203,8 @@ class _GridMenu extends StatelessWidget {
             color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(12),
             child: InkWell(
-              onTap: () {
+              onTap: () async {
+                await Future.delayed(const Duration(milliseconds: 150));
                 if (item.label == 'Tracking Transaction') {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => const TrackTransactionScreen()),

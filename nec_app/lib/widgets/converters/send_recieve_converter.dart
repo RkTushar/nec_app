@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nec_app/models/country_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nec_app/services/currency_prefs.dart';
 
 // Rates, flags and currency listing now sourced from CurrencyRepository.
 
@@ -86,12 +86,9 @@ class _SendReceiveConverterState extends State<SendReceiveConverter> {
     }
   }
 
-  static const String _prefsKeyLastSenderCurrency = 'last_sender_currency_code';
-
   Future<void> _saveLastSenderCurrency(String code) async {
     try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_prefsKeyLastSenderCurrency, code);
+      await CurrencyPrefs.saveSenderCurrencyCode(code);
     } catch (_) {
       // Intentionally ignore persistence errors
     }
@@ -99,8 +96,7 @@ class _SendReceiveConverterState extends State<SendReceiveConverter> {
 
   Future<String?> _loadLastSenderCurrency() async {
     try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      return prefs.getString(_prefsKeyLastSenderCurrency);
+      return CurrencyPrefs.loadSenderCurrencyCode();
     } catch (_) {
       return null;
     }
