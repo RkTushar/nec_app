@@ -5,6 +5,10 @@ import 'package:nec_app/theme/theme_data.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button_2.dart';
 import 'package:nec_app/widgets/buttons/notification_button.dart';
 import 'package:nec_app/widgets/nav_bar.dart';
+import 'package:nec_app/screens/more/track_transaction.dart';
+import 'package:nec_app/screens/rewards/qr_code_screen.dart';
+import 'package:nec_app/screens/rewards/invite_screen.dart';
+import 'package:nec_app/widgets/share_link_widget.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({super.key});
@@ -182,7 +186,27 @@ class _GridMenu extends StatelessWidget {
             color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(12),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                if (item.label == 'Tracking Transaction') {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const TrackTransactionScreen()),
+                  );
+                } else if (item.label == 'My QR code') {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const MyQrCodeScreen()),
+                  );
+                } else if (item.label == 'Invite Friends') {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const InviteScreen()),
+                  );
+                } else if (item.label == 'Share App Link') {
+                  const String referralText = 'https://necmoneyreferral.onelink.me/';
+                  ShareLinkWidget.shareText(
+                    referralText,
+                    subject: 'Join me on NEC Money!',
+                  );
+                }
+              },
               borderRadius: BorderRadius.circular(12),
               splashColor: AppColors.primary.withOpacity(0.12),
               highlightColor: AppColors.primary.withOpacity(0.06),
