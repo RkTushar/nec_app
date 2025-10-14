@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:nec_app/theme/theme_data.dart';
 import 'package:nec_app/widgets/buttons/primary_button.dart';
 import 'package:nec_app/widgets/cards/common_card.dart';
-import 'package:nec_app/widgets/fields/custom_text_field.dart';
 import 'package:nec_app/widgets/buttons/back_button.dart';
 import 'package:nec_app/models/transaction_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nec_app/widgets/cards/track_transaction_widget.dart';
 
 /// Demo screen: Track transaction (read-only mock) built with existing widgets
 class TrackTransactionDemoScreen extends StatefulWidget {
@@ -18,7 +18,6 @@ class TrackTransactionDemoScreen extends StatefulWidget {
 }
 
 class _TrackTransactionDemoScreenState extends State<TrackTransactionDemoScreen> {
-  final TextEditingController _controller = TextEditingController(text: '');
   String _senderCurrency = 'GBP';
   bool _isDownloading = false; // State variable to track downloading status
 
@@ -77,24 +76,10 @@ class _TrackTransactionDemoScreenState extends State<TrackTransactionDemoScreen>
                 style: theme.textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
               ),
               const SizedBox(height: 12),
-              // Input field
-              CustomTextField(
-                controller: _controller,
-                labelText: 'Example: GB00000000/000000',
-                prefixIcon: Icons.qr_code_scanner_rounded,
-                suffixIcon: Icons.cancel_outlined,
-                onSuffixTap: () {
-                  _controller.clear();
-                  setState(() {});
+              TrackTransactionWidget(
+                onTrack: (String transactionNumber) {
+                  // Hook for track action if needed
                 },
-                onChanged: (_) => setState(() {}),
-              ),
-              const SizedBox(height: 12),
-              // Track button
-              PrimaryButton(
-                label: 'Track transaction',
-                onPressed: () {},
-                enabled: _controller.text.trim().isNotEmpty,
               ),
               const SizedBox(height: 24),
               // Transaction details card
