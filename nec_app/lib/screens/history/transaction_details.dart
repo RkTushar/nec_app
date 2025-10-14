@@ -71,11 +71,6 @@ class _TrackTransactionDemoScreenState extends State<TrackTransactionDemoScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Track your transaction by entering your transaction\nnumber, which you\'ll find in your invoice sent to the\nemail.',
-                style: theme.textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
-              ),
-              const SizedBox(height: 12),
               TrackTransactionWidget(
                 onTrack: (String transactionNumber) {
                   // Hook for track action if needed
