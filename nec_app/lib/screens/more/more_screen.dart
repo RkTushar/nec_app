@@ -19,7 +19,7 @@ class MoreScreen extends StatelessWidget {
         top: true,
         bottom: false,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 120),
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 96),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -28,7 +28,7 @@ class MoreScreen extends StatelessWidget {
               const _SectionTitle('Account'),
               const SizedBox(height: 10),
               const _AccountGrid(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               const _SectionTitle('Support And Others'),
               const SizedBox(height: 8),
               _SupportGrid(),
@@ -129,16 +129,16 @@ class _AccountGrid extends StatelessWidget {
 
 class _SupportGrid extends StatelessWidget {
   final List<_MenuItem> items = const <_MenuItem>[
-    _MenuItem('Contact Us', null, icon: Icons.support_agent_rounded),
-    _MenuItem('Feedback', null, icon: Icons.feedback_rounded),
-    _MenuItem('About us', null, icon: Icons.group_rounded),
-    _MenuItem('Rating', null, icon: Icons.star_rate_rounded),
-    _MenuItem('Privacy Policy', null, icon: Icons.privacy_tip_rounded),
-    _MenuItem('Terms & Conditions', null, icon: Icons.description_rounded),
-    _MenuItem('Change Password', null, icon: Icons.lock_reset_rounded),
-    _MenuItem('Update now', null, icon: Icons.system_update_rounded),
-    _MenuItem('Share App Link', null, icon: Icons.ios_share_rounded),
-    _MenuItem('Log Out', null, icon: Icons.power_settings_new_rounded, danger: true),
+    _MenuItem('Contact Us', 'assets/icons/more_screen/contact_us.svg'),
+    _MenuItem('Feedback', 'assets/icons/more_screen/feedback.svg'),
+    _MenuItem('About us', 'assets/icons/more_screen/about_us.svg'),
+    _MenuItem('Rating', 'assets/icons/more_screen/rating.svg'),
+    _MenuItem('Privacy Policy', 'assets/icons/more_screen/privacy_policy.svg'),
+    _MenuItem('Terms & Conditions', 'assets/icons/more_screen/terms_condition.svg'),
+    _MenuItem('Change Password', 'assets/icons/more_screen/change_pass.svg'),
+    _MenuItem('Update now', 'assets/icons/more_screen/update_now.svg'),
+    _MenuItem('Share App Link', 'assets/icons/more_screen/share_app.svg'),
+    _MenuItem('Log Out', 'assets/icons/more_screen/log_out.svg', danger: true),
   ];
 
   _SupportGrid();
@@ -156,14 +156,16 @@ class _GridMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color border = Theme.of(context).dividerColor.withOpacity(0.15);
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: border),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-      child: GridView.builder(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: border),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+        child: GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: items.length,
@@ -176,40 +178,53 @@ class _GridMenu extends StatelessWidget {
         itemBuilder: (context, index) {
           final _MenuItem item = items[index];
           final bool isDanger = item.danger == true;
-          return InkWell(
-            onTap: () {},
+          return Material(
+            color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(12),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: const [
-                  BoxShadow(color: Color(0x08000000), blurRadius: 4, offset: Offset(0, 2)),
-                ],
-                border: Border.all(color: border),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  _MenuIcon(item: item, isDanger: isDanger),
-                  const SizedBox(height: 8),
-                  Text(
-                    item.label,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: isDanger ? AppColors.error : Theme.of(context).textTheme.bodyMedium?.color,
+            child: InkWell(
+              onTap: () {},
+              borderRadius: BorderRadius.circular(12),
+              splashColor: AppColors.primary.withOpacity(0.12),
+              highlightColor: AppColors.primary.withOpacity(0.06),
+              child: Container(
+                decoration: BoxDecoration(
+                  // keep subtle border and shadow outside ripple
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: const [
+                    BoxShadow(color: Color(0x08000000), blurRadius: 4, offset: Offset(0, 2)),
+                  ],
+                  border: Border.all(color: border),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    _MenuIcon(item: item, isDanger: isDanger),
+                    const SizedBox(height: 6),
+                    SizedBox(
+                      height: 32, // reserve equal space for 1-2 lines to align rows
+                      child: Center(
+                        child: Text(
+                          item.label,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: isDanger ? AppColors.error : Theme.of(context).textTheme.bodyMedium?.color,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
         },
+        ),
       ),
     );
   }
@@ -222,23 +237,21 @@ class _MenuIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color iconColor = isDanger ? AppColors.error : AppColors.primary;
-    return Container(
-      width: 44,
-      height: 44,
-      decoration: BoxDecoration(
-        color: isDanger ? const Color(0x14D32F2F) : const Color(0x142E7D32),
-        borderRadius: BorderRadius.circular(12),
-      ),
+    // Color retained for potential future use when mixing SVG and Material icons.
+    final bool isSvg = item.asset != null;
+    final double size = isSvg ? 32 : 28; // larger sizes to better fill cards
+    return SizedBox(
+      height: 42,
       child: Center(
-        child: item.asset == null
-            ? Icon(item.icon, color: iconColor, size: 22)
-            : SvgPicture.asset(
-                item.asset!,
-                width: 22,
-                height: 22,
-                colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-              ),
+        child: SvgPicture.asset(
+          item.asset!,
+          width: size,
+          height: size,
+          // Make only QR icon green; others keep original colors
+          colorFilter: item.asset!.endsWith('qr_icon.svg')
+              ? ColorFilter.mode(AppColors.primary, BlendMode.srcIn)
+              : null,
+        ),
       ),
     );
   }
@@ -246,10 +259,9 @@ class _MenuIcon extends StatelessWidget {
 
 class _MenuItem {
   final String label;
-  final String? asset; // when null, use material icon
-  final IconData? icon;
+  final String? asset; // svg path for the icon
   final bool? danger;
-  const _MenuItem(this.label, this.asset, {this.icon, this.danger});
+  const _MenuItem(this.label, this.asset, {this.danger});
 }
 
 

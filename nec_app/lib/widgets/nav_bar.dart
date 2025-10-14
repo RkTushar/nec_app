@@ -34,7 +34,7 @@ class NavBar extends StatelessWidget {
       elevation: 0,
       clipBehavior: Clip.none,
       child: Container(
-        height: 56.0,
+        height: 60.0,
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Stack(
           alignment: Alignment.center,
@@ -71,7 +71,7 @@ class NavBar extends StatelessWidget {
                     },
                   ),
                 ),
-                const SizedBox(width: 72.0), // space for center FAB
+                const SizedBox(width: 76.0), // space for center FAB
                 Expanded(
                   child: _buildNavItem(
                     icon: Icons.history,
