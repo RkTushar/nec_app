@@ -8,11 +8,14 @@ import 'package:nec_app/widgets/nav_bar.dart';
 import 'package:nec_app/screens/more/track_transaction.dart';
 import 'package:nec_app/screens/rewards/qr_code_screen.dart';
 import 'package:nec_app/screens/rewards/invite_screen.dart';
+import 'package:nec_app/screens/rewards/rewards_screen.dart';
 import 'package:nec_app/widgets/share_link_widget.dart';
 import 'package:nec_app/screens/more/terms_condition_screen.dart';
 import 'package:nec_app/screens/more/privacy_policy_screen.dart';
 import 'package:nec_app/screens/more/about_us.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nec_app/screens/auth/auth_choose.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({super.key});
@@ -213,6 +216,10 @@ class _GridMenu extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => const InviteScreen()),
                   );
+                } else if (item.label == 'My Rewards') {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const RewardsScreen(showNavBar: false)),
+                  );
                 } else if (item.label == 'Share App Link') {
                   const String referralText = 'https://necmoneyreferral.onelink.me/';
                   ShareLinkWidget.shareText(
@@ -231,20 +238,34 @@ class _GridMenu extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => const AboutUsScreen()),
                   );
+                } else if (item.label == 'Rating') {
+                  final Uri uri = Uri.parse('https://play.google.com/store/apps/details?id=com.necmoney.necmoneyapp');
+                  () async {
+                    await launchUrl(uri, mode: LaunchMode.externalApplication);
+                  }();
                 } else if (item.label == 'Update now') {
                   final Uri uri = Uri.parse('https://play.google.com/store/apps/details?id=com.necmoney.necmoneyapp');
                   () async {
+                    await launchUrl(uri, mode: LaunchMode.externalApplication);
+                  }();
+                } else if (item.label == 'Log Out') {
+                  () async {
+                    showDialog<void>(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (_) => const Center(child: CircularProgressIndicator()),
+                    );
                     try {
-                      if (await canLaunchUrl(uri)) {
-                        await launchUrl(uri, mode: LaunchMode.externalApplication);
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Could not open the store link')),
-                        );
-                      }
-                    } catch (_) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Could not open the store link')),
+                      final SharedPreferences prefs = await SharedPreferences.getInstance();
+                      await prefs.clear();
+                      // keep spinner visible briefly so users see feedback
+                      await Future.delayed(const Duration(milliseconds: 900));
+                    } finally {
+                      if (!context.mounted) return;
+                      Navigator.of(context, rootNavigator: true).pop(); // dismiss loading dialog
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (_) => const AuthChoose()),
+                        (Route<dynamic> route) => false,
                       );
                     }
                   }();
