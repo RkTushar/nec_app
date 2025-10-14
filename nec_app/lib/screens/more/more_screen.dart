@@ -9,6 +9,9 @@ import 'package:nec_app/screens/more/track_transaction.dart';
 import 'package:nec_app/screens/rewards/qr_code_screen.dart';
 import 'package:nec_app/screens/rewards/invite_screen.dart';
 import 'package:nec_app/widgets/share_link_widget.dart';
+import 'package:nec_app/screens/more/terms_condition_screen.dart';
+import 'package:nec_app/screens/more/privacy_policy_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({super.key});
@@ -16,8 +19,25 @@ class MoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color primary = Theme.of(context).colorScheme.primary;
+    final int notificationCount = NotificationModel.getTotalCount();
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'More',
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 24,
+          ),
+        ),
+        centerTitle: false,
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: NotificationButton(count: notificationCount, backgroundColor: primary),
+          ),
+        ],
+      ),
       extendBody: true,
       body: SafeArea(
         top: true,
@@ -27,7 +47,7 @@ class MoreScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _ProfileHeader(primaryColor: primary, notificationCount: NotificationModel.getTotalCount()),
+              _ProfileHeader(primaryColor: primary, notificationCount: notificationCount),
               const SizedBox(height: 30),
               const _SectionTitle('Account'),
               const SizedBox(height: 10),
@@ -59,40 +79,33 @@ class _ProfileHeader extends StatelessWidget {
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(12),
       ),
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(16),
       child: Row(
         children: <Widget>[
           CircleAvatar(
-            radius: 26,
+            radius: 30,
             backgroundColor: Colors.transparent,
             child: SvgPicture.asset(
               'assets/icons/profile_icon.svg',
-              width: 52,
-              height: 52,
+              width: 60,
+              height: 60,
               fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(width: 15),
+          const SizedBox(width: 18),
           const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Hello!', style: TextStyle(fontSize: 13)),
+                Text('Hello!', style: TextStyle(fontSize: 14)),
                 SizedBox(height: 2),
-                Text('Kamal Ahmed', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                Text('Tushar', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
                 SizedBox(height: 2),
-                Text('NGB76121', style: TextStyle(fontSize: 12)),
+                Text('NGB76121', style: TextStyle(fontSize: 13)),
               ],
             ),
           ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              InviteButton2(backgroundColor: primaryColor, foregroundColor: Colors.white),
-              const SizedBox(width: 8),
-              NotificationButton(count: notificationCount, backgroundColor: primaryColor),
-            ],
-          ),
+          InviteButton2(backgroundColor: primaryColor, foregroundColor: Colors.white),
         ],
       ),
     );
@@ -205,6 +218,31 @@ class _GridMenu extends StatelessWidget {
                     referralText,
                     subject: 'Join me on NEC Money!',
                   );
+                } else if (item.label == 'Terms & Conditions') {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const TermsConditionScreen()),
+                  );
+                } else if (item.label == 'Privacy Policy') {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen()),
+                  );
+                } else if (item.label == 'Update now') {
+                  final Uri uri = Uri.parse('https://play.google.com/store/apps/details?id=com.necmoney.necmoneyapp');
+                  () async {
+                    try {
+                      if (await canLaunchUrl(uri)) {
+                        await launchUrl(uri, mode: LaunchMode.externalApplication);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Could not open the store link')),
+                        );
+                      }
+                    } catch (_) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Could not open the store link')),
+                      );
+                    }
+                  }();
                 }
               },
               borderRadius: BorderRadius.circular(12),
