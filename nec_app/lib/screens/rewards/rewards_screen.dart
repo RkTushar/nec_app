@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nec_app/theme/theme_data.dart';
 import 'package:nec_app/widgets/nav_bar.dart';
+import 'package:nec_app/widgets/buttons/back_button.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
 import 'package:nec_app/widgets/buttons/secondary_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +13,9 @@ import 'package:nec_app/screens/rewards/qr_code_screen.dart';
 import 'package:nec_app/screens/rewards/invite_screen.dart';
 
 class RewardsScreen extends StatefulWidget {
-  const RewardsScreen({super.key});
+  const RewardsScreen({super.key, this.showNavBar = true});
+
+  final bool showNavBar;
 
   @override
   State<RewardsScreen> createState() => _RewardsScreenState();
@@ -50,13 +53,16 @@ class _RewardsScreenState extends State<RewardsScreen> {
       extendBody: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        leading: widget.showNavBar ? null : const AppBackButton(),
         title: const Text('Reward', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24)),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 12),
-            child: NotificationButton(backgroundColor: AppColors.primary, count: NotificationModel.getTotalCount()),
-          ),
-        ],
+        actions: widget.showNavBar
+            ? [
+                Padding(
+                  padding: EdgeInsets.only(right: 12),
+                  child: NotificationButton(backgroundColor: AppColors.primary, count: NotificationModel.getTotalCount()),
+                ),
+              ]
+            : null,
         centerTitle: false,
         titleSpacing: 16,
       ),
@@ -98,9 +104,9 @@ class _RewardsScreenState extends State<RewardsScreen> {
           const SizedBox(height: 72),
         ],
       ),
-      floatingActionButton: const CustomFloatingActionButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: NavBar(selectedTab: NavTab.rewards),
+      floatingActionButton: widget.showNavBar ? const CustomFloatingActionButton() : null,
+      floatingActionButtonLocation: widget.showNavBar ? FloatingActionButtonLocation.centerDocked : null,
+      bottomNavigationBar: widget.showNavBar ? NavBar(selectedTab: NavTab.rewards) : null,
     );
   }
 }
