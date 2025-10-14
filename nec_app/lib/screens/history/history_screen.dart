@@ -128,10 +128,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                           amountText: transaction.formattedAmount,
                           dateText: transaction.formattedDate,
                           highlighted: transaction.highlighted,
-                          onTap: () {
-                            // Handle transaction tap - navigate to details
-                            print('Tapped transaction: ${transaction.name}');
-                          },
+                          model: transaction,
                         );
                       },
                     ),

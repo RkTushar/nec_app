@@ -13,6 +13,7 @@ class CustomTextField extends StatelessWidget {
   final VoidCallback? onTap;
   final ValueChanged<String>? onChanged;
   final IconData? suffixIcon;
+  final VoidCallback? onSuffixTap;
   final List<TextInputFormatter>? inputFormatters;
   final AutovalidateMode? autovalidateMode;
 
@@ -27,6 +28,7 @@ class CustomTextField extends StatelessWidget {
     this.onTap,
     this.onChanged,
     this.suffixIcon,
+    this.onSuffixTap,
     this.inputFormatters,
     this.autovalidateMode,
   });
@@ -42,7 +44,14 @@ class CustomTextField extends StatelessWidget {
           ? Icon(prefixIcon, color: Colors.grey)
           : null,
       suffixIcon: suffixIcon != null
-          ? Icon(suffixIcon, color: AppColors.textSecondary)
+          ? (onSuffixTap != null
+              ? IconButton(
+                  visualDensity: VisualDensity.compact,
+                  tooltip: 'Clear',
+                  onPressed: onSuffixTap,
+                  icon: Icon(suffixIcon, color: AppColors.textSecondary),
+                )
+              : Icon(suffixIcon, color: AppColors.textSecondary))
           : null,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(

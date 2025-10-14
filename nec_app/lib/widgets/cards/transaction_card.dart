@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nec_app/theme/theme_data.dart';
+import 'package:nec_app/screens/history/transaction_details.dart';
+import 'package:nec_app/models/transaction_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// A reusable TransactionCard widget for displaying transaction information.
 ///
@@ -42,6 +45,9 @@ class TransactionCard extends StatefulWidget {
 
   /// Callback when the card is tapped
   final VoidCallback? onTap;
+  
+  /// Optional model to navigate with when onTap is not provided
+  final TransactionModel? model;
 
   /// Bottom spacing added by default to separate cards
   final double bottomSpacing;
@@ -61,6 +67,7 @@ class TransactionCard extends StatefulWidget {
     this.selected = false,
     this.onTap,
     this.bottomSpacing = 8.0,
+    this.model,
   });
 
   @override
@@ -69,6 +76,20 @@ class TransactionCard extends StatefulWidget {
 
 class _TransactionCardState extends State<TransactionCard> {
   bool _pressed = false;
+  String _loginCurrencyCode = 'BDT';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLoginCurrencyCode();
+  }
+
+  Future<void> _loadLoginCurrencyCode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String code = prefs.getString('last_sender_currency_code') ?? 'BDT';
+    if (!mounted) return;
+    setState(() => _loginCurrencyCode = code);
+  }
 
   void _setPressed(bool pressed) {
     if (_pressed == pressed) return;
@@ -86,6 +107,13 @@ class _TransactionCardState extends State<TransactionCard> {
       return const Color(0xFFD32F2F); // red
     }
     return const Color(0xFFD32F2F); // default red (backwards compatible)
+  }
+
+  double _parseAmountFromText(String txt) {
+    // Extract decimal number from strings like "BDT 10,000.00"
+    final match = RegExp(r"([0-9]+(?:,[0-9]{3})*(?:\.[0-9]+)?)").firstMatch(txt);
+    if (match == null) return 0.0;
+    return double.tryParse(match.group(1)!.replaceAll(',', '')) ?? 0.0;
   }
 
   @override
@@ -118,7 +146,17 @@ class _TransactionCardState extends State<TransactionCard> {
         _setPressed(true);
         await Future.delayed(const Duration(milliseconds: 120));
         try {
-          widget.onTap?.call();
+          if (widget.onTap != null) {
+            widget.onTap!.call();
+          } else {
+            if (!mounted) return;
+            final TransactionModel model = widget.model ?? _inferModelFromProps();
+            await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => TrackTransactionDemoScreen(transaction: model),
+              ),
+            );
+          }
         } finally {
           // Allow a short time for route transition to start, then clear outline
           await Future.delayed(const Duration(milliseconds: 120));
@@ -192,7 +230,11 @@ class _TransactionCardState extends State<TransactionCard> {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  widget.amountText,
+                  // Always show amount with login currency code
+                  '${_loginCurrencyCode} ' +
+                      (widget.model != null
+                          ? widget.model!.amount.toStringAsFixed(2)
+                          : _parseAmountFromText(widget.amountText).toStringAsFixed(2)),
                   style: TextStyle(
                     color: resolvedAmountColor,
                     fontWeight: FontWeight.w800,
@@ -203,6 +245,45 @@ class _TransactionCardState extends State<TransactionCard> {
           ],
         ),
       ),
+    );
+  }
+
+  // Best-effort construction of a TransactionModel from the card props so
+  // the card can navigate standalone anywhere it's used.
+  TransactionModel _inferModelFromProps() {
+    double _parseAmount(String txt) {
+      // Extract decimal number from strings like "BDT 10,000.00"
+      final match = RegExp(r"([0-9]+(?:,[0-9]{3})*(?:\.[0-9]+)?)").firstMatch(txt);
+      if (match == null) return 0.0;
+      return double.tryParse(match.group(1)!.replaceAll(',', '')) ?? 0.0;
+    }
+
+    String _currencyFrom(String txt) {
+      // Get first 3-4 letters as currency if present
+      final match = RegExp(r"^[A-Z]{3,4}").firstMatch(txt.trim());
+      return match?.group(0) ?? 'BDT';
+    }
+
+    final String currency = _currencyFrom(widget.amountText);
+    final double receiverAmount = _parseAmount(widget.amountText);
+    final String status = widget.statusText.replaceFirst('Status : ', '').trim();
+
+    return TransactionModel(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      name: widget.name,
+      status: status.isEmpty ? 'Unknown' : status,
+      amount: receiverAmount,
+      date: DateTime.now(),
+      highlighted: widget.highlighted,
+      transactionNumber: 'GB${DateTime.now().millisecondsSinceEpoch % 10000000}/${DateTime.now().second.toString().padLeft(6, '0')}',
+      receiverCurrency: currency,
+      transferAmountGbp: 5.00,
+      usedBalanceGbp: 0.00,
+      paymentAmountGbp: 5.00,
+      cardChargeGbp: 0.00,
+      transferFeeGbp: 0.00,
+      paymentStatusText: status.toLowerCase().contains('cancel') ? 'Cancelled' : 'In Hold (Mobile).',
+      bankName: 'TRUST BANK LTD',
     );
   }
 }
