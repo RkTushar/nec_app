@@ -60,7 +60,8 @@ class _InviteButton2State extends State<InviteButton2> {
           );
         },
         style: TextButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          minimumSize: const Size(84, 33),
           backgroundColor: resolvedBackground,
           foregroundColor: resolvedForeground,
           shape: RoundedRectangleBorder(
