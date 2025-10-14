@@ -160,7 +160,7 @@ class _HeaderCard extends StatelessWidget {
               children: <Widget>[
                 Text('Hello!', style: TextStyle(fontSize: 13)),
                 SizedBox(height: 2),
-                Text('Kamal Ahmed', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                Text('Tushar', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                 SizedBox(height: 2),
                 Text('NGB76121', style: TextStyle(fontSize: 12)),
               ],
