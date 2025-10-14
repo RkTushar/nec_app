@@ -11,6 +11,7 @@ import 'package:nec_app/screens/rewards/invite_screen.dart';
 import 'package:nec_app/widgets/share_link_widget.dart';
 import 'package:nec_app/screens/more/terms_condition_screen.dart';
 import 'package:nec_app/screens/more/privacy_policy_screen.dart';
+import 'package:nec_app/screens/more/about_us.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MoreScreen extends StatelessWidget {
@@ -225,6 +226,10 @@ class _GridMenu extends StatelessWidget {
                 } else if (item.label == 'Privacy Policy') {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen()),
+                  );
+                } else if (item.label == 'About us') {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const AboutUsScreen()),
                   );
                 } else if (item.label == 'Update now') {
                   final Uri uri = Uri.parse('https://play.google.com/store/apps/details?id=com.necmoney.necmoneyapp');
