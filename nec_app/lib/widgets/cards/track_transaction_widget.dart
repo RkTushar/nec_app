@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:nec_app/widgets/fields/custom_text_field.dart';
 import 'package:nec_app/widgets/buttons/primary_button.dart';
+import 'package:nec_app/theme/theme_data.dart';
 
 class TrackTransactionWidget extends StatefulWidget {
   final String initialText;
   final void Function(String transactionNumber)? onTrack;
+  final bool showDescription;
 
-  const TrackTransactionWidget({super.key, this.initialText = '', this.onTrack});
+  const TrackTransactionWidget({super.key, this.initialText = '', this.onTrack, this.showDescription = true});
 
   @override
   State<TrackTransactionWidget> createState() => _TrackTransactionWidgetState();
@@ -29,9 +31,16 @@ class _TrackTransactionWidgetState extends State<TrackTransactionWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if (widget.showDescription)
+          Text(
+            'Track your transaction by entering your transaction\nnumber, which you\'ll find in your invoice sent to the\nemail.',
+            style: theme.textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+          ),
+        if (widget.showDescription) const SizedBox(height: 12),
         CustomTextField(
           controller: _controller,
           labelText: 'Example: GB00000000/000000',
