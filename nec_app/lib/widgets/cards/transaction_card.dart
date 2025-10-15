@@ -281,7 +281,7 @@ class _TransactionCardState extends State<TransactionCard> {
       cardChargeGbp: 0.00,
       transferFeeGbp: 0.00,
       paymentStatusText: status.toLowerCase().contains('cancel') ? 'Cancelled' : 'In Hold (Mobile).',
-      bankName: 'TRUST BANK LTD',
+      bankName: '',
     );
   }
 }
