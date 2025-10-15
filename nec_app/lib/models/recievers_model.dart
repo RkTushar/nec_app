@@ -181,6 +181,42 @@ class DemoReceivers {
       bankCity: 'Rajshahi',
       branchName: 'Shaheb Bazar',
     ),
+    Receiver(
+      firstName: 'Samira',
+      lastName: 'Akter',
+      relationship: RelationshipType.mother,
+      phoneNumber: '01711002233',
+      country: CountryRepository.byCode('BD')!,
+      bank: Bank.demoBanks[2], // STANDARD CHARTERED
+      accountType: AccountType.savings,
+      accountNumber: '221133445566',
+      bankCity: 'Dhaka',
+      branchName: 'Dhanmondi',
+    ),
+    Receiver(
+      firstName: 'Farhan',
+      lastName: 'Islam',
+      relationship: RelationshipType.friend,
+      phoneNumber: '01899007766',
+      country: CountryRepository.byCode('BD')!,
+      bank: Bank.demoBanks[4], // EASTERN BANK LTD
+      accountType: AccountType.current,
+      accountNumber: '778899001122',
+      bankCity: 'Chattogram',
+      branchName: 'Pahartali',
+    ),
+    Receiver(
+      firstName: 'Ayesha',
+      lastName: 'Siddiqua',
+      relationship: RelationshipType.spouse,
+      phoneNumber: '01566004455',
+      country: CountryRepository.byCode('BD')!,
+      bank: Bank.demoBanks[7], // NATIONAL BANK LTD
+      accountType: AccountType.checking,
+      accountNumber: '334455667788',
+      bankCity: 'Sylhet',
+      branchName: 'Amberkhana',
+    ),
   ];
 }
 

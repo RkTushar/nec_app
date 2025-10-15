@@ -176,8 +176,12 @@ class CustomFloatingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Keep FAB visually fixed even when keyboard appears by offsetting down
+    // by the current bottom view inset (keyboard height) so Scaffold's
+    // automatic repositioning is neutralized.
+    final double bottomInset = MediaQuery.of(context).viewInsets.bottom;
     return Transform.translate(
-      offset: const Offset(0, 2), // balanced overlap with BottomAppBar
+      offset: Offset(0, 2 + (bottomInset > 0 ? bottomInset : 0)),
       child: SizedBox(
         width: 70,
         height: 70,

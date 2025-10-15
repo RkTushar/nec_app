@@ -13,6 +13,7 @@ class SecondaryButton extends StatelessWidget {
   final BorderRadiusGeometry borderRadius;
   final Widget? leading;
   final Widget? trailing;
+  final double fontSize;
 
   const SecondaryButton({
     super.key,
@@ -28,6 +29,7 @@ class SecondaryButton extends StatelessWidget {
     this.borderRadius = const BorderRadius.all(Radius.circular(30)),
     this.leading,
     this.trailing,
+    this.fontSize = 16,
   });
 
   @override
@@ -41,19 +43,23 @@ class SecondaryButton extends StatelessWidget {
       shadowColor: WidgetStateProperty.all<Color>(Colors.transparent),
     );
 
-    final Widget child = Row(
+    final Widget contentRow = Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         if (leading != null) leading!,
         if (leading != null) const SizedBox(width: 6),
         Text(
           label,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: foregroundColor),
+          style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold, color: foregroundColor),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          softWrap: false,
         ),
         if (trailing != null) const SizedBox(width: 6),
         if (trailing != null) trailing!,
       ],
     );
+    final Widget child = FittedBox(fit: BoxFit.scaleDown, child: contentRow);
 
     final Widget button = outlined
         ? OutlinedButton(
