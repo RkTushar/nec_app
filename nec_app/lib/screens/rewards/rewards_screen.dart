@@ -161,7 +161,6 @@ class _InviteFriendsCard extends StatelessWidget {
           Builder(
             builder: (context) {
               final String cc = (currencyCode ?? '').toUpperCase();
-              // Map South Africa (ZAR) to SAR-styled artwork; map UK variants to EURO artwork
               final bool isSar = cc == 'ZAR';
               final bool isEuro = cc == 'UK' || cc == 'GB' || cc == 'GBR' || cc == 'GBP';
               final String assetPath = isSar
