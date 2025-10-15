@@ -1,3 +1,5 @@
+import 'package:nec_app/models/bank_model.dart';
+
 class TransactionModel {
   final String id;
   final String name;
@@ -32,7 +34,7 @@ class TransactionModel {
     this.cardChargeGbp = 0.0,
     this.transferFeeGbp = 0.0,
     this.paymentStatusText = 'In Hold (Mobile).',
-    this.bankName = 'TRUST BANK LTD',
+    required this.bankName,
   });
 
   // Helper method to format amount as currency
@@ -69,18 +71,7 @@ class TransactionModel {
 
   // 10 Demo transactions
   static List<TransactionModel> getDemoTransactions() {
-    // Demo pool of bank names
-    const List<String> demoBanks = <String>[
-      'TRUST BANK LTD',
-      'DUTCH-BANGLA BANK',
-      'STANDARD CHARTERED',
-      'BRAC BANK',
-      'EASTERN BANK LTD',
-      'SONALI BANK',
-      'HABIB BANK',
-      'NATIONAL BANK LTD',
-    ];
-    String bank(int i) => demoBanks[i % demoBanks.length];
+    String bank(int i) => Bank.nameAt(i);
     return [
       TransactionModel(
         id: '1',
