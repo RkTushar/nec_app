@@ -20,7 +20,7 @@ class ReceiversScreen extends StatelessWidget {
       ),
       body: const Center(
         child: Text(
-          'Send demo screen',
+          'Recievers demo screen',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
       ),
