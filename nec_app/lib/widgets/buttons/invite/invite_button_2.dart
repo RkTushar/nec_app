@@ -4,6 +4,7 @@ import 'package:nec_app/models/country_model.dart';
 import 'package:nec_app/screens/rewards/invite_screen.dart';
 import 'package:nec_app/theme/theme_data.dart';
 import 'package:nec_app/services/currency_prefs.dart';
+import 'package:nec_app/services/reward_utils.dart';
 
 class InviteButton2 extends StatefulWidget {
   final VoidCallback? onPressed;
@@ -25,21 +26,27 @@ class InviteButton2 extends StatefulWidget {
 
 class _InviteButton2State extends State<InviteButton2> {
   String _symbol = '£';
+  String? _currencyCode;
 
   @override
   void initState() {
     super.initState();
-    _resolveSymbol();
+    _resolveSymbolAndCode();
   }
 
-  Future<void> _resolveSymbol() async {
+  Future<void> _resolveSymbolAndCode() async {
     if (widget.currencyCode != null && widget.currencyCode!.trim().isNotEmpty) {
       setState(() => _symbol = CurrencyRepository.symbol(widget.currencyCode!.toUpperCase()));
+      setState(() => _currencyCode = widget.currencyCode!.toUpperCase());
       return;
     }
     final String? saved = await CurrencyPrefs.loadCurrencySymbol();
     if (saved != null && saved.isNotEmpty) {
       setState(() => _symbol = saved);
+    }
+    final String? code = await CurrencyPrefs.loadSenderCurrencyCode();
+    if (code != null && code.isNotEmpty) {
+      setState(() => _currencyCode = code.toUpperCase());
     }
   }
 
@@ -72,7 +79,7 @@ class _InviteButton2State extends State<InviteButton2> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '${_symbol}5',
+              '${_symbol}${computeInviteBonusAmount(_currencyCode)}',
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
             const SizedBox(width: 6),
@@ -85,6 +92,7 @@ class _InviteButton2State extends State<InviteButton2> {
       ),
     );
   }
+
 }
 
 
