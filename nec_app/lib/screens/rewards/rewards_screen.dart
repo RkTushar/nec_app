@@ -157,7 +157,7 @@ class _InviteFriendsCard extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           SvgPicture.asset(
-            'assets/images/reward_1.svg',
+            'assets/images/reward_dollar.svg',
             width: 180,
             height: 180,
           ),
