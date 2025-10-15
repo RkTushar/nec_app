@@ -11,6 +11,7 @@ import 'package:nec_app/models/notification_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:nec_app/screens/rewards/qr_code_screen.dart';
 import 'package:nec_app/screens/rewards/invite_screen.dart';
+import 'package:nec_app/services/reward_utils.dart';
 
 class RewardsScreen extends StatefulWidget {
   const RewardsScreen({super.key, this.showNavBar = true});
@@ -69,7 +70,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
         children: [
           _InviteFriendsCard(textTheme: textTheme, currencySymbol: _symbol, currencyCode: _currencyCode),
           const SizedBox(height: 12),
-          _TotalRewardCard(textTheme: textTheme, currencySymbol: _symbol),
+          _TotalRewardCard(textTheme: textTheme, currencySymbol: _symbol, currencyCode: _currencyCode),
           const SizedBox(height: 12),
           _QrCodeCard(textTheme: textTheme),
           const SizedBox(height: 12),
@@ -137,7 +138,7 @@ class _InviteFriendsCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Get ${currencySymbol}5 each invite',
+                  'Get ${currencySymbol}${computeInviteBonusAmount(currencyCode)} each invite',
                   style: textTheme.titleMedium?.copyWith(
                     fontSize: 24,
                     fontWeight: FontWeight.w800,
@@ -179,13 +180,15 @@ class _InviteFriendsCard extends StatelessWidget {
       ),
     );
   }
+
 }
 
 class _TotalRewardCard extends StatelessWidget {
-  const _TotalRewardCard({required this.textTheme, required this.currencySymbol});
+  const _TotalRewardCard({required this.textTheme, required this.currencySymbol, this.currencyCode});
 
   final TextTheme textTheme;
   final String currencySymbol;
+  final String? currencyCode;
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +212,7 @@ class _TotalRewardCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  '${currencySymbol}5.00',
+                  '${currencySymbol}${computeInviteBonusAmount(currencyCode)}.00',
                   style: textTheme.headlineSmall?.copyWith(
                     fontSize: 32,
                     fontWeight: FontWeight.w900,
@@ -228,6 +231,7 @@ class _TotalRewardCard extends StatelessWidget {
       ),
     );
   }
+
 }
 
 class _QrCodeCard extends StatelessWidget {
