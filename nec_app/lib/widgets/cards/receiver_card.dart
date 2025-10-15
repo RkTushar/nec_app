@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nec_app/models/recievers_model.dart';
 import 'package:nec_app/theme/theme_data.dart';
+import 'package:nec_app/screens/send/edit_recievers_screen.dart';
 
 /// Reusable receiver card for the Send flow
 class ReceiverCard extends StatefulWidget {
@@ -119,7 +120,17 @@ class _ReceiverCardState extends State<ReceiverCard> {
                 ),
                 TextButton(
                   key: _editKey,
-                  onPressed: widget.onEdit,
+                  onPressed: () {
+                    if (widget.onEdit != null) {
+                      widget.onEdit!.call();
+                      return;
+                    }
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext ctx) => const EditRecieversScreen(),
+                      ),
+                    );
+                  },
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                     minimumSize: const Size(0, 0),
