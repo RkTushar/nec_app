@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nec_app/screens/rewards/rewards_screen.dart';
 import 'package:nec_app/screens/history/history_screen.dart';
 import 'package:nec_app/screens/more/more_screen.dart';
-import 'package:nec_app/screens/send/send_screen.dart';
+import 'package:nec_app/screens/send/recievers_screen.dart';
 import 'package:nec_app/screens/homescreen/home_screen.dart';
 import 'package:nec_app/theme/theme_data.dart';
 
@@ -107,7 +107,7 @@ class NavBar extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
-                    _noAnimationRoute(const SendScreen()),
+                    _noAnimationRoute(const ReceiversScreen()),
                   );
                 },
                 child: Text(
@@ -184,7 +184,7 @@ class CustomFloatingActionButton extends StatelessWidget {
         child: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(
-              _noAnimationRoute(const SendScreen()),
+              _noAnimationRoute(const ReceiversScreen()),
             );
           },
           backgroundColor: Colors.transparent,

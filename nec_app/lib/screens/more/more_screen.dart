@@ -13,7 +13,7 @@ import 'package:nec_app/widgets/share_link_widget.dart';
 import 'package:nec_app/screens/more/terms_condition_screen.dart';
 import 'package:nec_app/screens/more/privacy_policy_screen.dart';
 import 'package:nec_app/screens/more/about_us.dart';
-import 'package:nec_app/screens/send/send_screen.dart';
+import 'package:nec_app/screens/send/recievers_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nec_app/screens/auth/auth_choose.dart';
@@ -243,7 +243,7 @@ class _GridMenu extends StatelessWidget {
                   );
                 } else if (item.label == 'Receivers') {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const SendScreen(showNavBar: false)),
+                    MaterialPageRoute(builder: (_) => const ReceiversScreen(showNavBar: false)),
                   );
                 } else if (item.label == 'Rating') {
                   final Uri uri = Uri.parse('https://play.google.com/store/apps/details?id=com.necmoney.necmoneyapp');

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:nec_app/widgets/nav_bar.dart';
 import 'package:nec_app/widgets/buttons/back_button.dart';
 
-class SendScreen extends StatelessWidget {
+class ReceiversScreen extends StatelessWidget {
   final bool showNavBar; // when false, hide FAB and Bottom Nav
-  const SendScreen({super.key, this.showNavBar = true});
+  const ReceiversScreen({super.key, this.showNavBar = true});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class SendScreen extends StatelessWidget {
         leading: showNavBar
             ? null
             : const AppBackButton(),
-        title: const Text('Send'),
+        title: const Text('Receivers'),
         centerTitle: true,
       ),
       body: const Center(

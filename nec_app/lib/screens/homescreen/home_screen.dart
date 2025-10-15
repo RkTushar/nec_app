@@ -9,7 +9,7 @@ import 'package:nec_app/widgets/buttons/invite/invite_button.dart';
 import 'package:nec_app/widgets/buttons/invite/invite_button_2.dart';
 import 'package:nec_app/widgets/cards/transaction_card.dart';
 import 'package:nec_app/widgets/cards/rating_card.dart';
-import 'package:nec_app/screens/send/send_screen.dart';
+import 'package:nec_app/screens/send/recievers_screen.dart';
 import 'package:nec_app/models/transaction_model.dart';
 import 'package:nec_app/models/notification_model.dart';
 import 'package:nec_app/services/currency_prefs.dart';
@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => const SendScreen(showNavBar: false),
+                        builder: (_) => const ReceiversScreen(showNavBar: false),
                       ),
                     );
                   },
