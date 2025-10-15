@@ -156,10 +156,24 @@ class _InviteFriendsCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          SvgPicture.asset(
-            'assets/images/reward_dollar.svg',
-            width: 180,
-            height: 180,
+          // Choose reward illustration based on currency code from preferences
+          Builder(
+            builder: (context) {
+              final String cc = (currencyCode ?? '').toUpperCase();
+              // Map South Africa (ZAR) to SAR artwork; map UK variants to EURO artwork
+              final bool isSar = cc == 'SAR' || cc == 'ZAR';
+              final bool isEuro = cc == 'UK' || cc == 'GB' || cc == 'GBR' || cc == 'GBP';
+              final String assetPath = isSar
+                  ? 'assets/images/reward_SAR.svg'
+                  : (isEuro
+                      ? 'assets/images/reward_euro.svg'
+                      : 'assets/images/reward_dollar.svg');
+              return SvgPicture.asset(
+                assetPath,
+                width: 180,
+                height: 180,
+              );
+            },
           ),
         ],
       ),

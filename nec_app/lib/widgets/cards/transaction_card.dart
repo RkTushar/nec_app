@@ -230,10 +230,9 @@ class _TransactionCardState extends State<TransactionCard> {
                 const SizedBox(height: 6),
                 Text(
                   // Always show amount with login currency code
-                  '${_loginCurrencyCode} ' +
-                      (widget.model != null
+                  '${_loginCurrencyCode} ${widget.model != null
                           ? widget.model!.amount.toStringAsFixed(2)
-                          : _parseAmountFromText(widget.amountText).toStringAsFixed(2)),
+                          : _parseAmountFromText(widget.amountText).toStringAsFixed(2)}',
                   style: TextStyle(
                     color: resolvedAmountColor,
                     fontWeight: FontWeight.w800,
@@ -250,21 +249,21 @@ class _TransactionCardState extends State<TransactionCard> {
   // Best-effort construction of a TransactionModel from the card props so
   // the card can navigate standalone anywhere it's used.
   TransactionModel _inferModelFromProps() {
-    double _parseAmount(String txt) {
+    double parseAmount(String txt) {
       // Extract decimal number from strings like "BDT 10,000.00"
       final match = RegExp(r"([0-9]+(?:,[0-9]{3})*(?:\.[0-9]+)?)").firstMatch(txt);
       if (match == null) return 0.0;
       return double.tryParse(match.group(1)!.replaceAll(',', '')) ?? 0.0;
     }
 
-    String _currencyFrom(String txt) {
+    String currencyFrom(String txt) {
       // Get first 3-4 letters as currency if present
       final match = RegExp(r"^[A-Z]{3,4}").firstMatch(txt.trim());
       return match?.group(0) ?? 'BDT';
     }
 
-    final String currency = _currencyFrom(widget.amountText);
-    final double receiverAmount = _parseAmount(widget.amountText);
+    final String currency = currencyFrom(widget.amountText);
+    final double receiverAmount = parseAmount(widget.amountText);
     final String status = widget.statusText.replaceFirst('Status : ', '').trim();
 
     return TransactionModel(

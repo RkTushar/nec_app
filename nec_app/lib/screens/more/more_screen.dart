@@ -164,7 +164,7 @@ class _SupportGrid extends StatelessWidget {
     _MenuItem('Log Out', 'assets/icons/more_screen/log_out.svg', danger: true),
   ];
 
-  _SupportGrid();
+  const _SupportGrid();
 
   @override
   Widget build(BuildContext context) {
