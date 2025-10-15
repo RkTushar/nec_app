@@ -1,4 +1,5 @@
 import 'package:nec_app/models/bank_model.dart';
+import 'package:nec_app/models/recievers_model.dart';
 
 class TransactionModel {
   final String id;
@@ -72,10 +73,21 @@ class TransactionModel {
   // 10 Demo transactions
   static List<TransactionModel> getDemoTransactions() {
     String bank(int i) => Bank.nameAt(i);
+    final List<Receiver> receivers = DemoReceivers.list;
+    String receiverName(int i) {
+      if (receivers.isEmpty) return 'Unknown Receiver';
+      final Receiver r = receivers[i % receivers.length];
+      return '${r.firstName} ${r.lastName}'.trim();
+    }
+    String receiverBank(int i) {
+      if (receivers.isEmpty) return bank(i);
+      final Receiver r = receivers[i % receivers.length];
+      return r.bank.name.isNotEmpty ? r.bank.name : bank(i);
+    }
     return [
       TransactionModel(
         id: '1',
-        name: 'John Doe',
+        name: receiverName(0),
         status: 'Done',
         amount: 15000.00,
         date: DateTime(2025, 09, 8, 14, 30, 5),
@@ -83,11 +95,11 @@ class TransactionModel {
         transactionNumber: 'GB2537629/000001',
         transferAmountGbp: 5.00,
         paymentAmountGbp: 5.00,
-        bankName: bank(0),
+        bankName: receiverBank(0),
       ),
       TransactionModel(
         id: '2',
-        name: 'Jane Smith',
+        name: receiverName(1),
         status: 'Cancelled',
         amount: 8500.00,
         date: DateTime(2024, 11, 7, 16, 45, 12),
@@ -95,11 +107,11 @@ class TransactionModel {
         transactionNumber: 'GB2537629/000002',
         transferAmountGbp: 12.50,
         paymentAmountGbp: 12.50,
-        bankName: bank(1),
+        bankName: receiverBank(1),
       ),
       TransactionModel(
         id: '3',
-        name: 'Mike Johnson',
+        name: receiverName(2),
         status: 'Done',
         amount: 12000.00,
         date: DateTime(2024, 11, 6, 10, 15, 55),
@@ -107,11 +119,11 @@ class TransactionModel {
         transactionNumber: 'GB2537629/000003',
         transferAmountGbp: 9.75,
         paymentAmountGbp: 9.75,
-        bankName: bank(2),
+        bankName: receiverBank(2),
       ),
       TransactionModel(
         id: '4',
-        name: 'Sarah Wilson',
+        name: receiverName(3),
         status: 'Cancelled',
         amount: 9500.00,
         date: DateTime(2024, 11, 5, 18, 20, 33),
@@ -119,11 +131,11 @@ class TransactionModel {
         transactionNumber: 'GB2537629/000004',
         transferAmountGbp: 7.00,
         paymentAmountGbp: 7.00,
-        bankName: bank(3),
+        bankName: receiverBank(3),
       ),
       TransactionModel(
         id: '5',
-        name: 'David Brown',
+        name: receiverName(4),
         status: 'Done',
         amount: 18000.00,
         date: DateTime(2024, 11, 4, 12, 30, 11),
@@ -131,11 +143,11 @@ class TransactionModel {
         transactionNumber: 'GB2537629/000005',
         transferAmountGbp: 15.25,
         paymentAmountGbp: 15.25,
-        bankName: bank(4),
+        bankName: receiverBank(4),
       ),
       TransactionModel(
         id: '6',
-        name: 'Lisa Davis',
+        name: receiverName(5),
         status: 'Cancelled',
         amount: 7200.00,
         date: DateTime(2024, 11, 3, 15, 45, 42),
@@ -143,11 +155,11 @@ class TransactionModel {
         transactionNumber: 'GB2537629/000006',
         transferAmountGbp: 6.25,
         paymentAmountGbp: 6.25,
-        bankName: bank(5),
+        bankName: receiverBank(5),
       ),
       TransactionModel(
         id: '7',
-        name: 'Robert Miller',
+        name: receiverName(6),
         status: 'Done',
         amount: 13500.00,
         date: DateTime(2024, 11, 2, 09, 20, 2),
@@ -155,11 +167,11 @@ class TransactionModel {
         transactionNumber: 'GB2537629/000007',
         transferAmountGbp: 11.80,
         paymentAmountGbp: 11.80,
-        bankName: bank(6),
+        bankName: receiverBank(6),
       ),
       TransactionModel(
         id: '8',
-        name: 'Emily Garcia',
+        name: receiverName(7),
         status: 'Cancelled',
         amount: 6800.00,
         date: DateTime(2024, 11, 1, 20, 10, 27),
@@ -167,11 +179,11 @@ class TransactionModel {
         transactionNumber: 'GB2537629/000008',
         transferAmountGbp: 4.75,
         paymentAmountGbp: 4.75,
-        bankName: bank(7),
+        bankName: receiverBank(7),
       ),
       TransactionModel(
         id: '9',
-        name: 'Michael Chen',
+        name: receiverName(8),
         status: 'Done',
         amount: 22000.00,
         date: DateTime(2024, 10, 31, 11, 35, 49),
@@ -179,11 +191,11 @@ class TransactionModel {
         transactionNumber: 'GB2537629/000009',
         transferAmountGbp: 18.90,
         paymentAmountGbp: 18.90,
-        bankName: bank(8),
+        bankName: receiverBank(8),
       ),
       TransactionModel(
         id: '10',
-        name: 'Anna Taylor',
+        name: receiverName(9),
         status: 'Cancelled',
         amount: 10500.00,
         date: DateTime(2024, 10, 30, 17, 25, 7),
@@ -191,7 +203,7 @@ class TransactionModel {
         transactionNumber: 'GB2537629/000010',
         transferAmountGbp: 8.40,
         paymentAmountGbp: 8.40,
-        bankName: bank(9),
+        bankName: receiverBank(9),
       ),
     ];
   }
