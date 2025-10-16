@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nec_app/models/country_model.dart';
 import 'package:nec_app/services/currency_prefs.dart';
+import 'package:nec_app/theme/theme_data.dart';
 
 // Rates, flags and currency listing now sourced from CurrencyRepository.
 
@@ -224,13 +225,18 @@ class _SendReceiveConverterState extends State<SendReceiveConverter> {
               children: <Widget>[
                 Text(_receiver.flag, style: const TextStyle(fontSize: 20)),
                 const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    '${_receiver.name}  1 $_sendCurrency = ${rate.toStringAsFixed(2)} ${_receiver.currency}',
-                    style: const TextStyle(fontWeight: FontWeight.w700),
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                Text(
+                  _receiver.name,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                  overflow: TextOverflow.ellipsis,
                 ),
+                const Spacer(),
+                Text(
+                  '1 $_sendCurrency = ${rate.toStringAsFixed(2)} ${_receiver.currency}',
+                  style: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w600),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(width: 4),
                 const Icon(Icons.keyboard_arrow_down_rounded),
               ],
             ),
