@@ -230,7 +230,7 @@ class _TransactionCardState extends State<TransactionCard> {
                 const SizedBox(height: 6),
                 Text(
                   // Always show amount with login currency code
-                  '${_loginCurrencyCode} ${widget.model != null
+                  '$_loginCurrencyCode ${widget.model != null
                           ? widget.model!.amount.toStringAsFixed(2)
                           : _parseAmountFromText(widget.amountText).toStringAsFixed(2)}',
                   style: TextStyle(
