@@ -85,7 +85,7 @@ class _ReceiversScreenState extends State<ReceiversScreen> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Get the Best Exchange rate instantly',
+                      'Get the Best Exchange Rate Instantly',
                       style: TextStyle(
                         color: AppColors.textSecondary,
                         fontSize: 14,
