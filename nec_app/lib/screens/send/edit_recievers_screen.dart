@@ -248,7 +248,7 @@ class _EditRecieversScreenState extends State<EditRecieversScreen> {
     bool isOptional = false,
   }) {
     return DropdownButtonFormField<T>(
-      value: value,
+      initialValue: value,
       items: items
           .map(
             (T e) => DropdownMenuItem<T>(
