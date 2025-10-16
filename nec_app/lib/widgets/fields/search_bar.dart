@@ -31,14 +31,20 @@ class AppSearchBar extends StatelessWidget {
           labelStyle: const TextStyle(color: AppColors.textSecondary),
           hintText: hintText,
           hintStyle: const TextStyle(color: AppColors.textSecondary),
-          prefixIcon: const Icon(Icons.search, color: Colors.grey),
-          suffixIcon: onSubmittedIcon != null
-              ? IconButton(
+          // Move search icon to the right while preserving close button logic
+          prefixIcon: null,
+          suffixIcon: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.search, color: Colors.grey),
+              if (onSubmittedIcon != null)
+                IconButton(
                   visualDensity: VisualDensity.compact,
                   onPressed: onSubmittedIcon,
                   icon: const Icon(Icons.close, color: AppColors.textSecondary),
-                )
-              : null,
+                ),
+            ],
+          ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
