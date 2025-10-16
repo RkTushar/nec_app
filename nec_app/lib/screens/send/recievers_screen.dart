@@ -80,6 +80,20 @@ class _ReceiversScreenState extends State<ReceiversScreen> {
           children: <Widget>[
             Column(
               children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(16, 10, 16, 5),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Get the Best Exchange rate instantly',
+                      style: TextStyle(
+                        color: AppColors.textSecondary,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
                 AppSearchBar(
                   controller: _controller,
                   hintText: 'Search receiver name',
