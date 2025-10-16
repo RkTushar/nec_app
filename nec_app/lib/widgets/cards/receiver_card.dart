@@ -40,7 +40,7 @@ class _ReceiverCardState extends State<ReceiverCard> {
     final Color labelColor = AppColors.textSecondary;
     final Color borderColor = _pressed ? AppColors.primary.withValues(alpha: 0.55) : Colors.transparent;
     final double borderWidth = _pressed ? 1.6 : 0.0;
-    final List<BoxShadow>? shadows = _pressed
+    final List<BoxShadow> shadows = _pressed
         ? <BoxShadow>[
             BoxShadow(color: AppColors.primary.withValues(alpha: 0.18), blurRadius: 10, offset: const Offset(0, 3)),
           ]
