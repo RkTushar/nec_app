@@ -79,7 +79,7 @@ class _InviteButton2State extends State<InviteButton2> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '${_symbol}${computeInviteBonusAmount(_currencyCode)}',
+              '$_symbol${computeInviteBonusAmount(_currencyCode)}',
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
             const SizedBox(width: 6),
