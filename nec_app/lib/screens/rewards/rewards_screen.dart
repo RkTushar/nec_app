@@ -138,7 +138,7 @@ class _InviteFriendsCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Get ${currencySymbol}${computeInviteBonusAmount(currencyCode)} each invite',
+                  'Get $currencySymbol${computeInviteBonusAmount(currencyCode)} each invite',
                   style: textTheme.titleMedium?.copyWith(
                     fontSize: 24,
                     fontWeight: FontWeight.w800,
@@ -211,7 +211,7 @@ class _TotalRewardCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  '${currencySymbol}${computeInviteBonusAmount(currencyCode)}.00',
+                  '$currencySymbol${computeInviteBonusAmount(currencyCode)}.00',
                   style: textTheme.headlineSmall?.copyWith(
                     fontSize: 32,
                     fontWeight: FontWeight.w900,
